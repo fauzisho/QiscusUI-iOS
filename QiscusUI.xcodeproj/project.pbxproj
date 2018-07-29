@@ -49,6 +49,7 @@
 		3DC4A123210DACF7009B5A9E /* QChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A101210DACF6009B5A9E /* QChatVC.xib */; };
 		3DC4A124210DACF7009B5A9E /* QiscusUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A102210DACF6009B5A9E /* QiscusUI.swift */; };
 		3DC4A125210DACF7009B5A9E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A103210DACF6009B5A9E /* Media.xcassets */; };
+		3DC4A127210DB2BA009B5A9E /* QiscusUI.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		3DC4A101210DACF6009B5A9E /* QChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QChatVC.xib; sourceTree = "<group>"; };
 		3DC4A102210DACF6009B5A9E /* QiscusUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiscusUI.swift; sourceTree = "<group>"; };
 		3DC4A103210DACF6009B5A9E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QiscusUI.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		3DC4A0A3210DA626009B5A9E = {
 			isa = PBXGroup;
 			children = (
+				3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */,
 				3DC4A0AF210DA626009B5A9E /* QiscusUI */,
 				3DC4A0BA210DA626009B5A9E /* QiscusUITests */,
 				3DC4A0CC210DA91A009B5A9E /* example */,
@@ -388,6 +391,7 @@
 				3DC4A118210DACF6009B5A9E /* QAudioCell.xib in Resources */,
 				3DC4A104210DACF6009B5A9E /* Info.plist in Resources */,
 				3DC4A125210DACF7009B5A9E /* Media.xcassets in Resources */,
+				3DC4A127210DB2BA009B5A9E /* QiscusUI.podspec in Resources */,
 				3DC4A116210DACF6009B5A9E /* LeftTextCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
