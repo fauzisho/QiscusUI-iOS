@@ -1,0 +1,27 @@
+{
+  "name": "QiscusUI",
+  "version": "0.0.1",
+  "summary": "Qiscus SDK UI for iOS",
+  "description": "QiscusUI SDK for iOS contains Chat User Interface.",
+  "homepage": "https://qisc.us",
+  "license": "MIT",
+  "authors": "Qiscus",
+  "source": {
+    "git": "https://github.com/qiscus/qiscus-sdk-ios.git",
+    "tag": "0.0.1"
+  },
+  "source_files": "QiscusUI/**/*.{swift}",
+  "resource_bundles": {
+    "QiscusUI": [
+      "QiscusUI/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,strings}"
+    ]
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "dependencies": {
+    "QiscusCore": [
+
+    ]
+  }
+}
