@@ -1,6 +1,0 @@
-framework module QiscusCore {
-  umbrella header "QiscusCore-umbrella.h"
-
-  export *
-  module * { export * }
-}
