@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		142E0198022B76DAE6D98B52 /* Pods_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1875F7A055524E8D46EF8227 /* Pods_example.framework */; };
+		3D5B30A2210EC5B60023E54B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A0210EC5B60023E54B /* LoginViewController.swift */; };
+		3D5B30A3210EC5B60023E54B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30A1210EC5B60023E54B /* LoginViewController.xib */; };
+		3D5B30A6210EC5DB0023E54B /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A4210EC5DB0023E54B /* ListChatViewController.swift */; };
+		3D5B30A7210EC5DB0023E54B /* ListChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30A5210EC5DB0023E54B /* ListChatViewController.xib */; };
 		3DC4A0B7210DA626009B5A9E /* QiscusUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */; };
 		3DC4A0BC210DA626009B5A9E /* QiscusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0BB210DA626009B5A9E /* QiscusUITests.swift */; };
 		3DC4A0BE210DA626009B5A9E /* QiscusUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DC4A0B0210DA626009B5A9E /* QiscusUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC4A0CE210DA91A009B5A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */; };
-		3DC4A0D0210DA91A009B5A9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0CF210DA91A009B5A9E /* ViewController.swift */; };
-		3DC4A0D3210DA91A009B5A9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D1210DA91A009B5A9E /* Main.storyboard */; };
 		3DC4A0D5210DA920009B5A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D4210DA920009B5A9E /* Assets.xcassets */; };
 		3DC4A0D8210DA920009B5A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D6210DA920009B5A9E /* LaunchScreen.storyboard */; };
 		3DC4A104210DACF6009B5A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0DD210DACF5009B5A9E /* Info.plist */; };
@@ -68,6 +70,10 @@
 /* Begin PBXFileReference section */
 		1306AF2A9631EBF2844CE526 /* Pods-QiscusUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiscusUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QiscusUI/Pods-QiscusUI.debug.xcconfig"; sourceTree = "<group>"; };
 		1875F7A055524E8D46EF8227 /* Pods_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D5B30A0210EC5B60023E54B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3D5B30A1210EC5B60023E54B /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		3D5B30A4210EC5DB0023E54B /* ListChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
+		3D5B30A5210EC5DB0023E54B /* ListChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListChatViewController.xib; sourceTree = "<group>"; };
 		3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QiscusUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC4A0B0210DA626009B5A9E /* QiscusUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QiscusUI.h; sourceTree = "<group>"; };
 		3DC4A0B1210DA626009B5A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,8 +82,6 @@
 		3DC4A0BD210DA626009B5A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DC4A0CB210DA91A009B5A9E /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DC4A0CF210DA91A009B5A9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3DC4A0D2210DA91A009B5A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DC4A0D4210DA920009B5A9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DC4A0D7210DA920009B5A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DC4A0D9210DA920009B5A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -209,8 +213,10 @@
 			isa = PBXGroup;
 			children = (
 				3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */,
-				3DC4A0CF210DA91A009B5A9E /* ViewController.swift */,
-				3DC4A0D1210DA91A009B5A9E /* Main.storyboard */,
+				3D5B30A4210EC5DB0023E54B /* ListChatViewController.swift */,
+				3D5B30A5210EC5DB0023E54B /* ListChatViewController.xib */,
+				3D5B30A0210EC5B60023E54B /* LoginViewController.swift */,
+				3D5B30A1210EC5B60023E54B /* LoginViewController.xib */,
 				3DC4A0D4210DA920009B5A9E /* Assets.xcassets */,
 				3DC4A0D6210DA920009B5A9E /* LaunchScreen.storyboard */,
 				3DC4A0D9210DA920009B5A9E /* Info.plist */,
@@ -329,6 +335,7 @@
 				3DC4A0A9210DA626009B5A9E /* Frameworks */,
 				3DC4A0AA210DA626009B5A9E /* Headers */,
 				3DC4A0AB210DA626009B5A9E /* Resources */,
+				6DB0E233B02140BF6A873E45 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,6 +354,8 @@
 				3DC4A0B2210DA626009B5A9E /* Sources */,
 				3DC4A0B3210DA626009B5A9E /* Frameworks */,
 				3DC4A0B4210DA626009B5A9E /* Resources */,
+				3EC5837965DF296B7D3ECDB9 /* [CP] Embed Pods Frameworks */,
+				6B3B621075BF96AB19E5326E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -367,6 +376,7 @@
 				3DC4A0C8210DA91A009B5A9E /* Frameworks */,
 				3DC4A0C9210DA91A009B5A9E /* Resources */,
 				79E987A8792E5EE01B59865D /* [CP] Embed Pods Frameworks */,
+				AC2C8F17A5DFB21047982A9E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -453,13 +463,59 @@
 			files = (
 				3DC4A0D8210DA920009B5A9E /* LaunchScreen.storyboard in Resources */,
 				3DC4A0D5210DA920009B5A9E /* Assets.xcassets in Resources */,
-				3DC4A0D3210DA91A009B5A9E /* Main.storyboard in Resources */,
+				3D5B30A7210EC5DB0023E54B /* ListChatViewController.xib in Resources */,
+				3D5B30A3210EC5B60023E54B /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3EC5837965DF296B7D3ECDB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUITests/Pods-QiscusUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B3B621075BF96AB19E5326E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUITests/Pods-QiscusUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DB0E233B02140BF6A873E45 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUI/Pods-QiscusUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		79E987A8792E5EE01B59865D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -534,6 +590,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AC2C8F17A5DFB21047982A9E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-example/Pods-example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -577,7 +648,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DC4A0D0210DA91A009B5A9E /* ViewController.swift in Sources */,
+				3D5B30A6210EC5DB0023E54B /* ListChatViewController.swift in Sources */,
+				3D5B30A2210EC5B60023E54B /* LoginViewController.swift in Sources */,
 				3DC4A0CE210DA91A009B5A9E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,14 +665,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3DC4A0D1210DA91A009B5A9E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DC4A0D2210DA91A009B5A9E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3DC4A0D6210DA920009B5A9E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -738,21 +802,18 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QG8KA4P8TE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = QiscusUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -766,21 +827,18 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QG8KA4P8TE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = QiscusUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -795,11 +853,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = QiscusUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -815,11 +869,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = QiscusUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -835,10 +885,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c4e66a74-b52f-4300-ab2e-f2dd1359bc35";
@@ -856,10 +903,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c4e66a74-b52f-4300-ab2e-f2dd1359bc35";
