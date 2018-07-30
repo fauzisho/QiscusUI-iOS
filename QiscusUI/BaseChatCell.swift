@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import Qiscus
+import QiscusCore
 
 protocol ChatCellDelegate {
     func onImageCellDidTap(imageSlideShow: UIViewController)
-    func onSaveContactCellDidTap(comment: CommentModel)
+    func onSaveContactCellDidTap(comment: QComment)
 }
 
 protocol ChatCellAudioDelegate {
@@ -43,7 +43,7 @@ class BaseChatCell: UITableViewCell {
     }
     
     // MARK: cell data source
-    var comment: CommentModel! {
+    var comment: QComment! {
         didSet {
             configureInteractino()
             bindDataToView()
@@ -83,9 +83,9 @@ class BaseChatCell: UITableViewCell {
     }
     
     func configureInteractino() {
-        if self.comment.commentType != .system {
-            self.contentView.addGestureRecognizer(longPress)
-        }
+//        if self.comment.commentType != .system {
+//            self.contentView.addGestureRecognizer(longPress)
+//        }
     }
     
     
@@ -105,18 +105,18 @@ class BaseChatCell: UITableViewCell {
     }
     
     func downloadMedia() {
-        if let qComment = QComment.comment(withId: self.comment.id), let qRoom = QRoom.room(withId: self.comment.roomId) {
-            qRoom.downloadMedia(onComment: qComment, isAudioFile: self.comment.commentType == .audio, onSuccess: { (qComment) in
-                guard let image = qComment.displayImage else {return}
-                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: qComment.uniqueId)
-                self.displayDownloadedImage(image: image)
-            }, onError: { (error) in
-                
-            }, onProgress: { (progress) in
-                self.updateDownloadProgress(progress: progress)
-                print("download progress \(progress)")
-            })
-        }
+//        if let qComment = QComment.comment(withId: self.comment.id), let qRoom = QRoom.room(withId: self.comment.roomId) {
+//            qRoom.downloadMedia(onComment: qComment, isAudioFile: self.comment.commentType == .audio, onSuccess: { (qComment) in
+//                guard let image = qComment.displayImage else {return}
+//                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: qComment.uniqueId)
+//                self.displayDownloadedImage(image: image)
+//            }, onError: { (error) in
+//                
+//            }, onProgress: { (progress) in
+//                self.updateDownloadProgress(progress: progress)
+//                print("download progress \(progress)")
+//            })
+//        }
     }
     
     func displayDownloadedImage(image: UIImage?) {
@@ -159,7 +159,7 @@ extension BaseChatCell {
             let shareMenuItem: UIMenuItem = UIMenuItem(title: "SHARE".getLocalize(), action: #selector(BaseChatCell.share))
             let infoMenuItem: UIMenuItem = UIMenuItem(title: "INFO".getLocalize(), action: #selector(BaseChatCell.info))
             
-            if self.comment.commentStatus == .failed {menuItems.append(resendMenuItem)}
+            //if self.comment.commentStatus == .failed {menuItems.append(resendMenuItem)}
             menuItems.append(copyMenuItem)
             menuItems.append(replyMenuItem)
             menuItems.append(deleteMenuItem)
@@ -183,7 +183,7 @@ extension BaseChatCell {
     }
     
     @objc open func copyComment() {
-        UIPasteboard.general.string = self.comment.text
+        UIPasteboard.general.string = self.comment.message
     }
     
     @objc open func resend(){

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import QiscusUI
+@testable import QiscusCoreUI
 
 class QiscusUITests: XCTestCase {
     

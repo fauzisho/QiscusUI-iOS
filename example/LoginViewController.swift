@@ -7,18 +7,38 @@
 //
 
 import UIKit
+import QiscusCore
+import QiscusUI
 
 class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Login"
         // Do any additional setup after loading the view.
+        
+        QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
+        QiscusCore.enableDebugPrint = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func clickLogin(_ sender: Any) {
+        let list = ListChatViewController()
+        
+        QiscusCore.connect(userID: "amsibsan", userKey: "12345678") { (user, error) in
+            self.navigationController?.pushViewController(list, animated: true)
+//            QiscusCore.network.getRoomList(page: 1, completion: { (rooms, meta, error) in
+//                if rooms != nil {
+//
+//                }
+//            })
+            
+        }
+        
+        
+    }
 }

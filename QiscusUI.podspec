@@ -16,6 +16,9 @@ s.resource_bundles = {
 }
 s.platform      = :ios, "9.0"
 s.dependency 'QiscusCore'
+s.dependency 'AlamofireImage'
+s.dependency 'SwiftyJSON'
+s.dependency 'SimpleImageViewer'
 
 end
 

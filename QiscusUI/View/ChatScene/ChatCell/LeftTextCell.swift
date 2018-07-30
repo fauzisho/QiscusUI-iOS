@@ -30,7 +30,7 @@ class LeftTextCell: BaseChatCell {
     }
     
     override func bindDataToView() {
-        self.tvContent.text = self.comment.text
+        self.tvContent.text = self.comment.message
         self.lbName.text = self.comment.senderName
         self.lbTime.text = self.comment.time
 
@@ -45,55 +45,55 @@ class LeftTextCell: BaseChatCell {
             lbName.textAlignment = .right
             self.statusWidth.constant = 15
             
-            switch self.comment.commentStatus {
-            case .pending:
-                let pendingIcon = QiscusUI.image(named: "ic_pending")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .sending:
-                let pendingIcon = QiscusUI.image(named: "ic_sending")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .sent:
-                let pendingIcon = QiscusUI.image(named: "ic_sending")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .delivered:
-                let pendingIcon = QiscusUI.image(named: "ic_read")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .read:
-                let pendingIcon = QiscusUI.image(named: "ic_read")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.green
-                self.ivStatus.image = pendingIcon
-                break
-            case .deleting:
-                let pendingIcon = QiscusUI.image(named: "ic_deleting")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .deleted:
-                let pendingIcon = QiscusUI.image(named: "ic_deleted")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .deletePending:
-                let pendingIcon = QiscusUI.image(named: "ic_deleting")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            case .failed:
-                let pendingIcon = QiscusUI.image(named: "ic_pending")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
-                self.ivStatus.image = pendingIcon
-                break
-            default:
-                break
-            }
+//            switch self.comment.commentStatus {
+//            case .pending:
+//                let pendingIcon = QiscusUI.image(named: "ic_pending")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .sending:
+//                let pendingIcon = QiscusUI.image(named: "ic_sending")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .sent:
+//                let pendingIcon = QiscusUI.image(named: "ic_sending")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .delivered:
+//                let pendingIcon = QiscusUI.image(named: "ic_read")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .read:
+//                let pendingIcon = QiscusUI.image(named: "ic_read")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.green
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .deleting:
+//                let pendingIcon = QiscusUI.image(named: "ic_deleting")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .deleted:
+//                let pendingIcon = QiscusUI.image(named: "ic_deleted")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .deletePending:
+//                let pendingIcon = QiscusUI.image(named: "ic_deleting")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            case .failed:
+//                let pendingIcon = QiscusUI.image(named: "ic_pending")?.withRenderingMode(.alwaysTemplate)
+//                self.ivStatus.tintColor = UIColor.lightGray
+//                self.ivStatus.image = pendingIcon
+//                break
+//            default:
+//                break
+//            }
         } else {
             DispatchQueue.main.async {
                 self.leftConstraint.isActive = true

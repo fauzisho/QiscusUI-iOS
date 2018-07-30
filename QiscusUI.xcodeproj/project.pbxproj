@@ -10,8 +10,14 @@
 		142E0198022B76DAE6D98B52 /* Pods_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1875F7A055524E8D46EF8227 /* Pods_example.framework */; };
 		3D5B30A2210EC5B60023E54B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A0210EC5B60023E54B /* LoginViewController.swift */; };
 		3D5B30A3210EC5B60023E54B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30A1210EC5B60023E54B /* LoginViewController.xib */; };
-		3D5B30A6210EC5DB0023E54B /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A4210EC5DB0023E54B /* ListChatViewController.swift */; };
-		3D5B30A7210EC5DB0023E54B /* ListChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30A5210EC5DB0023E54B /* ListChatViewController.xib */; };
+		3D5B30AA210EE3880023E54B /* UIChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */; };
+		3D5B30AB210EE3880023E54B /* UIChatListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30A9210EE3880023E54B /* UIChatListViewController.xib */; };
+		3D5B30B0210EE5720023E54B /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30AE210EE5720023E54B /* ListChatViewController.swift */; };
+		3D5B30B1210EE5720023E54B /* ListChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30AF210EE5720023E54B /* ListChatViewController.xib */; };
+		3D5B30B4210EF9C60023E54B /* UIChatListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30B3210EF9C60023E54B /* UIChatListPresenter.swift */; };
+		3D5B30B7210EFAE20023E54B /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30B6210EFAE20023E54B /* Protocol.swift */; };
+		3D5B30BA210F06A90023E54B /* UIChatListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */; };
+		3D5B30BB210F06AA0023E54B /* UIChatListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */; };
 		3DC4A0B7210DA626009B5A9E /* QiscusUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */; };
 		3DC4A0BC210DA626009B5A9E /* QiscusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0BB210DA626009B5A9E /* QiscusUITests.swift */; };
 		3DC4A0BE210DA626009B5A9E /* QiscusUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DC4A0B0210DA626009B5A9E /* QiscusUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,23 +36,9 @@
 		3DC4A10D210DACF6009B5A9E /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0E8210DACF6009B5A9E /* String+Localization.swift */; };
 		3DC4A10E210DACF6009B5A9E /* QiscusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0E9210DACF6009B5A9E /* QiscusHelper.swift */; };
 		3DC4A10F210DACF6009B5A9E /* LeftTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0ED210DACF6009B5A9E /* LeftTextCell.swift */; };
-		3DC4A110210DACF6009B5A9E /* QSystemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0EE210DACF6009B5A9E /* QSystemCell.xib */; };
-		3DC4A111210DACF6009B5A9E /* QAudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0EF210DACF6009B5A9E /* QAudioCell.swift */; };
-		3DC4A112210DACF6009B5A9E /* QImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F0210DACF6009B5A9E /* QImageCell.swift */; };
-		3DC4A113210DACF6009B5A9E /* QReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F1210DACF6009B5A9E /* QReplyCell.swift */; };
-		3DC4A114210DACF6009B5A9E /* QContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F2210DACF6009B5A9E /* QContactCell.xib */; };
-		3DC4A115210DACF6009B5A9E /* QReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F3210DACF6009B5A9E /* QReplyCell.xib */; };
 		3DC4A116210DACF6009B5A9E /* LeftTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F4210DACF6009B5A9E /* LeftTextCell.xib */; };
-		3DC4A117210DACF6009B5A9E /* QImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F5210DACF6009B5A9E /* QImageCell.xib */; };
-		3DC4A118210DACF6009B5A9E /* QAudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F6210DACF6009B5A9E /* QAudioCell.xib */; };
-		3DC4A119210DACF6009B5A9E /* QSystemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F7210DACF6009B5A9E /* QSystemCell.swift */; };
-		3DC4A11A210DACF6009B5A9E /* QDocumentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F8210DACF6009B5A9E /* QDocumentCell.xib */; };
 		3DC4A11B210DACF6009B5A9E /* RightTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F9210DACF6009B5A9E /* RightTextCell.swift */; };
 		3DC4A11C210DACF6009B5A9E /* RightTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FA210DACF6009B5A9E /* RightTextCell.xib */; };
-		3DC4A11D210DACF6009B5A9E /* QContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FB210DACF6009B5A9E /* QContactCell.swift */; };
-		3DC4A11E210DACF6009B5A9E /* QLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FC210DACF6009B5A9E /* QLocationCell.swift */; };
-		3DC4A11F210DACF6009B5A9E /* QDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FD210DACF6009B5A9E /* QDocumentCell.swift */; };
-		3DC4A120210DACF6009B5A9E /* QLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FE210DACF6009B5A9E /* QLocationCell.xib */; };
 		3DC4A121210DACF6009B5A9E /* QChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FF210DACF6009B5A9E /* QChatPresenter.swift */; };
 		3DC4A122210DACF6009B5A9E /* QChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A100210DACF6009B5A9E /* QChatVC.swift */; };
 		3DC4A123210DACF7009B5A9E /* QChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A101210DACF6009B5A9E /* QChatVC.xib */; };
@@ -72,8 +64,14 @@
 		1875F7A055524E8D46EF8227 /* Pods_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D5B30A0210EC5B60023E54B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D5B30A1210EC5B60023E54B /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		3D5B30A4210EC5DB0023E54B /* ListChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
-		3D5B30A5210EC5DB0023E54B /* ListChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListChatViewController.xib; sourceTree = "<group>"; };
+		3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChatListViewController.swift; sourceTree = "<group>"; };
+		3D5B30A9210EE3880023E54B /* UIChatListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UIChatListViewController.xib; sourceTree = "<group>"; };
+		3D5B30AE210EE5720023E54B /* ListChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
+		3D5B30AF210EE5720023E54B /* ListChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListChatViewController.xib; sourceTree = "<group>"; };
+		3D5B30B3210EF9C60023E54B /* UIChatListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChatListPresenter.swift; sourceTree = "<group>"; };
+		3D5B30B6210EFAE20023E54B /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIChatListViewCell.swift; path = ChatList/UIChatListViewCell.swift; sourceTree = "<group>"; };
+		3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UIChatListViewCell.xib; path = ChatList/UIChatListViewCell.xib; sourceTree = "<group>"; };
 		3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QiscusUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC4A0B0210DA626009B5A9E /* QiscusUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QiscusUI.h; sourceTree = "<group>"; };
 		3DC4A0B1210DA626009B5A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,29 +95,15 @@
 		3DC4A0E8210DACF6009B5A9E /* String+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		3DC4A0E9210DACF6009B5A9E /* QiscusHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiscusHelper.swift; sourceTree = "<group>"; };
 		3DC4A0ED210DACF6009B5A9E /* LeftTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftTextCell.swift; sourceTree = "<group>"; };
-		3DC4A0EE210DACF6009B5A9E /* QSystemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSystemCell.xib; sourceTree = "<group>"; };
-		3DC4A0EF210DACF6009B5A9E /* QAudioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QAudioCell.swift; sourceTree = "<group>"; };
-		3DC4A0F0210DACF6009B5A9E /* QImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QImageCell.swift; sourceTree = "<group>"; };
-		3DC4A0F1210DACF6009B5A9E /* QReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QReplyCell.swift; sourceTree = "<group>"; };
-		3DC4A0F2210DACF6009B5A9E /* QContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QContactCell.xib; sourceTree = "<group>"; };
-		3DC4A0F3210DACF6009B5A9E /* QReplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QReplyCell.xib; sourceTree = "<group>"; };
 		3DC4A0F4210DACF6009B5A9E /* LeftTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftTextCell.xib; sourceTree = "<group>"; };
-		3DC4A0F5210DACF6009B5A9E /* QImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QImageCell.xib; sourceTree = "<group>"; };
-		3DC4A0F6210DACF6009B5A9E /* QAudioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QAudioCell.xib; sourceTree = "<group>"; };
-		3DC4A0F7210DACF6009B5A9E /* QSystemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSystemCell.swift; sourceTree = "<group>"; };
-		3DC4A0F8210DACF6009B5A9E /* QDocumentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDocumentCell.xib; sourceTree = "<group>"; };
 		3DC4A0F9210DACF6009B5A9E /* RightTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTextCell.swift; sourceTree = "<group>"; };
 		3DC4A0FA210DACF6009B5A9E /* RightTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightTextCell.xib; sourceTree = "<group>"; };
-		3DC4A0FB210DACF6009B5A9E /* QContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QContactCell.swift; sourceTree = "<group>"; };
-		3DC4A0FC210DACF6009B5A9E /* QLocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QLocationCell.swift; sourceTree = "<group>"; };
-		3DC4A0FD210DACF6009B5A9E /* QDocumentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QDocumentCell.swift; sourceTree = "<group>"; };
-		3DC4A0FE210DACF6009B5A9E /* QLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QLocationCell.xib; sourceTree = "<group>"; };
 		3DC4A0FF210DACF6009B5A9E /* QChatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QChatPresenter.swift; sourceTree = "<group>"; };
 		3DC4A100210DACF6009B5A9E /* QChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QChatVC.swift; sourceTree = "<group>"; };
 		3DC4A101210DACF6009B5A9E /* QChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QChatVC.xib; sourceTree = "<group>"; };
 		3DC4A102210DACF6009B5A9E /* QiscusUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiscusUI.swift; sourceTree = "<group>"; };
 		3DC4A103210DACF6009B5A9E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QiscusUI.podspec; sourceTree = "<group>"; };
+		3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QiscusUI.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		43E0F809F0D0968DA993E1F6 /* Pods-QiscusUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiscusUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-QiscusUI/Pods-QiscusUI.release.xcconfig"; sourceTree = "<group>"; };
 		492634A1905C22AAB22C2E72 /* Pods_QiscusUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QiscusUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E545C15B5AB32E39544EB59 /* Pods_QiscusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QiscusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +142,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D5B30AC210EE4E80023E54B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3D5B30B3210EF9C60023E54B /* UIChatListPresenter.swift */,
+				3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */,
+				3D5B30A9210EE3880023E54B /* UIChatListViewController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3D5B30B5210EFACC0023E54B /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3D5B30B6210EFAE20023E54B /* Protocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		3DC4A0A3210DA626009B5A9E = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +186,8 @@
 		3DC4A0AF210DA626009B5A9E /* QiscusUI */ = {
 			isa = PBXGroup;
 			children = (
+				3D5B30B5210EFACC0023E54B /* Protocol */,
+				3D5B30AC210EE4E80023E54B /* Controllers */,
 				3DC4A0E0210DACF5009B5A9E /* BaseChatCell.swift */,
 				3DC4A0E3210DACF6009B5A9E /* Extension */,
 				3DC4A0DD210DACF5009B5A9E /* Info.plist */,
@@ -213,9 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */,
-				3D5B30A4210EC5DB0023E54B /* ListChatViewController.swift */,
-				3D5B30A5210EC5DB0023E54B /* ListChatViewController.xib */,
 				3D5B30A0210EC5B60023E54B /* LoginViewController.swift */,
+				3D5B30AE210EE5720023E54B /* ListChatViewController.swift */,
+				3D5B30AF210EE5720023E54B /* ListChatViewController.xib */,
 				3D5B30A1210EC5B60023E54B /* LoginViewController.xib */,
 				3DC4A0D4210DA920009B5A9E /* Assets.xcassets */,
 				3DC4A0D6210DA920009B5A9E /* LaunchScreen.storyboard */,
@@ -248,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				3DC4A0EB210DACF6009B5A9E /* ChatScene */,
+				3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */,
+				3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -267,23 +273,9 @@
 			isa = PBXGroup;
 			children = (
 				3DC4A0ED210DACF6009B5A9E /* LeftTextCell.swift */,
-				3DC4A0EE210DACF6009B5A9E /* QSystemCell.xib */,
-				3DC4A0EF210DACF6009B5A9E /* QAudioCell.swift */,
-				3DC4A0F0210DACF6009B5A9E /* QImageCell.swift */,
-				3DC4A0F1210DACF6009B5A9E /* QReplyCell.swift */,
-				3DC4A0F2210DACF6009B5A9E /* QContactCell.xib */,
-				3DC4A0F3210DACF6009B5A9E /* QReplyCell.xib */,
 				3DC4A0F4210DACF6009B5A9E /* LeftTextCell.xib */,
-				3DC4A0F5210DACF6009B5A9E /* QImageCell.xib */,
-				3DC4A0F6210DACF6009B5A9E /* QAudioCell.xib */,
-				3DC4A0F7210DACF6009B5A9E /* QSystemCell.swift */,
-				3DC4A0F8210DACF6009B5A9E /* QDocumentCell.xib */,
 				3DC4A0F9210DACF6009B5A9E /* RightTextCell.swift */,
 				3DC4A0FA210DACF6009B5A9E /* RightTextCell.xib */,
-				3DC4A0FB210DACF6009B5A9E /* QContactCell.swift */,
-				3DC4A0FC210DACF6009B5A9E /* QLocationCell.swift */,
-				3DC4A0FD210DACF6009B5A9E /* QDocumentCell.swift */,
-				3DC4A0FE210DACF6009B5A9E /* QLocationCell.xib */,
 			);
 			path = ChatCell;
 			sourceTree = "<group>";
@@ -435,17 +427,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC4A123210DACF7009B5A9E /* QChatVC.xib in Resources */,
-				3DC4A115210DACF6009B5A9E /* QReplyCell.xib in Resources */,
-				3DC4A110210DACF6009B5A9E /* QSystemCell.xib in Resources */,
-				3DC4A120210DACF6009B5A9E /* QLocationCell.xib in Resources */,
-				3DC4A11A210DACF6009B5A9E /* QDocumentCell.xib in Resources */,
-				3DC4A114210DACF6009B5A9E /* QContactCell.xib in Resources */,
-				3DC4A117210DACF6009B5A9E /* QImageCell.xib in Resources */,
 				3DC4A11C210DACF6009B5A9E /* RightTextCell.xib in Resources */,
-				3DC4A118210DACF6009B5A9E /* QAudioCell.xib in Resources */,
 				3DC4A104210DACF6009B5A9E /* Info.plist in Resources */,
 				3DC4A125210DACF7009B5A9E /* Media.xcassets in Resources */,
+				3D5B30BB210F06AA0023E54B /* UIChatListViewCell.xib in Resources */,
 				3DC4A127210DB2BA009B5A9E /* QiscusUI.podspec in Resources */,
+				3D5B30AB210EE3880023E54B /* UIChatListViewController.xib in Resources */,
 				3DC4A116210DACF6009B5A9E /* LeftTextCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,7 +450,7 @@
 			files = (
 				3DC4A0D8210DA920009B5A9E /* LaunchScreen.storyboard in Resources */,
 				3DC4A0D5210DA920009B5A9E /* Assets.xcassets in Resources */,
-				3D5B30A7210EC5DB0023E54B /* ListChatViewController.xib in Resources */,
+				3D5B30B1210EE5720023E54B /* ListChatViewController.xib in Resources */,
 				3D5B30A3210EC5B60023E54B /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,13 +510,21 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-example/Pods-example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/QiscusCore/QiscusCore.framework",
 				"${BUILT_PRODUCTS_DIR}/QiscusUI/QiscusUI.framework",
+				"${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleImageViewer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -616,22 +611,19 @@
 				3DC4A10E210DACF6009B5A9E /* QiscusHelper.swift in Sources */,
 				3DC4A109210DACF6009B5A9E /* UIView.swift in Sources */,
 				3DC4A10F210DACF6009B5A9E /* LeftTextCell.swift in Sources */,
-				3DC4A119210DACF6009B5A9E /* QSystemCell.swift in Sources */,
 				3DC4A124210DACF7009B5A9E /* QiscusUI.swift in Sources */,
-				3DC4A11E210DACF6009B5A9E /* QLocationCell.swift in Sources */,
-				3DC4A11F210DACF6009B5A9E /* QDocumentCell.swift in Sources */,
 				3DC4A10C210DACF6009B5A9E /* QiscusUIAsyncImage.swift in Sources */,
+				3D5B30B4210EF9C60023E54B /* UIChatListPresenter.swift in Sources */,
+				3D5B30AA210EE3880023E54B /* UIChatListViewController.swift in Sources */,
+				3D5B30BA210F06A90023E54B /* UIChatListViewCell.swift in Sources */,
 				3DC4A108210DACF6009B5A9E /* QCacheManager.swift in Sources */,
 				3DC4A10B210DACF6009B5A9E /* UIImage.swift in Sources */,
 				3DC4A122210DACF6009B5A9E /* QChatVC.swift in Sources */,
 				3DC4A106210DACF6009B5A9E /* BaseChatCell.swift in Sources */,
 				3DC4A105210DACF6009B5A9E /* CommentModel.swift in Sources */,
-				3DC4A11D210DACF6009B5A9E /* QContactCell.swift in Sources */,
-				3DC4A113210DACF6009B5A9E /* QReplyCell.swift in Sources */,
 				3DC4A121210DACF6009B5A9E /* QChatPresenter.swift in Sources */,
-				3DC4A111210DACF6009B5A9E /* QAudioCell.swift in Sources */,
+				3D5B30B7210EFAE20023E54B /* Protocol.swift in Sources */,
 				3DC4A10D210DACF6009B5A9E /* String+Localization.swift in Sources */,
-				3DC4A112210DACF6009B5A9E /* QImageCell.swift in Sources */,
 				3DC4A11B210DACF6009B5A9E /* RightTextCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,7 +640,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D5B30A6210EC5DB0023E54B /* ListChatViewController.swift in Sources */,
+				3D5B30B0210EE5720023E54B /* ListChatViewController.swift in Sources */,
 				3D5B30A2210EC5B60023E54B /* LoginViewController.swift in Sources */,
 				3DC4A0CE210DA91A009B5A9E /* AppDelegate.swift in Sources */,
 			);
@@ -810,7 +802,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = QiscusUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -835,7 +831,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = QiscusUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -853,7 +853,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = QiscusUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -869,7 +873,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = QiscusUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.QiscusUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -885,13 +893,17 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c4e66a74-b52f-4300-ab2e-f2dd1359bc35";
 				PROVISIONING_PROFILE_SPECIFIER = QiscusDev;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -903,13 +915,17 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c4e66a74-b52f-4300-ab2e-f2dd1359bc35";
 				PROVISIONING_PROFILE_SPECIFIER = QiscusDev;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -8,7 +8,7 @@
 
 import UIKit
 import ImageIO
-import Qiscus
+import QiscusCore
 var QiscusImageCache = NSCache<NSString,UIImage>()
 
 extension UIImage {

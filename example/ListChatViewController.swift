@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import QiscusUI
 
-class ListChatViewController: UIViewController {
+class ListChatViewController: UIChatListViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Chat List"
         // Do any additional setup after loading the view.
     }
 

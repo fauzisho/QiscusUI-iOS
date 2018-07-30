@@ -28,7 +28,7 @@ class RightTextCell: BaseChatCell {
     }
     
     override func bindDataToView() {
-        self.tvContent.text = self.comment.text
+        self.tvContent.text = self.comment.message
         self.lbName.text = self.comment.senderName
         self.lbTime.text = self.comment.time
         
