@@ -9,7 +9,7 @@ import Foundation
 
 var QiscusRequestThread = DispatchQueue(label: "com.qiscus.request", attributes: .concurrent)
 public class QiscusUI {
-    static var cachedVC: [String: QChatVC] = [:]
+    static var cachedVC: [String: UIChatViewController] = [:]
     class var bundle:Bundle{
         get{
             let podBundle = Bundle(for: QiscusUI.self)
@@ -24,11 +24,11 @@ public class QiscusUI {
     
     static var disableLocalization: Bool = false
     
-    @objc public class func chatView(roomId: String) -> QChatVC {
+    @objc public class func chatView(roomId: String) -> UIChatViewController {
         if let cachedVC = self.cachedVC[roomId] {
             return cachedVC
         } else {
-            let chatView = QChatVC()
+            let chatView = UIChatViewController()
             chatView.roomId = roomId
             chatView.hidesBottomBarWhenPushed = true
             

@@ -8,6 +8,7 @@
 
 import UIKit
 import QiscusCore
+import AlamofireImage
 
 class UIChatListViewCell: UITableViewCell {
 
@@ -26,7 +27,9 @@ class UIChatListViewCell: UITableViewCell {
     
     var data : QRoom? {
         didSet {
-            self.setupUI()
+            if data != nil {
+                self.setupUI()
+            }
         }
     }
     
@@ -42,9 +45,12 @@ class UIChatListViewCell: UITableViewCell {
     }
     
     private func setupUI() {
-        self.labelName.text = self.data?.roomName
-//        self.labelDate.text = self.data
-        
+        if let data = data {
+            self.labelName.text = data.roomName
+            self.labelDate.text = data.lastComment?.time
+            self.labelLastMessage.text  = data.lastComment?.message
+            self.imageViewRoom.af_setImage(withURL: URL.init(string: data.avatarUrl)!)
+        }
     }
     
 }

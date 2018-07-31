@@ -13,7 +13,7 @@ open class UIChatListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
-    private var rooms : [QRoom] = [QRoom]()
+    public var rooms : [QRoom] = [QRoom]()
     public init() {
         super.init(nibName: "UIChatListViewController", bundle: QiscusUI.bundle)
     }
@@ -59,11 +59,11 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 
     }
 

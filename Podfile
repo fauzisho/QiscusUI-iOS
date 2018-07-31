@@ -12,8 +12,9 @@ target 'QiscusUI' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'QiscusCore', :path => '../QiscusCore/'
-  # Pods for QiscusUI
-
+  pod 'AlamofireImage'
+  pod 'SwiftyJSON'
+  
   target 'QiscusUITests' do
     inherit! :search_paths
     # Pods for testing

@@ -10,7 +10,7 @@ import ContactsUI
 import SwiftyJSON
 import QiscusCore
 
-open class QChatVC: UIViewController {
+open class UIChatViewController: UIViewController {
     
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewInput: NSLayoutConstraint!
@@ -23,15 +23,22 @@ open class QChatVC: UIViewController {
     private var subtitleText:String = ""
     private var roomAvatar = UIImageView()
     private var titleView = UIView()
-    private var presenter: QChatPresenter!
+    private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     
     var roomId: String = ""
     var tempSection = -1
+    public var room : QRoom? {
+        set(newValue) {
+            self.presenter.room = newValue
+        }
+        get {
+            return self.presenter.room
+        }
+    }
     
     public init() {
-        super.init(nibName: "QChatVC", bundle: QiscusUI.bundle)
-        self.presenter = QChatPresenter(view: self)
+        super.init(nibName: "UIChatViewController", bundle: QiscusUI.bundle)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -40,6 +47,7 @@ open class QChatVC: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        self.presenter.attachView(view: self)
         self.setupUI()
         // Do any additional setup after loading the view.
     }
@@ -48,8 +56,8 @@ open class QChatVC: UIViewController {
         super.viewWillAppear(animated)
         self.presenter.loadRoom(withId: self.roomId)
         let center: NotificationCenter = NotificationCenter.default
-        center.addObserver(self, selector: #selector(QChatVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        center.addObserver(self, selector: #selector(QChatVC.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         view.endEditing(true)
     }
     
@@ -118,7 +126,7 @@ open class QChatVC: UIViewController {
         self.titleView.addSubview(self.subtitleLabel)
         self.titleView.addSubview(self.roomAvatar)
         
-        let backButton = self.backButton(self, action: #selector(QChatVC.goBack))
+        let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
         
@@ -204,7 +212,7 @@ open class QChatVC: UIViewController {
     }
 }
 
-extension QChatVC: QChatViewDelegate {
+extension UIChatViewController: UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatar: UIImage?) {
         DispatchQueue.main.async {
             self.titleLabel.text = roomName
@@ -353,13 +361,13 @@ extension QChatVC: QChatViewDelegate {
 //    }
 //}
 
-extension QChatVC: UITableViewDelegate {
+extension UIChatViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-extension QChatVC:CNContactViewControllerDelegate{
+extension UIChatViewController: CNContactViewControllerDelegate{
     
 }
 
