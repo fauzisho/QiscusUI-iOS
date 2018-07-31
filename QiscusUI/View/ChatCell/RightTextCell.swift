@@ -29,10 +29,10 @@ class RightTextCell: BaseChatCell {
     
     override func bindDataToView() {
         self.tvContent.text = self.comment.message
-        self.lbName.text = self.comment.senderName
-        self.lbTime.text = self.comment.time
+//        self.lbName.text = self.comment.senderName
+//        self.lbTime.text = self.comment.time
         
-        if self.comment.isMyComment {
+        if true {
             //            viewContainer.addConstraint(rightConstrain)
             //            viewContainer.removeConstraint(leftConstrain)
             lbNameTrailing.constant = 5

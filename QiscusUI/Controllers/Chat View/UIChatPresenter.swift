@@ -11,6 +11,7 @@ import QiscusCore
 protocol UIChatUserInteraction {
     func sendMessage(withText text: String)
     func loadRoom(withId roomId: String)
+    func loadComments(withID roomId: String)
     func getMessage(inRoom roomId: String)
     func getAvatarImage(section: Int, imageURL: URL?)
 }
@@ -24,7 +25,7 @@ protocol UIChatViewDelegate {
 
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
-    private var comments: [[QComment]] {
+    var comments: [[QComment]] {
         didSet {
             self.viewPresenter?.onLoadMessageFinished()
         }
@@ -32,12 +33,13 @@ class UIChatPresenter: UIChatUserInteraction {
     var room: QRoom?
 
     init() {
-        comments = [[QComment]]()
+        self.comments = [[QComment]]()
     }
     
     func attachView(view : UIChatViewDelegate){
         viewPresenter = view
         if let room = self.room {
+            self.loadComments(withID: room.id)
             viewPresenter?.onLoadRoomFinished(roomName: room.roomName, roomAvatarURL: URL.init(string: room.avatarUrl))
         }
     }
@@ -54,13 +56,19 @@ class UIChatPresenter: UIChatUserInteraction {
 
     }
     
+    func loadComments(withID roomId: String) {
+        QiscusCore.shared.loadComments(roomID: roomId) { (c, error) in
+            self.comments.removeAll()
+            self.comments.append(c!)
+        }
+    }
+    
     func sendMessage(withText text: String) {
-        var comment = QComment()
-        self.comments.append([comment])
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment) { (result, error) in
-            
-            comment.message = "baru"
-            comment.onChange(comment)
+        // create object comment
+        let message = QComment()
+//        message.
+        QiscusCore.shared.sendMessage(roomID: self.room?.id, comment: message) { (comment, error) in
+            //
         }
     }
     
