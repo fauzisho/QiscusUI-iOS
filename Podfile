@@ -6,7 +6,7 @@ target 'example' do
   use_frameworks!
 
 pod 'QiscusUI', :path => '.'
-pod 'QiscusCore', :path => '../QiscusCore/'
+pod 'QiscusCore', :path => '../qiscus-chat-sdk-core/'
 
 end
 

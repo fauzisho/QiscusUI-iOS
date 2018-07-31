@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Qis
+
 
 class UIChatListViewCell: UITableViewCell {
 
