@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QiscusCore
 
 class UIChatListViewCell: UITableViewCell {
 
@@ -18,6 +19,17 @@ class UIChatListViewCell: UITableViewCell {
         return String(describing: self)
     }
     
+    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var labelLastMessage: UILabel!
+    @IBOutlet weak var imageViewRoom: UIImageView!
+    @IBOutlet weak var labelDate: UILabel!
+    
+    var data : QRoom? {
+        didSet {
+            self.setupUI()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,6 +39,12 @@ class UIChatListViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    private func setupUI() {
+        self.labelName.text = self.data?.roomName
+//        self.labelDate.text = self.data
+        
     }
     
 }

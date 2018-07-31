@@ -6,6 +6,7 @@
 //  Copyright © 2018 Qiscus. All rights reserved.
 //
 
+import Foundation
 import QiscusCore
 
 protocol UIChatListView : BaseView {
