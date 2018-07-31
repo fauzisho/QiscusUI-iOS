@@ -24,10 +24,15 @@ protocol UIChatViewDelegate {
 
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
-    private var comments: [[QComment]] = [[]]
+    private var comments: [[QComment]] {
+        didSet {
+            self.viewPresenter?.onLoadMessageFinished()
+        }
+    }
     var room: QRoom?
 
     init() {
+        comments = [[QComment]]()
     }
     
     func attachView(view : UIChatViewDelegate){
@@ -50,7 +55,13 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func sendMessage(withText text: String) {
-
+        var comment = QComment()
+        self.comments.append([comment])
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment) { (result, error) in
+            
+            comment.message = "baru"
+            comment.onChange(comment)
+        }
     }
     
     func getMessage(inRoom roomId: String) {
