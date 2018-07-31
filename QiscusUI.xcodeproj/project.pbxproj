@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		142E0198022B76DAE6D98B52 /* Pods_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1875F7A055524E8D46EF8227 /* Pods_example.framework */; };
-		3D20214B210F26BC001BE5AD /* QiscusCore in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D20214A210F26BC001BE5AD /* QiscusCore */; };
 		3D5B30A2210EC5B60023E54B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A0210EC5B60023E54B /* LoginViewController.swift */; };
 		3D5B30A3210EC5B60023E54B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30A1210EC5B60023E54B /* LoginViewController.xib */; };
 		3D5B30AA210EE3880023E54B /* UIChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */; };
@@ -21,7 +20,6 @@
 		3D5B30BB210F06AA0023E54B /* UIChatListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */; };
 		3DC4A0B7210DA626009B5A9E /* QiscusUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */; };
 		3DC4A0BC210DA626009B5A9E /* QiscusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0BB210DA626009B5A9E /* QiscusUITests.swift */; };
-		3DC4A0BE210DA626009B5A9E /* QiscusUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DC4A0B0210DA626009B5A9E /* QiscusUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC4A0CE210DA91A009B5A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */; };
 		3DC4A0D5210DA920009B5A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D4210DA920009B5A9E /* Assets.xcassets */; };
 		3DC4A0D8210DA920009B5A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D6210DA920009B5A9E /* LaunchScreen.storyboard */; };
@@ -51,13 +49,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3D20214C210F26F8001BE5AD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3DC4A0A4210DA626009B5A9E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3DC4A0AC210DA626009B5A9E;
-			remoteInfo = QiscusUI;
-		};
 		3DC4A0B8210DA626009B5A9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3DC4A0A4210DA626009B5A9E /* Project object */;
@@ -127,7 +118,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D20214B210F26BC001BE5AD /* QiscusCore in Frameworks */,
 				BAA297F0C25F44E3FEB251FC /* Pods_QiscusUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,7 +312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC4A107210DACF6009B5A9E /* QiscusUI.h in Headers */,
-				3DC4A0BE210DA626009B5A9E /* QiscusUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,7 +369,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3D20214D210F26F8001BE5AD /* PBXTargetDependency */,
 			);
 			name = example;
 			productName = example;
@@ -394,7 +382,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Qiscus;
 				TargetAttributes = {
 					3DC4A0AC210DA626009B5A9E = {
@@ -600,11 +588,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3D20214D210F26F8001BE5AD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3DC4A0AC210DA626009B5A9E /* QiscusUI */;
-			targetProxy = 3D20214C210F26F8001BE5AD /* PBXContainerItemProxy */;
-		};
 		3DC4A0B9210DA626009B5A9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3DC4A0AC210DA626009B5A9E /* QiscusUI */;
