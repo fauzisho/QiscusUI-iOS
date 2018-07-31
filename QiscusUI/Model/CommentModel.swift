@@ -8,33 +8,33 @@
 import Foundation
 import QiscusCore
 
-extension QComment {
-    // trick contain stored properties
-    private static var _senderName = [String:String]()
-    
-    var senderName: String {
-        get {
-            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return QComment._senderName[tmpAddress] ?? ""
-        }
-        set(newValue) {
-            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            QComment._senderName[tmpAddress] = newValue
-        }
-    }
-    
-    var time : String {
-        get {
-            return self.timestamp
-        }
-    }
-    
-    var isMyComment : Bool {
-        get {
-            return false
-        }
-    }
-}
+//extension QComment {
+//    // trick contain stored properties
+//    private static var _senderName = [String:String]()
+//    
+//    var senderName: String {
+//        get {
+//            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+//            return QComment._senderName[tmpAddress] ?? ""
+//        }
+//        set(newValue) {
+//            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+//            QComment._senderName[tmpAddress] = newValue
+//        }
+//    }
+//    
+//    var time : String {
+//        get {
+//            return self.timestamp
+//        }
+//    }
+//    
+//    var isMyComment : Bool {
+//        get {
+//            return false
+//        }
+//    }
+//}
 
 //public struct QComment : QComment {
 //    var uniqueId: String = ""

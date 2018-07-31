@@ -11,6 +11,7 @@ import QiscusCore
 protocol UIChatUserInteraction {
     func sendMessage(withText text: String)
     func loadRoom(withId roomId: String)
+    func loadComments(withID roomId: String)
     func getMessage(inRoom roomId: String)
     func getAvatarImage(section: Int, imageURL: URL?)
 }
@@ -24,15 +25,21 @@ protocol UIChatViewDelegate {
 
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
-    private var comments: [[QComment]] = [[]]
+    var comments: [[QComment]] {
+        didSet {
+            self.viewPresenter?.onLoadMessageFinished()
+        }
+    }
     var room: QRoom?
 
     init() {
+        self.comments = [[QComment]]()
     }
     
     func attachView(view : UIChatViewDelegate){
         viewPresenter = view
         if let room = self.room {
+            self.loadComments(withID: room.id)
             viewPresenter?.onLoadRoomFinished(roomName: room.roomName, roomAvatarURL: URL.init(string: room.avatarUrl))
         }
     }
@@ -49,8 +56,20 @@ class UIChatPresenter: UIChatUserInteraction {
 
     }
     
+    func loadComments(withID roomId: String) {
+        QiscusCore.shared.loadComments(roomID: roomId) { (c, error) in
+            self.comments.removeAll()
+            self.comments.append(c!)
+        }
+    }
+    
     func sendMessage(withText text: String) {
-
+        // create object comment
+        let message = QComment()
+//        message.
+        QiscusCore.shared.sendMessage(roomID: self.room?.id, comment: message) { (comment, error) in
+            //
+        }
     }
     
     func getMessage(inRoom roomId: String) {

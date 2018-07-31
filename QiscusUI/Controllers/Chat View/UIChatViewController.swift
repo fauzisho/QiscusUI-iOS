@@ -158,7 +158,7 @@ open class UIChatViewController: UIViewController {
         self.tableViewConversation.transform = rotate
         self.tableViewConversation.scrollIndicatorInsets = UIEdgeInsetsMake(0,0,0,self.tableViewConversation.bounds.size.width-10)
         self.tableViewConversation.rowHeight = UITableViewAutomaticDimension
-        //self.tableViewConversation.dataSource = self
+        self.tableViewConversation.dataSource = self
         self.tableViewConversation.delegate = self
         self.tableViewConversation.scrollsToTop = false
         self.tableViewConversation.allowsSelection = false
@@ -250,106 +250,106 @@ extension UIChatViewController: UIChatViewDelegate {
     }
 }
 
-//extension QChatVC: UITableViewDataSource {
-//    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let sectionCount = self.presenter.getComments().count
-//        let rowCount = self.presenter.getComments()[section].count
-//        if sectionCount == 0 {
-//            return 0
-//        }
-//        return rowCount
-//    }
-//    
-//    public func numberOfSections(in tableView: UITableView) -> Int {
-//        return self.presenter.getComments().count
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let commentId = self.presenter.getComments()[indexPath.section][indexPath.row].uniqueId
+extension UIChatViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let sectionCount = self.presenter.comments.count
+        let rowCount = self.presenter.comments[section].count
+        if sectionCount == 0 {
+            return 0
+        }
+        return rowCount
+    }
+    
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return self.presenter.comments.count
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let commentId = self.presenter.comments[indexPath.section][indexPath.row].uniqueId
 //        if let cachedHeight = heightAtIndexPath[commentId] {
 //            return cachedHeight
 //        } else {
-//            return UITableViewAutomaticDimension
-//        }
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let commentId = self.presenter.getComments()[indexPath.section][indexPath.row].uniqueId
+            return UITableViewAutomaticDimension
+        //}
+    }
+    
+    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let commentId = self.presenter.comments[indexPath.section][indexPath.row].uniqueId
 //        if let cachedHeight = heightAtIndexPath[commentId] {
 //            return cachedHeight
 //        } else {
-//            return UITableViewAutomaticDimension
-//        }
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let commentId = self.presenter.getComments()[indexPath.section][indexPath.row].uniqueId
+            return UITableViewAutomaticDimension
+        //}
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let commentId = self.presenter.comments[indexPath.section][indexPath.row].uniqueId
 //        if let height = self.heightAtIndexPath[commentId] {
-//            
+//
 //        } else {
 //            heightAtIndexPath[commentId] = cell.frame.size.height
 //        }
-//    }
-//    
-//    // MARK: table cell confi
-//    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let comment = self.presenter.getComments()[indexPath.section][indexPath.row]
-//        let commentType = comment.commentType
-//        
-//        tempSection = indexPath.section
-//        var cell = BaseChatCell()
-//
-//        cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
-//        
-//        //cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
-//        cell.comment = comment
-//        cell.layer.shouldRasterize = true
-//        cell.layer.rasterizationScale = UIScreen.main.scale
-//        cell.delegate = self
-//        
-//        return cell
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if let firstComment = self.presenter.getComments()[section].first {
+    }
+    
+    // MARK: table cell confi
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let comment = self.presenter.comments[indexPath.section][indexPath.row]
+        //let commentType = comment.commentType
+        
+        tempSection = indexPath.section
+        var cell = BaseChatCell()
+
+        cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
+        
+        //cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
+        cell.comment = comment
+        cell.layer.shouldRasterize = true
+        cell.layer.rasterizationScale = UIScreen.main.scale
+        //cell.delegate = self
+        
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if let firstComment = self.presenter.comments[section].first {
 //            if firstComment.isMyComment {
 //                return 1
 //            } else {
 //                return 1
 //            }
 //        }
-//        
-//        return 1
-//    }
-//    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
-//        label.textAlignment = NSTextAlignment.center
-//        self.presenter.getDate(section: section,labelView: label)
-//        label.clipsToBounds = true
-//        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
-//        self.view.addSubview(label)
-//        return label
-//    }
-//    // MARK: chat avatar setup
-//    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusHelper.screenWidth(), height: 0))
-//        view.backgroundColor = .clear
-//        view.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
-//        
-//        let viewAvatar = UIView(frame: CGRect(x: 5, y: -30, width: 30, height: 60))
-//        let avatar = UIImageView(frame: CGRect(x: 5, y: 0, width: 30, height: 30))
-//        avatar.clipsToBounds = true
-//        avatar.layer.cornerRadius = avatar.frame.width/2
-//        avatar.backgroundColor = .black
-//        avatar.contentMode = .scaleAspectFill
-//        
-//        viewAvatar.addSubview(avatar)
-//        
-//        self.presenter.getAvatarImage(section: section, imageView: avatar)
-//        
-//        
-//        view.addSubview(viewAvatar)
-//        
+        
+        return 1
+    }
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
+        label.textAlignment = NSTextAlignment.center
+        self.presenter.getDate(section: section,labelView: label)
+        label.clipsToBounds = true
+        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        self.view.addSubview(label)
+        return label
+    }
+    // MARK: chat avatar setup
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusHelper.screenWidth(), height: 0))
+        view.backgroundColor = .clear
+        view.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        
+        let viewAvatar = UIView(frame: CGRect(x: 5, y: -30, width: 30, height: 60))
+        let avatar = UIImageView(frame: CGRect(x: 5, y: 0, width: 30, height: 30))
+        avatar.clipsToBounds = true
+        avatar.layer.cornerRadius = avatar.frame.width/2
+        avatar.backgroundColor = .black
+        avatar.contentMode = .scaleAspectFill
+        
+        viewAvatar.addSubview(avatar)
+        
+        //self.presenter.getAvatarImage(section: section, imageView: avatar)
+        
+        
+        view.addSubview(viewAvatar)
+        
 //        if let firstComment = self.presenter.getComments()[section].first {
 //            if firstComment.isMyComment {
 //                return nil
@@ -357,9 +357,9 @@ extension UIChatViewController: UIChatViewDelegate {
 //                return view
 //            }
 //        }
-//        return nil
-//    }
-//}
+        return nil
+    }
+}
 
 extension UIChatViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
