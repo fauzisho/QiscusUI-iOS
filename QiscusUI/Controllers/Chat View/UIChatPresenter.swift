@@ -6,151 +6,82 @@
 //
 
 import Foundation
-import AlamofireImage
 import QiscusCore
 
-protocol QChatUserInteraction {
+protocol UIChatUserInteraction {
     func sendMessage(withText text: String)
     func loadRoom(withId roomId: String)
+    func loadComments(withID roomId: String)
     func getMessage(inRoom roomId: String)
-    func getAvatarImage(section: Int, imageView: UIImageView)
+    func getAvatarImage(section: Int, imageURL: URL?)
 }
 
-protocol QChatViewDelegate {
-    func onLoadRoomFinished(roomName: String, roomAvatar: UIImage?)
+protocol UIChatViewDelegate {
+    func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
     func onSendMessageFinished(comment: QComment)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
 }
 
-class QChatPresenter: QChatUserInteraction {
-    private let view: QChatViewDelegate!
-    //private let chatService: QChatService = QChatService()
-    private let imageCache: AutoPurgingImageCache = AutoPurgingImageCache(memoryCapacity: 100_000_000,
-                                                                          preferredMemoryUsageAfterPurge: 60_000_000)
-    private var comments: [[QComment]] = [[]]
-    private var room: QRoom?
+class UIChatPresenter: UIChatUserInteraction {
+    private var viewPresenter: UIChatViewDelegate?
+    var comments: [[QComment]] {
+        didSet {
+            self.viewPresenter?.onLoadMessageFinished()
+        }
+    }
+    var room: QRoom?
 
-    init(view: QChatViewDelegate) {
-        self.view = view
-        //chatService.delegate = self
+    init() {
+        self.comments = [[QComment]]()
     }
     
-//    func getComments() -> [[QComment]] {
-//        return self.comments
-//    }
+    func attachView(view : UIChatViewDelegate){
+        viewPresenter = view
+        if let room = self.room {
+            self.loadComments(withID: room.id)
+            viewPresenter?.onLoadRoomFinished(roomName: room.roomName, roomAvatarURL: URL.init(string: room.avatarUrl))
+        }
+    }
+    
+    func detachView() {
+        viewPresenter = nil
+    }
+    
+    func getComments() -> [[QComment]] {
+        return self.comments
+    }
     
     func loadRoom(withId roomId: String) {
-//        if let room = QRoom.room(withId: roomId) {
-//            self.room = room
-//            self.comments = self.generateComments(qComments: room.comments)
-//            DispatchQueue.main.async {
-//                self.view.onLoadRoomFinished(roomName: room.name, roomAvatar: room.avatar)
-//                self.loadRoomAvatar(room: room)
-//                self.view.onLoadMessageFinished()
-//            }
-//        }
-//
-//        DispatchQueue.main.async {
-//            self.chatService.room(withId: roomId)
-//        }
-        
-//        let center: NotificationCenter = NotificationCenter.default
-//        center.removeObserver(self, name: QiscusNotification.ROOM_CHANGE(onRoom: roomId), object: nil)
-//
-//        center.addObserver(self, selector: #selector(QChatPresenter.newCommentNotif(_:)), name: QiscusNotification.ROOM_CHANGE(onRoom: roomId), object: nil)
+
+    }
+    
+    func loadComments(withID roomId: String) {
+        QiscusCore.shared.loadComments(roomID: roomId) { (c, error) in
+            self.comments.removeAll()
+            self.comments.append(c!)
+        }
     }
     
     func sendMessage(withText text: String) {
-//        if let room = self.room {
-//            let comment = room.newComment(text: text.trimmingCharacters(in: .whitespacesAndNewlines), type: .text)
-//            room.post(comment: comment)
-//
-//            let QComment = QComment(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
-//
-//            if let latestCommentSection = self.comments.first {
-//                if let latestComment = latestCommentSection.first {
-//                    if QComment.senderName != latestComment.senderName || QComment.date != latestComment.date {
-//                        self.comments.insert([QComment], at: 0)
-//                        self.view.onGotNewComment(newSection: true, isMyComment: QComment.isMyComment)
-//                    } else {
-//                        self.comments[0].insert(QComment, at: 0)
-//                        self.view.onGotNewComment(newSection: false, isMyComment: QComment.isMyComment)
-//                    }
-//                }
-//            } else {
-//                self.comments.insert([QComment], at: 0)
-//                self.view.onGotNewComment(newSection: true, isMyComment: false)
-//            }
-//        }
+        // create object comment
+        let message = QComment()
+//        message.
+        QiscusCore.shared.sendMessage(roomID: self.room?.id, comment: message) { (comment, error) in
+            //
+        }
     }
     
     func getMessage(inRoom roomId: String) {
-//        if let comments = QRoom.room(withId: roomId)?.comments {
-//            self.comments = self.generateComments(qComments: comments)
-//            self.view.onLoadMessageFinished()
-//        }
-//
-//        self.chatService.room(withId: roomId)
+
     }
     
     func getDate(section:Int, labelView : UILabel) {
-//        if let comment = self.comments[section].first{
-//            labelView.text = comment.date
-//
-//        }
+
     }
     
-    func getAvatarImage(section: Int, imageView: UIImageView) {
-//        if let comment  = self.comments[section].first {
-//            if comment.senderEmail == Qiscus.client.email {
-//                guard let imageURL = URL(string: Qiscus.client.avatarUrl) else {
-//                    imageView.image = UIImage(named: "avatar", in: QiscusUI.bundle, compatibleWith: nil)
-//                    return
-//                }
-//
-//                imageView.af_setImage(withURL: imageURL, placeholderImage: UIImage(named: "avatar", in: QiscusUI.bundle, compatibleWith: nil), runImageTransitionIfCached: true, completion: { (response) in
-//                    if let image = response.result.value {
-//                        self.imageCache.add(image, withIdentifier: Qiscus.client.avatarUrl)
-//
-//                        DispatchQueue.main.async {
-//                            imageView.image = image
-//                        }
-//                    }
-//                })
-//
-//            } else {
-//                DispatchQueue.global(qos: .background).async {
-//                    guard let imageURL = URL(string: comment.senderAvatarURL) else {
-//                        imageView.image = UIImage(named: "avatar", in: QiscusUI.bundle, compatibleWith: nil)
-//                        return
-//                    }
-//
-//                    if let cachedAvatar = self.imageCache.image(withIdentifier: comment.senderAvatarURL) {
-//                        DispatchQueue.main.async {
-//                            imageView.image = cachedAvatar
-//                        }
-//                    } else {
-//                        let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
-//                            size: imageView.frame.size,
-//                            radius: 20.0
-//                        )
-//                        imageView.af_setImage(withURL: imageURL, placeholderImage: UIImage(named: "avatar", in: QiscusUI.bundle, compatibleWith: nil)!, filter: filter, runImageTransitionIfCached: true, completion: { (response) in
-//                            print("is main \(Thread.isMainThread)")
-//                            if let image = response.result.value {
-//                                self.imageCache.add(image, withIdentifier: comment.senderAvatarURL)
-//
-//                                DispatchQueue.main.async {
-//                                    imageView.image = image
-//                                }
-//                            }
-//                        })
-//                    }
-//                }
-//            }
-//        } else {
-//            imageView.image = UIImage(named: "avatar", in: QiscusUI.bundle, compatibleWith: nil)
-//        }
+    func getAvatarImage(section: Int, imageURL: URL?) {
+
     }
     
     // MARK: private function

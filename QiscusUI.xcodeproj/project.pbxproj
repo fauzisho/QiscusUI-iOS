@@ -20,7 +20,6 @@
 		3D5B30BB210F06AA0023E54B /* UIChatListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */; };
 		3DC4A0B7210DA626009B5A9E /* QiscusUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */; };
 		3DC4A0BC210DA626009B5A9E /* QiscusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0BB210DA626009B5A9E /* QiscusUITests.swift */; };
-		3DC4A0BE210DA626009B5A9E /* QiscusUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DC4A0B0210DA626009B5A9E /* QiscusUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC4A0CE210DA91A009B5A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */; };
 		3DC4A0D5210DA920009B5A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D4210DA920009B5A9E /* Assets.xcassets */; };
 		3DC4A0D8210DA920009B5A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0D6210DA920009B5A9E /* LaunchScreen.storyboard */; };
@@ -39,12 +38,14 @@
 		3DC4A116210DACF6009B5A9E /* LeftTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F4210DACF6009B5A9E /* LeftTextCell.xib */; };
 		3DC4A11B210DACF6009B5A9E /* RightTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0F9210DACF6009B5A9E /* RightTextCell.swift */; };
 		3DC4A11C210DACF6009B5A9E /* RightTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FA210DACF6009B5A9E /* RightTextCell.xib */; };
-		3DC4A121210DACF6009B5A9E /* QChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FF210DACF6009B5A9E /* QChatPresenter.swift */; };
-		3DC4A122210DACF6009B5A9E /* QChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A100210DACF6009B5A9E /* QChatVC.swift */; };
-		3DC4A123210DACF7009B5A9E /* QChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A101210DACF6009B5A9E /* QChatVC.xib */; };
+		3DC4A121210DACF6009B5A9E /* UIChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A0FF210DACF6009B5A9E /* UIChatPresenter.swift */; };
+		3DC4A122210DACF6009B5A9E /* UIChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A100210DACF6009B5A9E /* UIChatViewController.swift */; };
+		3DC4A123210DACF7009B5A9E /* UIChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A101210DACF6009B5A9E /* UIChatViewController.xib */; };
 		3DC4A124210DACF7009B5A9E /* QiscusUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4A102210DACF6009B5A9E /* QiscusUI.swift */; };
 		3DC4A125210DACF7009B5A9E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A103210DACF6009B5A9E /* Media.xcassets */; };
 		3DC4A127210DB2BA009B5A9E /* QiscusUI.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */; };
+		3DDF2E522110326700502CEF /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF2E502110326700502CEF /* ChatViewController.xib */; };
+		3DDF2E532110326E00502CEF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF2E4F2110326700502CEF /* ChatViewController.swift */; };
 		BA8C46B5E29D14A2186D1596 /* Pods_QiscusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E545C15B5AB32E39544EB59 /* Pods_QiscusUITests.framework */; };
 		BAA297F0C25F44E3FEB251FC /* Pods_QiscusUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492634A1905C22AAB22C2E72 /* Pods_QiscusUI.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 /* Begin PBXFileReference section */
 		1306AF2A9631EBF2844CE526 /* Pods-QiscusUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiscusUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QiscusUI/Pods-QiscusUI.debug.xcconfig"; sourceTree = "<group>"; };
 		1875F7A055524E8D46EF8227 /* Pods_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D20214A210F26BC001BE5AD /* QiscusCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QiscusCore; path = ../QiscusCore; sourceTree = "<group>"; };
 		3D5B30A0210EC5B60023E54B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D5B30A1210EC5B60023E54B /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChatListViewController.swift; sourceTree = "<group>"; };
@@ -70,8 +72,8 @@
 		3D5B30AF210EE5720023E54B /* ListChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListChatViewController.xib; sourceTree = "<group>"; };
 		3D5B30B3210EF9C60023E54B /* UIChatListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChatListPresenter.swift; sourceTree = "<group>"; };
 		3D5B30B6210EFAE20023E54B /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
-		3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIChatListViewCell.swift; path = ChatList/UIChatListViewCell.swift; sourceTree = "<group>"; };
-		3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UIChatListViewCell.xib; path = ChatList/UIChatListViewCell.xib; sourceTree = "<group>"; };
+		3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChatListViewCell.swift; sourceTree = "<group>"; };
+		3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UIChatListViewCell.xib; sourceTree = "<group>"; };
 		3DC4A0AD210DA626009B5A9E /* QiscusUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QiscusUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC4A0B0210DA626009B5A9E /* QiscusUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QiscusUI.h; sourceTree = "<group>"; };
 		3DC4A0B1210DA626009B5A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,12 +100,14 @@
 		3DC4A0F4210DACF6009B5A9E /* LeftTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftTextCell.xib; sourceTree = "<group>"; };
 		3DC4A0F9210DACF6009B5A9E /* RightTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTextCell.swift; sourceTree = "<group>"; };
 		3DC4A0FA210DACF6009B5A9E /* RightTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightTextCell.xib; sourceTree = "<group>"; };
-		3DC4A0FF210DACF6009B5A9E /* QChatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QChatPresenter.swift; sourceTree = "<group>"; };
-		3DC4A100210DACF6009B5A9E /* QChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QChatVC.swift; sourceTree = "<group>"; };
-		3DC4A101210DACF6009B5A9E /* QChatVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QChatVC.xib; sourceTree = "<group>"; };
+		3DC4A0FF210DACF6009B5A9E /* UIChatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIChatPresenter.swift; sourceTree = "<group>"; };
+		3DC4A100210DACF6009B5A9E /* UIChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIChatViewController.swift; sourceTree = "<group>"; };
+		3DC4A101210DACF6009B5A9E /* UIChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIChatViewController.xib; sourceTree = "<group>"; };
 		3DC4A102210DACF6009B5A9E /* QiscusUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiscusUI.swift; sourceTree = "<group>"; };
 		3DC4A103210DACF6009B5A9E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		3DC4A126210DB2BA009B5A9E /* QiscusUI.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QiscusUI.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3DDF2E4F2110326700502CEF /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		3DDF2E502110326700502CEF /* ChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
 		43E0F809F0D0968DA993E1F6 /* Pods-QiscusUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiscusUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-QiscusUI/Pods-QiscusUI.release.xcconfig"; sourceTree = "<group>"; };
 		492634A1905C22AAB22C2E72 /* Pods_QiscusUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QiscusUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E545C15B5AB32E39544EB59 /* Pods_QiscusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QiscusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,9 +149,8 @@
 		3D5B30AC210EE4E80023E54B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3D5B30B3210EF9C60023E54B /* UIChatListPresenter.swift */,
-				3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */,
-				3D5B30A9210EE3880023E54B /* UIChatListViewController.xib */,
+				3DDF2E56211032B400502CEF /* Chat View */,
+				3DDF2E55211032A300502CEF /* Chat List */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -219,6 +222,8 @@
 				3DC4A0CD210DA91A009B5A9E /* AppDelegate.swift */,
 				3D5B30A0210EC5B60023E54B /* LoginViewController.swift */,
 				3D5B30AE210EE5720023E54B /* ListChatViewController.swift */,
+				3DDF2E4F2110326700502CEF /* ChatViewController.swift */,
+				3DDF2E502110326700502CEF /* ChatViewController.xib */,
 				3D5B30AF210EE5720023E54B /* ListChatViewController.xib */,
 				3D5B30A1210EC5B60023E54B /* LoginViewController.xib */,
 				3DC4A0D4210DA920009B5A9E /* Assets.xcassets */,
@@ -251,22 +256,10 @@
 		3DC4A0EA210DACF6009B5A9E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3DC4A0EB210DACF6009B5A9E /* ChatScene */,
-				3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */,
-				3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */,
+				3DC4A0EC210DACF6009B5A9E /* ChatCell */,
+				3DDF2E57211032CB00502CEF /* ChatList */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3DC4A0EB210DACF6009B5A9E /* ChatScene */ = {
-			isa = PBXGroup;
-			children = (
-				3DC4A0EC210DACF6009B5A9E /* ChatCell */,
-				3DC4A0FF210DACF6009B5A9E /* QChatPresenter.swift */,
-				3DC4A100210DACF6009B5A9E /* QChatVC.swift */,
-				3DC4A101210DACF6009B5A9E /* QChatVC.xib */,
-			);
-			path = ChatScene;
 			sourceTree = "<group>";
 		};
 		3DC4A0EC210DACF6009B5A9E /* ChatCell */ = {
@@ -280,9 +273,40 @@
 			path = ChatCell;
 			sourceTree = "<group>";
 		};
+		3DDF2E55211032A300502CEF /* Chat List */ = {
+			isa = PBXGroup;
+			children = (
+				3D5B30B3210EF9C60023E54B /* UIChatListPresenter.swift */,
+				3D5B30A8210EE3880023E54B /* UIChatListViewController.swift */,
+				3D5B30A9210EE3880023E54B /* UIChatListViewController.xib */,
+			);
+			path = "Chat List";
+			sourceTree = "<group>";
+		};
+		3DDF2E56211032B400502CEF /* Chat View */ = {
+			isa = PBXGroup;
+			children = (
+				3DC4A0FF210DACF6009B5A9E /* UIChatPresenter.swift */,
+				3DC4A101210DACF6009B5A9E /* UIChatViewController.xib */,
+				3DC4A100210DACF6009B5A9E /* UIChatViewController.swift */,
+			);
+			path = "Chat View";
+			sourceTree = "<group>";
+		};
+		3DDF2E57211032CB00502CEF /* ChatList */ = {
+			isa = PBXGroup;
+			children = (
+				3D5B30B8210F06A90023E54B /* UIChatListViewCell.swift */,
+				3D5B30B9210F06A90023E54B /* UIChatListViewCell.xib */,
+			);
+			name = ChatList;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		48EC433CC0072C7AB5EF590F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D20214A210F26BC001BE5AD /* QiscusCore */,
 				492634A1905C22AAB22C2E72 /* Pods_QiscusUI.framework */,
 				6E545C15B5AB32E39544EB59 /* Pods_QiscusUITests.framework */,
 				1875F7A055524E8D46EF8227 /* Pods_example.framework */,
@@ -311,7 +335,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC4A107210DACF6009B5A9E /* QiscusUI.h in Headers */,
-				3DC4A0BE210DA626009B5A9E /* QiscusUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +368,7 @@
 				3DC4A0B2210DA626009B5A9E /* Sources */,
 				3DC4A0B3210DA626009B5A9E /* Frameworks */,
 				3DC4A0B4210DA626009B5A9E /* Resources */,
+				C70B2F55887A67D8D116252F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -382,7 +406,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Qiscus;
 				TargetAttributes = {
 					3DC4A0AC210DA626009B5A9E = {
@@ -425,8 +449,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DC4A123210DACF7009B5A9E /* QChatVC.xib in Resources */,
+				3DC4A123210DACF7009B5A9E /* UIChatViewController.xib in Resources */,
 				3DC4A11C210DACF6009B5A9E /* RightTextCell.xib in Resources */,
+				3DDF2E522110326700502CEF /* ChatViewController.xib in Resources */,
 				3DC4A104210DACF6009B5A9E /* Info.plist in Resources */,
 				3DC4A125210DACF7009B5A9E /* Media.xcassets in Resources */,
 				3D5B30BB210F06AA0023E54B /* UIChatListViewCell.xib in Resources */,
@@ -466,19 +491,25 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-example/Pods-example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
 				"${BUILT_PRODUCTS_DIR}/QiscusCore/QiscusCore.framework",
 				"${BUILT_PRODUCTS_DIR}/QiscusUI/QiscusUI.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyTimer/SwiftyTimer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -539,6 +570,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C70B2F55887A67D8D116252F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUITests/Pods-QiscusUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
+				"${BUILT_PRODUCTS_DIR}/QiscusCore/QiscusCore.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyTimer/SwiftyTimer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUITests/Pods-QiscusUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -557,10 +618,10 @@
 				3D5B30BA210F06A90023E54B /* UIChatListViewCell.swift in Sources */,
 				3DC4A108210DACF6009B5A9E /* QCacheManager.swift in Sources */,
 				3DC4A10B210DACF6009B5A9E /* UIImage.swift in Sources */,
-				3DC4A122210DACF6009B5A9E /* QChatVC.swift in Sources */,
+				3DC4A122210DACF6009B5A9E /* UIChatViewController.swift in Sources */,
 				3DC4A106210DACF6009B5A9E /* BaseChatCell.swift in Sources */,
 				3DC4A105210DACF6009B5A9E /* CommentModel.swift in Sources */,
-				3DC4A121210DACF6009B5A9E /* QChatPresenter.swift in Sources */,
+				3DC4A121210DACF6009B5A9E /* UIChatPresenter.swift in Sources */,
 				3D5B30B7210EFAE20023E54B /* Protocol.swift in Sources */,
 				3DC4A10D210DACF6009B5A9E /* String+Localization.swift in Sources */,
 				3DC4A11B210DACF6009B5A9E /* RightTextCell.swift in Sources */,
@@ -581,6 +642,7 @@
 			files = (
 				3D5B30B0210EE5720023E54B /* ListChatViewController.swift in Sources */,
 				3D5B30A2210EC5B60023E54B /* LoginViewController.swift in Sources */,
+				3DDF2E532110326E00502CEF /* ChatViewController.swift in Sources */,
 				3DC4A0CE210DA91A009B5A9E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

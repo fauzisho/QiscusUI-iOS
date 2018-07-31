@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import QiscusCore
+import AlamofireImage
 
 class UIChatListViewCell: UITableViewCell {
 
@@ -19,6 +20,19 @@ class UIChatListViewCell: UITableViewCell {
         return String(describing: self)
     }
     
+    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var labelLastMessage: UILabel!
+    @IBOutlet weak var imageViewRoom: UIImageView!
+    @IBOutlet weak var labelDate: UILabel!
+    
+    var data : QRoom? {
+        didSet {
+            if data != nil {
+                self.setupUI()
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,6 +42,15 @@ class UIChatListViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    private func setupUI() {
+        if let data = data {
+            self.labelName.text = data.roomName
+//            self.labelDate.text = data.lastComment?.time
+            self.labelLastMessage.text  = data.lastComment?.message
+            self.imageViewRoom.af_setImage(withURL: URL.init(string: data.avatarUrl)!)
+        }
     }
     
 }
