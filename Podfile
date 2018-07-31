@@ -4,16 +4,14 @@ platform :ios, '9.0'
 target 'example' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-
-pod 'QiscusCore', :path => '../QiscusCore/'
-pod 'QiscusUI', :path => '.'
+    pod 'QiscusUI', :path => '.'
 
 end
 
 target 'QiscusUI' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-
+  pod 'QiscusCore', :path => '../QiscusCore/'
   # Pods for QiscusUI
 
   target 'QiscusUITests' do
