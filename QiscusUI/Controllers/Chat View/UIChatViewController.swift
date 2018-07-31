@@ -213,10 +213,10 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
-    func onLoadRoomFinished(roomName: String, roomAvatar: UIImage?) {
+    func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
         DispatchQueue.main.async {
             self.titleLabel.text = roomName
-            self.roomAvatar.image = roomAvatar
+            self.roomAvatar.af_setImage(withURL: roomAvatarURL!)
         }
     }
     

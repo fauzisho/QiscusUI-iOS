@@ -7,17 +7,16 @@
 
 import Foundation
 import QiscusCore
-import AlamofireImage
 
 protocol UIChatUserInteraction {
     func sendMessage(withText text: String)
     func loadRoom(withId roomId: String)
     func getMessage(inRoom roomId: String)
-    func getAvatarImage(section: Int, imageView: UIImageView)
+    func getAvatarImage(section: Int, imageURL: URL?)
 }
 
 protocol UIChatViewDelegate {
-    func onLoadRoomFinished(roomName: String, roomAvatar: UIImage?)
+    func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
     func onSendMessageFinished(comment: QComment)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
@@ -25,8 +24,6 @@ protocol UIChatViewDelegate {
 
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
-    private let imageCache: AutoPurgingImageCache = AutoPurgingImageCache(memoryCapacity: 100_000_000,
-                                                                          preferredMemoryUsageAfterPurge: 60_000_000)
     private var comments: [[QComment]] = [[]]
     var room: QRoom?
 
@@ -36,7 +33,7 @@ class UIChatPresenter: UIChatUserInteraction {
     func attachView(view : UIChatViewDelegate){
         viewPresenter = view
         if let room = self.room {
-            viewPresenter?.onLoadRoomFinished(roomName: room.roomName, roomAvatar: nil)
+            viewPresenter?.onLoadRoomFinished(roomName: room.roomName, roomAvatarURL: URL.init(string: room.avatarUrl))
         }
     }
     
@@ -64,7 +61,7 @@ class UIChatPresenter: UIChatUserInteraction {
 
     }
     
-    func getAvatarImage(section: Int, imageView: UIImageView) {
+    func getAvatarImage(section: Int, imageURL: URL?) {
 
     }
     
