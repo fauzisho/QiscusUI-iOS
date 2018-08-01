@@ -233,7 +233,7 @@ extension UIChatViewController: UIChatViewDelegate {
         self.tableViewConversation.reloadData()
     }
     
-    func onSendMessageFinished(comment: QComment) {
+    func onSendMessageFinished(comment: CommentModel) {
         
     }
     
