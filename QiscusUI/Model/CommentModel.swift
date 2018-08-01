@@ -10,6 +10,18 @@ import QiscusCore
 
 class CommentModel : QComment {
     var onChange : (CommentModel) -> Void = { _ in}
+    var status : String = ""
+    var senderName : String = ""
+    
+    class func generate(_ i:QComment) -> CommentModel {
+        let new = CommentModel()
+        new.id              = i.id
+        new.message         = i.message
+        new.commentBeforeId = i.commentBeforeId
+        new.email           = i.email
+        // ...
+        return new
+    }
 }
 
 //extension CommentModel {
