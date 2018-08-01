@@ -58,9 +58,16 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func loadComments(withID roomId: String) {
-        QiscusCore.shared.loadComments(roomID: roomId) { (c, error) in
+        QiscusCore.shared.loadComments(roomID: roomId) { (data, error) in
             self.comments.removeAll()
-            //self.comments.append(c!)
+            for i in data! {
+                // convert qcomment to comment model
+                let new = CommentModel()
+                new.id = i.id
+                new.message = i.message
+                // ...
+                self.comments.append([new])
+            }
         }
     }
     
@@ -74,8 +81,12 @@ class UIChatPresenter: UIChatUserInteraction {
         
         // add new comment to ui
         self.comments.append([message])
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message) { (comment, error) in
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
             // update comment status delivered
+            
+            //message.id = comment?.id
+            message.message = "deliverd"
+            message.onChange(message)
         }
     }
     
