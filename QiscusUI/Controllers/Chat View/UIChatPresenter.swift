@@ -19,18 +19,21 @@ protocol UIChatUserInteraction {
 protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
+    func onSendingComment(comment: QComment)
     func onSendMessageFinished(comment: QComment)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
+}
+
+extension QComment {
+    func bind(completions: @escaping (QComment)->Void) {
+        
+    }
 }
 
 class UIChatPresenter: UIChatUserInteraction {
     
     private var viewPresenter: UIChatViewDelegate?
-    var comments: [[QComment]] {
-        didSet {
-            self.viewPresenter?.onLoadMessageFinished()
-        }
-    }
+    var comments: [[QComment]] = []
     var room: QRoom?
 
     init() {
@@ -61,22 +64,29 @@ class UIChatPresenter: UIChatUserInteraction {
         QiscusCore.shared.loadComments(roomID: roomId) { (c, error) in
             self.comments.removeAll()
             self.comments.append(c!)
+            self.viewPresenter?.onLoadMessageFinished()
         }
     }
     
     func sendMessage(withText text: String) {
         // create object comment
-        let message = QComment()
+        var message = QComment()
         message.id = ""
         message.message = text
         message.type = "text"
         message.uniqueTempId = "ios_"
+        message.bind { (newComment) in
+            message = newComment
+        }
         
         // add new comment to ui
-        self.comments.append([message])
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message) { (comment, error) in
-            // update comment status delivered
-        }
+        self.comments.insert([message], at: 0)
+        self.viewPresenter?.onSendingComment(comment: message)
+//        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message) { (comment, error) in
+//            message.message = "manteb cuy"
+//
+//            // update comment status delivered
+//        }
     }
     
     func getMessage(inRoom roomId: String) {

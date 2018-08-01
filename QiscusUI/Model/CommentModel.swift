@@ -1,42 +1,14 @@
+////
+////  QComment.swift
+////  Qiscus
+////
+////  Created by Rahardyan Bisma on 07/05/18.
+////
 //
-//  QComment.swift
-//  Qiscus
+//import Foundation
+//import QiscusCore
 //
-//  Created by Rahardyan Bisma on 07/05/18.
-//
-
-import Foundation
-import QiscusCore
-
-//extension QComment {
-//    // trick contain stored properties
-//    private static var _senderName = [String:String]()
-//    
-//    var senderName: String {
-//        get {
-//            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-//            return QComment._senderName[tmpAddress] ?? ""
-//        }
-//        set(newValue) {
-//            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-//            QComment._senderName[tmpAddress] = newValue
-//        }
-//    }
-//    
-//    var time : String {
-//        get {
-//            return self.timestamp
-//        }
-//    }
-//    
-//    var isMyComment : Bool {
-//        get {
-//            return false
-//        }
-//    }
-//}
-
-//public struct QComment : QComment {
+//public class CommentModel : QComment {
 //    var uniqueId: String = ""
 //    var id: Int = 0
 //    var roomId: String = ""
@@ -72,3 +44,4 @@ import QiscusCore
 ////    var commentStatus: QCommentStatus = .sending
 ////    var file: QFile?
 //}
+//

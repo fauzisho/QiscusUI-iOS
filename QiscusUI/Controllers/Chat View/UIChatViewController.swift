@@ -213,6 +213,15 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
+    func onSendingComment(comment: QComment) {
+        self.tableViewConversation.beginUpdates()
+        self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .none)
+//        if isMyComment {
+//            self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+//        }
+        self.tableViewConversation.endUpdates()
+    }
+    
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
         DispatchQueue.main.async {
             self.titleLabel.text = roomName

@@ -60,7 +60,9 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let chatView = UIChatViewController()
+        chatView.room = self.rooms[indexPath.row]
+        self.navigationController?.pushViewController(chatView, animated: true)
     }
     
     open func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
