@@ -23,9 +23,6 @@ class LeftTextCell: BaseChatCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.comment.onChange = { _ in
-            self.bindDataToView()
-        }
     }
     
     override func menuResponderView() -> UIView {

@@ -24,6 +24,7 @@ protocol UIChatViewDelegate {
 }
 
 class UIChatPresenter: UIChatUserInteraction {
+    
     private var viewPresenter: UIChatViewDelegate?
     var comments: [[QComment]] {
         didSet {
@@ -66,9 +67,15 @@ class UIChatPresenter: UIChatUserInteraction {
     func sendMessage(withText text: String) {
         // create object comment
         let message = QComment()
-//        message.
-        QiscusCore.shared.sendMessage(roomID: self.room?.id, comment: message) { (comment, error) in
-            //
+        message.id = ""
+        message.message = text
+        message.type = "text"
+        message.uniqueTempId = "ios_"
+        
+        // add new comment to ui
+        self.comments.append([message])
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message) { (comment, error) in
+            // update comment status delivered
         }
     }
     
