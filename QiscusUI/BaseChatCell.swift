@@ -47,6 +47,10 @@ class BaseChatCell: UITableViewCell {
         didSet {
             configureInteractino()
             bindDataToView()
+            comment.onChange = { newComment in
+                self.comment = newComment
+                self.bindDataToView()
+            }
         }
     }
     var indexPath: IndexPath!
