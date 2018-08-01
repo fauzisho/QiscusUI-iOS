@@ -10,7 +10,7 @@ import QiscusCore
 
 protocol ChatCellDelegate {
     func onImageCellDidTap(imageSlideShow: UIViewController)
-    func onSaveContactCellDidTap(comment: QComment)
+    func onSaveContactCellDidTap(comment: CommentModel)
 }
 
 protocol ChatCellAudioDelegate {
@@ -43,7 +43,7 @@ class BaseChatCell: UITableViewCell {
     }
     
     // MARK: cell data source
-    var comment: QComment! {
+    var comment: CommentModel! {
         didSet {
             configureInteractino()
             bindDataToView()
@@ -109,10 +109,10 @@ class BaseChatCell: UITableViewCell {
     }
     
     func downloadMedia() {
-//        if let qComment = QComment.comment(withId: self.comment.id), let qRoom = QRoom.room(withId: self.comment.roomId) {
-//            qRoom.downloadMedia(onComment: qComment, isAudioFile: self.comment.commentType == .audio, onSuccess: { (qComment) in
-//                guard let image = qComment.displayImage else {return}
-//                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: qComment.uniqueId)
+//        if let CommentModel = CommentModel.comment(withId: self.comment.id), let qRoom = QRoom.room(withId: self.comment.roomId) {
+//            qRoom.downloadMedia(onComment: CommentModel, isAudioFile: self.comment.commentType == .audio, onSuccess: { (CommentModel) in
+//                guard let image = CommentModel.displayImage else {return}
+//                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: CommentModel.uniqueId)
 //                self.displayDownloadedImage(image: image)
 //            }, onError: { (error) in
 //                

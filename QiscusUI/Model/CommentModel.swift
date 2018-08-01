@@ -1,5 +1,5 @@
 //
-//  QComment.swift
+//  CommentModel.swift
 //  Qiscus
 //
 //  Created by Rahardyan Bisma on 07/05/18.
@@ -8,18 +8,22 @@
 import Foundation
 import QiscusCore
 
-//extension QComment {
+class CommentModel : QComment {
+    var onChange : (CommentModel) -> Void = { _ in}
+}
+
+//extension CommentModel {
 //    // trick contain stored properties
 //    private static var _senderName = [String:String]()
 //    
 //    var senderName: String {
 //        get {
 //            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-//            return QComment._senderName[tmpAddress] ?? ""
+//            return CommentModel._senderName[tmpAddress] ?? ""
 //        }
 //        set(newValue) {
 //            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-//            QComment._senderName[tmpAddress] = newValue
+//            CommentModel._senderName[tmpAddress] = newValue
 //        }
 //    }
 //    
@@ -36,7 +40,7 @@ import QiscusCore
 //    }
 //}
 
-//public struct QComment : QComment {
+//public struct CommentModel : CommentModel {
 //    var uniqueId: String = ""
 //    var id: Int = 0
 //    var roomId: String = ""
@@ -68,7 +72,7 @@ import QiscusCore
 //    var extras: [String: Any]?
 //
 //    var isMyComment: Bool = false
-////    var commentType: QCommentType = .text
-////    var commentStatus: QCommentStatus = .sending
+////    var commentType: CommentModelType = .text
+////    var commentStatus: CommentModelStatus = .sending
 ////    var file: QFile?
 //}

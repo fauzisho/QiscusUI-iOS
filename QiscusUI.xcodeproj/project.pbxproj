@@ -350,6 +350,7 @@
 				3DC4A0A9210DA626009B5A9E /* Frameworks */,
 				3DC4A0AA210DA626009B5A9E /* Headers */,
 				3DC4A0AB210DA626009B5A9E /* Resources */,
+				561FE1502EF053FFB43C14A8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -369,6 +370,7 @@
 				3DC4A0B3210DA626009B5A9E /* Frameworks */,
 				3DC4A0B4210DA626009B5A9E /* Resources */,
 				C70B2F55887A67D8D116252F /* [CP] Embed Pods Frameworks */,
+				66AE1FAE07DAED36A47B65DB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -389,6 +391,7 @@
 				3DC4A0C8210DA91A009B5A9E /* Frameworks */,
 				3DC4A0C9210DA91A009B5A9E /* Resources */,
 				79E987A8792E5EE01B59865D /* [CP] Embed Pods Frameworks */,
+				2CF65B35DE44F95CC22766E2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -482,6 +485,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2CF65B35DE44F95CC22766E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-example/Pods-example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		561FE1502EF053FFB43C14A8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUI/Pods-QiscusUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66AE1FAE07DAED36A47B65DB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QiscusUITests/Pods-QiscusUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		79E987A8792E5EE01B59865D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
