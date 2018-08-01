@@ -73,7 +73,7 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = CommentModel()
         message.id = ""
         message.message = text
-        message.type = "text"
+        message.type = .text
         message.uniqueTempId = "ios_"
         message.status = "sending"
         

@@ -11,7 +11,7 @@ end
 target 'QiscusUI' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'QiscusCore', :path => '../qiscus-chat-sdk-core/'
+  pod 'QiscusCore', :path => '../QiscusCore'
   pod 'AlamofireImage'
   pod 'SwiftyJSON'
   
