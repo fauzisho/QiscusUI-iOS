@@ -19,6 +19,7 @@ protocol UIChatUserInteraction {
 protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
+    func onSendingComment(comment: CommentModel)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
 }
@@ -26,11 +27,7 @@ protocol UIChatViewDelegate {
 class UIChatPresenter: UIChatUserInteraction {
     
     private var viewPresenter: UIChatViewDelegate?
-    var comments: [[CommentModel]] {
-        didSet {
-            self.viewPresenter?.onLoadMessageFinished()
-        }
-    }
+    var comments: [[CommentModel]] = []
     var room: QRoom?
 
     init() {
@@ -67,6 +64,7 @@ class UIChatPresenter: UIChatUserInteraction {
             }
             // MARK: TODO improve and grouping
             self.comments.append(tempComments)
+            self.viewPresenter?.onLoadMessageFinished()
         }
     }
     
@@ -80,7 +78,8 @@ class UIChatPresenter: UIChatUserInteraction {
         message.status = "sending"
         
         // add new comment to ui
-        self.comments.append([message])
+        self.comments.insert([message], at: 0)
+        self.viewPresenter?.onSendingComment(comment: message)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
             if comment != nil {
                 message.status = "deliverd"

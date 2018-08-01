@@ -213,12 +213,12 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
-    func onSendingComment(comment: QComment) {
+    func onSendingComment(comment: CommentModel) {
         self.tableViewConversation.beginUpdates()
         self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .none)
-//        if isMyComment {
-//            self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
-//        }
+        //        if isMyComment {
+        //            self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+        //        }
         self.tableViewConversation.endUpdates()
     }
     
