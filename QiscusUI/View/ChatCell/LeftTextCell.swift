@@ -31,10 +31,10 @@ class LeftTextCell: BaseChatCell {
     
     override func bindDataToView() {
         self.tvContent.text = self.comment.message
-        self.lbName.text = self.comment.senderName
+        self.lbName.text = self.comment.username
         self.lbTime.text = self.comment.status
 
-        if !true {
+        if self.comment.isMyComment {
             DispatchQueue.main.async {
                 self.rightConstraint.isActive = true
                 self.leftConstraint.isActive = false
@@ -107,10 +107,10 @@ class LeftTextCell: BaseChatCell {
         }
 
         if firstInSection {
-            self.lbName.isHidden = false
+//            self.lbName.isHidden = false
             self.lbNameHeight.constant = CGFloat(21)
         } else {
-            self.lbName.isHidden = true
+//            self.lbName.isHidden = true
             self.lbNameHeight.constant = CGFloat(0)
         }
         

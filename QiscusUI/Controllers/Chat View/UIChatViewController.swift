@@ -213,13 +213,18 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
-    func onSendingComment(comment: CommentModel) {
-        self.tableViewConversation.beginUpdates()
-        self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .none)
-        //        if isMyComment {
-        //            self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
-        //        }
-        self.tableViewConversation.endUpdates()
+    func onSendingComment(comment: CommentModel, newSection: Bool) {
+        if newSection {
+            self.tableViewConversation.beginUpdates()
+            self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .none)
+            self.tableViewConversation.endUpdates()
+        } else {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableViewConversation.beginUpdates()
+            self.tableViewConversation.insertRows(at: [indexPath], with: .none)
+            self.tableViewConversation.endUpdates()
+        }
+        
     }
     
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
@@ -310,7 +315,7 @@ extension UIChatViewController: UITableViewDataSource {
 
         cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
         
-        //cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
+        cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.comment = comment
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
@@ -330,15 +335,15 @@ extension UIChatViewController: UITableViewDataSource {
         
         return 1
     }
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
-        label.textAlignment = NSTextAlignment.center
-        self.presenter.getDate(section: section,labelView: label)
-        label.clipsToBounds = true
-        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
-        self.view.addSubview(label)
-        return label
-    }
+//    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
+//        label.textAlignment = NSTextAlignment.center
+//        self.presenter.getDate(section: section,labelView: label)
+//        label.clipsToBounds = true
+//        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+//        self.view.addSubview(label)
+//        return label
+//    }
     // MARK: chat avatar setup
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusHelper.screenWidth(), height: 0))

@@ -10,8 +10,12 @@ import QiscusCore
 
 class CommentModel : QComment {
     var onChange : (CommentModel) -> Void = { _ in}
-    var status : String = ""
-    var senderName : String = ""
+    var isMyComment: Bool {
+        get {
+            // change this later when user savevd on presisstance storage
+            return email == NetworkManager.userEmail
+        }
+    }
     
     class func generate(_ i:QComment) -> CommentModel {
         let new = CommentModel()
@@ -19,6 +23,8 @@ class CommentModel : QComment {
         new.message         = i.message
         new.commentBeforeId = i.commentBeforeId
         new.email           = i.email
+        new.username        = i.username
+        new.userAvatarUrl   = i.userAvatarUrl
         // ...
         return new
     }

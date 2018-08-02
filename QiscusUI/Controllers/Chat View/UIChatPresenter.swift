@@ -19,7 +19,7 @@ protocol UIChatUserInteraction {
 protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
-    func onSendingComment(comment: CommentModel)
+    func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
 }
@@ -63,7 +63,7 @@ class UIChatPresenter: UIChatUserInteraction {
                 tempComments.append(CommentModel.generate(i))
             }
             // MARK: TODO improve and grouping
-            self.comments.append(tempComments)
+            self.comments = self.groupingComments(comments: tempComments)
             self.viewPresenter?.onLoadMessageFinished()
         }
     }
@@ -73,13 +73,31 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = CommentModel()
         message.id = ""
         message.message = text
-        message.type = "text"
+        message.type = CommentType(rawValue: "text")!
         message.uniqueTempId = "ios_"
         message.status = "sending"
+        message.email = NetworkManager.userEmail
         
         // add new comment to ui
-        self.comments.insert([message], at: 0)
-        self.viewPresenter?.onSendingComment(comment: message)
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
             if comment != nil {
                 message.status = "deliverd"
@@ -145,8 +163,7 @@ class UIChatPresenter: UIChatUserInteraction {
     private func groupingComments(comments: [CommentModel]) -> [[CommentModel]]{
         var retVal = [[CommentModel]]()
         var uidList = [CommentModel]()
-        var s = 0
-        let date = Double(Date().timeIntervalSince1970)
+        
         var prevComment:CommentModel?
         var group = [CommentModel]()
         var count = 0
@@ -176,34 +193,34 @@ class UIChatPresenter: UIChatUserInteraction {
 //            }
 //        }
         
-//        for comment in  comments.reversed() {
-//            if !uidList.contains(where: { (CommentModel) -> Bool in
-//                return CommentModel.uniqueId == comment.uniqueId
-//            }) {
-//                if let prev = prevComment{
-//                    if prev.date == comment.date && prev.senderEmail == comment.senderEmail {
-//                        uidList.append(comment)
-//                        group.append(comment)
-//                    }else{
-//                        retVal.append(group)
-////                        checkPosition(ids: group)
-//                        group = [CommentModel]()
-//                        group.append(comment)
-//                        uidList.append(comment)
-//                    }
-//                }else{
-//                    group.append(comment)
-//                    uidList.append(comment)
-//                }
-//                if count == comments.count - 1  {
-//                    retVal.append(group)
-////                    checkPosition(ids: group)
-//                }else{
-//                    prevComment = comment
-//                }
-//            }
-//            count += 1
-//        }
+        for comment in comments {
+            if !uidList.contains(where: { (CommentModel) -> Bool in
+                return CommentModel.id == comment.id
+            }) {
+                if let prev = prevComment{
+                    if prev.timestamp == comment.timestamp && prev.email == comment.email {
+                        uidList.append(comment)
+                        group.append(comment)
+                    }else{
+                        retVal.append(group)
+//                        checkPosition(ids: group)
+                        group = [CommentModel]()
+                        group.append(comment)
+                        uidList.append(comment)
+                    }
+                }else{
+                    group.append(comment)
+                    uidList.append(comment)
+                }
+                if count == comments.count - 1  {
+                    retVal.append(group)
+//                    checkPosition(ids: group)
+                }else{
+                    prevComment = comment
+                }
+            }
+            count += 1
+        }
         return retVal
     }
     
