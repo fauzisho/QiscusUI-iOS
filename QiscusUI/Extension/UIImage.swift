@@ -23,6 +23,8 @@ extension UIImage {
             }
         }
     }
+    
+   
 //    internal class func loadAsync(fromLocalPath localPath:String, onSuccess: @escaping ((UIImage)->Void), onError: @escaping (()->Void)){
 //        QiscusRequestThread.async {autoreleasepool{
 //            if localPath != "" {

@@ -25,7 +25,6 @@ open class UIChatViewController: UIViewController {
     private var titleView = UIView()
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
-    
     var roomId: String = ""
     var tempSection = -1
     public var room : QRoom? {
@@ -234,6 +233,10 @@ extension UIChatViewController: UIChatViewDelegate {
         }
     }
     
+    func onLoadMoreMesageFinished() {
+        self.tableViewConversation.reloadData()
+    }
+    
     func onLoadMessageFinished() {
         self.tableViewConversation.reloadData()
     }
@@ -307,8 +310,8 @@ extension UIChatViewController: UITableViewDataSource {
     
     // MARK: table cell confi
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let comment = self.presenter.comments[indexPath.section][indexPath.row]
-        //let commentType = comment.commentType
+        let comments = self.presenter.comments
+        let comment = comments[indexPath.section][indexPath.row]
         
         tempSection = indexPath.section
         var cell = BaseChatCell()
@@ -319,7 +322,10 @@ extension UIChatViewController: UITableViewDataSource {
         cell.comment = comment
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
-        //cell.delegate = self
+        
+        if indexPath.section == comments.count - 1 && indexPath.row == comments[indexPath.section].count - 1 {
+            presenter.loadMore()
+        }
         
         return cell
     }
@@ -359,19 +365,19 @@ extension UIChatViewController: UITableViewDataSource {
         
         viewAvatar.addSubview(avatar)
         
-        //self.presenter.getAvatarImage(section: section, imageView: avatar)
+        self.presenter.getAvatarImage(section: section, imageView: avatar)
         
         
         view.addSubview(viewAvatar)
         
-//        if let firstComment = self.presenter.getComments()[section].first {
-//            if firstComment.isMyComment {
-//                return nil
-//            } else if firstComment.commentType != .system {
-//                return view
-//            }
-//        }
-        return nil
+        if let firstComment = self.presenter.getComments()[section].first {
+            if firstComment.isMyComment {
+                return nil
+            } else {
+                return view
+            }
+        }
+        return view
     }
 }
 
