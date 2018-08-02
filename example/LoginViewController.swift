@@ -29,14 +29,12 @@ class LoginViewController: UIViewController {
     @IBAction func clickLogin(_ sender: Any) {
         let list = ListChatViewController()
         
-        QiscusCore.connect(userID: "amsibsan", userKey: "12345678") { (user, error) in
-            self.navigationController?.pushViewController(list, animated: true)
-//            QiscusCore.network.getRoomList(page: 1, completion: { (rooms, meta, error) in
-//                if rooms != nil {
-//
-//                }
-//            })
-            
+        QiscusCore.connect(userID: "juang", userKey: "12345678") { (result, error) in
+            if result != nil {
+                self.navigationController?.pushViewController(list, animated: true)
+            }else {
+                print("error \(String(describing: error))")
+            }
         }
         
         
