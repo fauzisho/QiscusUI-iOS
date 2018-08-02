@@ -8,6 +8,7 @@
 
 import UIKit
 import QiscusUI
+import QiscusCore
 
 class ListChatViewController: UIChatListViewController {
 
@@ -15,9 +16,10 @@ class ListChatViewController: UIChatListViewController {
         super.viewDidLoad()
         self.title = "Chat List"
         // Do any additional setup after loading the view.
-        let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "EditImage"), style: .done, target: self, action: #selector(self.addGroup))
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addChat))
+        let play = UIBarButtonItem(title: "Group", style: .plain, target: self, action: #selector(addGroup))
         
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.rightBarButtonItems = [add, play]
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,14 +27,30 @@ class ListChatViewController: UIChatListViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func addChat() {
+        QiscusCore.shared.getRoom(withUser: "amsibsam") { (room, error) in
+            guard let room = room else {return}
+            self.chat(withRoom: room)
+        }
+    }
+    
     @objc func addGroup() {
-        
+        let names = ["Semarang", "jogja", "jakarta", "bogor", "palembang"]
+        let randomName = names[Int(arc4random_uniform(UInt32(names.count)))]
+        QiscusCore.shared.createGroup(withName: randomName, participants: ["amsibsam", "amsibsan"], avatarUrl: nil) { (room, error) in
+            guard let room = room else {return}
+            self.chat(withRoom: room)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let target = ChatViewController()
-        target.room = self.rooms[indexPath.row]
-        self.navigationController?.pushViewController(target, animated: true)
+        let room = self.rooms[indexPath.row]
+        self.chat(withRoom: room)
     }
 
+    private func chat(withRoom room: QRoom) {
+        let target = ChatViewController()
+        target.room = room
+        self.navigationController?.pushViewController(target, animated: true)
+    }
 }
