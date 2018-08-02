@@ -78,6 +78,40 @@ open class UIChatViewController: UIViewController {
         self.tfInput.text = ""
     }
     
+    @IBAction func attachment(_ sender: UIButton) {
+        var attachmentSheet = UIAlertController(title: "Attachment", message: nil, preferredStyle: .actionSheet)
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let image = UIAlertAction(title: "image", style: .default) { (action) in
+            self.presenter.sendImage()
+        }
+        let contact = UIAlertAction(title: "contact", style: .default) { (action) in
+            self.presenter.sendContact()
+        }
+        let location = UIAlertAction(title: "location", style: .default) { (action) in
+            self.presenter.sendLocation()
+        }
+        
+        
+//        case text                       = "text"
+//        case image                      = "image"
+//        case accountLink                = "account_linking"
+//        case buttons                    = "buttons"
+//        case buttonPostbackResponse     = "button_postback_response"
+//        case reply                      = "replay"
+//        case systemEvent                = "system_event"
+//        case card                       = "card"
+//        case custom                     = "custom"
+//        case location                   = "location"
+//        case contactPerson              = "contactPerson"
+//        case carousel                   = "carousel"
+        
+        attachmentSheet.addAction(cancelBtn)
+        attachmentSheet.addAction(image)
+        attachmentSheet.addAction(contact)
+        attachmentSheet.addAction(location)
+        self.navigationController?.present(attachmentSheet, animated: true, completion: nil)
+    }
+    
     
     private func setupUI() {
         // config navBar
@@ -312,11 +346,24 @@ extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let comments = self.presenter.comments
         let comment = comments[indexPath.section][indexPath.row]
+        let commentType = comment.type
         
         tempSection = indexPath.section
         var cell = BaseChatCell()
 
-        cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
+        switch commentType {
+        case .image:
+            cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
+            break
+        case .contactPerson:
+            cell = tableView.dequeueReusableCell(withIdentifier: "QContactCell", for: indexPath) as! QContactCell
+            break
+        case .location:
+            cell = tableView.dequeueReusableCell(withIdentifier: "QLocationCell", for: indexPath) as! QLocationCell
+            break
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
+        }
         
         cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.comment = comment

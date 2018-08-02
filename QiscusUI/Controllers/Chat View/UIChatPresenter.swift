@@ -98,14 +98,127 @@ class UIChatPresenter: UIChatUserInteraction {
         }
     }
     
+    func sendLocation() {
+        // create object comment
+        let message = CommentModel()
+        message.id = ""
+        message.type = .location
+        message.status = "sending"
+        message.email = NetworkManager.userEmail
+        
+        // add new comment to ui
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
+        }
+    }
+    
+    func sendContact() {
+        // create object comment
+        let message = CommentModel()
+        message.id = ""
+        message.type = .contactPerson
+        message.status = "sending"
+        message.email = NetworkManager.userEmail
+        
+        // add new comment to ui
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
+        }
+    }
+    
+    func sendImage() {
+        // create object comment
+        let message = CommentModel()
+        message.id = ""
+        message.type = .image
+        message.status = "sending"
+        message.email = NetworkManager.userEmail
+        
+        // add new comment to ui
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
+        }
+    }
     
     func sendMessage(withText text: String) {
         // create object comment
         let message = CommentModel()
         message.id = ""
         message.message = text
-        message.type = CommentType(rawValue: "text")!
-        message.uniqueTempId = "ios_"
+        message.type = .text
+        message.uniqueTempId = "ask123421"
         message.status = "sending"
         message.email = NetworkManager.userEmail
         
