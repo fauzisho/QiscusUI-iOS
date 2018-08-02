@@ -154,9 +154,9 @@ open class UIChatViewController: UIViewController {
     }
     
     private func setupTableView() {
-        let rotate = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        let rotate = CGAffineTransform(rotationAngle: .pi)
         self.tableViewConversation.transform = rotate
-        self.tableViewConversation.scrollIndicatorInsets = UIEdgeInsetsMake(0,0,0,self.tableViewConversation.bounds.size.width-10)
+        self.tableViewConversation.scrollIndicatorInsets = UIEdgeInsetsMake(0,0,0,self.tableViewConversation.bounds.size.width-2)
         self.tableViewConversation.rowHeight = UITableViewAutomaticDimension
         self.tableViewConversation.dataSource = self
         self.tableViewConversation.delegate = self

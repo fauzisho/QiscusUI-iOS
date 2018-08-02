@@ -19,7 +19,7 @@ protocol UIChatUserInteraction {
 protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
-    func onSendingComment(comment: CommentModel)
+    func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
 }
