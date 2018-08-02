@@ -38,7 +38,12 @@ open class UIChatListViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter.loadChat()
+    }
+    
 }
 
 extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource {
