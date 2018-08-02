@@ -12,23 +12,25 @@ protocol UIChatUserInteraction {
     func sendMessage(withText text: String)
     func loadRoom(withId roomId: String)
     func loadComments(withID roomId: String)
+    func loadMore()
     func getMessage(inRoom roomId: String)
-    func getAvatarImage(section: Int, imageURL: URL?)
+    func getAvatarImage(section: Int, imageView: UIImageView)
 }
 
 protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
+    func onLoadMoreMesageFinished()
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
 }
 
 class UIChatPresenter: UIChatUserInteraction {
-    
     private var viewPresenter: UIChatViewDelegate?
     var comments: [[CommentModel]] = []
     var room: QRoom?
+    var loadMoreAvailable: Bool = true
     
     init() {
         self.comments = [[CommentModel]]()
@@ -55,16 +57,158 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func loadComments(withID roomId: String) {
-        QiscusCore.shared.loadComments(roomID: roomId) { (data, error) in
+        QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             self.comments.removeAll()
             // convert model
             var tempComments = [CommentModel]()
-            for i in data! {
-                tempComments.append(CommentModel.generate(i))
+            if let data = dataResponse {
+                for i in data {
+                    tempComments.append(CommentModel.generate(i))
+                }
+                // MARK: TODO improve and grouping
+                self.comments = self.groupingComments(comments: tempComments)
+                self.viewPresenter?.onLoadMessageFinished()
+            } else {
+                
             }
-            // MARK: TODO improve and grouping
-            self.comments = self.groupingComments(comments: tempComments)
-            self.viewPresenter?.onLoadMessageFinished()
+            
+        }
+    }
+    
+    func loadMore() {
+        if loadMoreAvailable {
+            if let lastGroup = self.comments.last, let lastComment = lastGroup.last {
+                QiscusCore.shared.loadMore(roomID: (self.room?.id)!, lastCommentID: Int(lastComment.id)!, completion: { (commentsRsponse, error) in
+                    
+                    if let comments = commentsRsponse {
+                        if comments.count == 0 {
+                            self.loadMoreAvailable = false
+                        }
+                        let tempComments = comments.map({ (qComment) -> CommentModel in
+                            return CommentModel.generate(qComment)
+                        })
+                        
+                        self.comments.append(contentsOf: self.groupingComments(comments: tempComments))
+                        self.viewPresenter?.onLoadMoreMesageFinished()
+                    } else {
+                        
+                    }
+                })
+            }
+        }
+    }
+    
+    func sendLocation() {
+        // create object comment
+        let message = CommentModel()
+        message.id = ""
+        message.type = .location
+        message.status = "sending"
+        message.email = NetworkManager.userEmail
+        
+        // add new comment to ui
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
+        }
+    }
+    
+    func sendContact() {
+        // create object comment
+        let message = CommentModel()
+        message.id = ""
+        message.type = .contactPerson
+        message.status = "sending"
+        message.email = NetworkManager.userEmail
+        
+        // add new comment to ui
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
+        }
+    }
+    
+    func sendImage() {
+        // create object comment
+        let message = CommentModel()
+        message.id = ""
+        message.type = .image
+        message.status = "sending"
+        message.email = NetworkManager.userEmail
+        
+        // add new comment to ui
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                var lastComment = self.comments[0][0]
+                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                    self.comments[0].insert(message, at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                } else {
+                    self.comments.insert([message], at: 0)
+                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                }
+            } else {
+                self.comments.insert([message], at: 0)
+                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+            }
+        } else {
+            self.comments.insert([message], at: 0)
+            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+        }
+        
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as! QComment) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
         }
     }
     
@@ -73,8 +217,8 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = CommentModel()
         message.id = ""
         message.message = text
-        message.type = CommentType(rawValue: "text")!
-        message.uniqueTempId = "ios_"
+        message.type = .text
+        message.uniqueTempId = "ask123421"
         message.status = "sending"
         message.email = NetworkManager.userEmail
         
@@ -116,7 +260,12 @@ class UIChatPresenter: UIChatUserInteraction {
         
     }
     
-    func getAvatarImage(section: Int, imageURL: URL?) {
+    func getAvatarImage(section: Int, imageView: UIImageView) {
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                imageView.loadAsync(url: self.comments[0][0].userAvatarUrl)
+            }
+        }
         
     }
     

@@ -25,7 +25,6 @@ open class UIChatViewController: UIViewController {
     private var titleView = UIView()
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
-    
     var roomId: String = ""
     var tempSection = -1
     public var room : QRoom? {
@@ -77,6 +76,40 @@ open class UIChatViewController: UIViewController {
         }
         
         self.tfInput.text = ""
+    }
+    
+    @IBAction func attachment(_ sender: UIButton) {
+        var attachmentSheet = UIAlertController(title: "Attachment", message: nil, preferredStyle: .actionSheet)
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let image = UIAlertAction(title: "image", style: .default) { (action) in
+            self.presenter.sendImage()
+        }
+        let contact = UIAlertAction(title: "contact", style: .default) { (action) in
+            self.presenter.sendContact()
+        }
+        let location = UIAlertAction(title: "location", style: .default) { (action) in
+            self.presenter.sendLocation()
+        }
+        
+        
+//        case text                       = "text"
+//        case image                      = "image"
+//        case accountLink                = "account_linking"
+//        case buttons                    = "buttons"
+//        case buttonPostbackResponse     = "button_postback_response"
+//        case reply                      = "replay"
+//        case systemEvent                = "system_event"
+//        case card                       = "card"
+//        case custom                     = "custom"
+//        case location                   = "location"
+//        case contactPerson              = "contactPerson"
+//        case carousel                   = "carousel"
+        
+        attachmentSheet.addAction(cancelBtn)
+        attachmentSheet.addAction(image)
+        attachmentSheet.addAction(contact)
+        attachmentSheet.addAction(location)
+        self.navigationController?.present(attachmentSheet, animated: true, completion: nil)
     }
     
     
@@ -234,6 +267,10 @@ extension UIChatViewController: UIChatViewDelegate {
         }
     }
     
+    func onLoadMoreMesageFinished() {
+        self.tableViewConversation.reloadData()
+    }
+    
     func onLoadMessageFinished() {
         self.tableViewConversation.reloadData()
     }
@@ -307,19 +344,35 @@ extension UIChatViewController: UITableViewDataSource {
     
     // MARK: table cell confi
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let comment = self.presenter.comments[indexPath.section][indexPath.row]
-        //let commentType = comment.commentType
+        let comments = self.presenter.comments
+        let comment = comments[indexPath.section][indexPath.row]
+        let commentType = comment.type
         
         tempSection = indexPath.section
         var cell = BaseChatCell()
 
-        cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
+        switch commentType {
+        case .image:
+            cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
+            break
+        case .contactPerson:
+            cell = tableView.dequeueReusableCell(withIdentifier: "QContactCell", for: indexPath) as! QContactCell
+            break
+        case .location:
+            cell = tableView.dequeueReusableCell(withIdentifier: "QLocationCell", for: indexPath) as! QLocationCell
+            break
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
+        }
         
         cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.comment = comment
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
-        //cell.delegate = self
+        
+        if indexPath.section == comments.count - 1 && indexPath.row == comments[indexPath.section].count - 1 {
+            presenter.loadMore()
+        }
         
         return cell
     }
@@ -359,19 +412,19 @@ extension UIChatViewController: UITableViewDataSource {
         
         viewAvatar.addSubview(avatar)
         
-        //self.presenter.getAvatarImage(section: section, imageView: avatar)
+        self.presenter.getAvatarImage(section: section, imageView: avatar)
         
         
         view.addSubview(viewAvatar)
         
-//        if let firstComment = self.presenter.getComments()[section].first {
-//            if firstComment.isMyComment {
-//                return nil
-//            } else if firstComment.commentType != .system {
-//                return view
-//            }
-//        }
-        return nil
+        if let firstComment = self.presenter.getComments()[section].first {
+            if firstComment.isMyComment {
+                return nil
+            } else {
+                return view
+            }
+        }
+        return view
     }
 }
 
