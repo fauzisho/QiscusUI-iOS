@@ -10,6 +10,17 @@ import QiscusCore
 
 class CommentModel : QComment {
     var onChange : (CommentModel) -> Void = { _ in}
+    var fileType : FileType {
+        get {
+            if type == .fileAttachment {
+                if let filePayload = payload as? PayloadFile {
+                    print("filename: \(filePayload.fileName)")
+                }
+            }
+            
+            return .image
+        }
+    }
     var isMyComment: Bool {
         get {
             // change this later when user savevd on presisstance storage
@@ -25,9 +36,18 @@ class CommentModel : QComment {
         new.email           = i.email
         new.username        = i.username
         new.userAvatarUrl   = i.userAvatarUrl
+        new.type            = i.type
+        new.payload         = i.payload
         // ...
         return new
     }
+}
+
+enum FileType {
+    case image
+    case audio
+    case video
+    case document
 }
 
 //extension CommentModel {

@@ -352,7 +352,8 @@ extension UIChatViewController: UITableViewDataSource {
         var cell = BaseChatCell()
 
         switch commentType {
-        case .image:
+        case .fileAttachment:
+            let payload = comment.payload as! PayloadFile
             cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
             break
         case .contactPerson:
@@ -370,7 +371,7 @@ extension UIChatViewController: UITableViewDataSource {
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
         
-        if indexPath.section == comments.count - 1 && indexPath.row == comments[indexPath.section].count - 1 {
+        if indexPath.section == comments.count - 1 && indexPath.row > comments[indexPath.section].count - 10 {
             presenter.loadMore()
         }
         

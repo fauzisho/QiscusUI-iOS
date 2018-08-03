@@ -181,7 +181,7 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = CommentModel()
         message.id = ""
-        message.type = .image
+        message.type = .fileAttachment
         message.status = "sending"
         message.email = NetworkManager.userEmail
         
@@ -256,7 +256,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     // MARK: TODO change this using got new comment from core
     func mockGotNewComment() {
-        let commentTypes =  [CommentType.text, CommentType.image, CommentType.contactPerson, CommentType.location]
+        let commentTypes =  [CommentType.text, CommentType.fileAttachment, CommentType.contactPerson, CommentType.location]
         let commentType: CommentType = commentTypes[Int(arc4random_uniform(UInt32(commentTypes.count)))]
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -285,7 +285,10 @@ class UIChatPresenter: UIChatUserInteraction {
     func getAvatarImage(section: Int, imageView: UIImageView) {
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
-                imageView.loadAsync(url: "\(self.comments[0][0].userAvatarUrl)")
+                print("avatar url \(self.comments[0][0].userAvatarUrl)")
+                if let url = self.comments[0][0].userAvatarUrl {
+                    imageView.loadAsync(url: "\(url)")
+                }
             }
         }
         
