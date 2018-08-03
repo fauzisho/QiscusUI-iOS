@@ -10,15 +10,25 @@ import QiscusCore
 
 class CommentModel : QComment {
     var onChange : (CommentModel) -> Void = { _ in}
+    var displayImage : UIImage? = nil
     var fileType : FileType {
         get {
             if type == .fileAttachment {
                 if let filePayload = payload as? PayloadFile {
-                    print("filename: \(filePayload.fileName)")
+                    guard let fileExtension = filePayload.url.absoluteString.components(separatedBy: ".").last else { return .image }
+                    if fileExtension.lowercased() == "png" || fileExtension.lowercased() ==  "jpg" || fileExtension.lowercased() ==  "jpeg" {
+                        return .image
+                    } else if fileExtension.lowercased() == "mp4" || fileExtension.lowercased() == "mkv" || fileExtension.lowercased() == "3gp" {
+                        return .video
+                    } else if fileExtension.lowercased() == "mp3" {
+                        return .audio
+                    } else {
+                        return .document
+                    }
                 }
             }
             
-            return .image
+            return .document
         }
     }
     var isMyComment: Bool {
@@ -49,68 +59,3 @@ enum FileType {
     case video
     case document
 }
-
-//extension CommentModel {
-//    // trick contain stored properties
-//    private static var _senderName = [String:String]()
-//    
-//    var senderName: String {
-//        get {
-//            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-//            return CommentModel._senderName[tmpAddress] ?? ""
-//        }
-//        set(newValue) {
-//            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-//            CommentModel._senderName[tmpAddress] = newValue
-//        }
-//    }
-//    
-//    var time : String {
-//        get {
-//            return self.timestamp
-//        }
-//    }
-//    
-//    var isMyComment : Bool {
-//        get {
-//            return false
-//        }
-//    }
-//}
-
-//public struct CommentModel : CommentModel {
-//    var uniqueId: String = ""
-//    var id: Int = 0
-//    var roomId: String = ""
-//    var text: String = ""
-//    var time: String = ""
-//    var date: String = ""
-//    var senderEmail: String = ""
-//    var senderName: String = ""
-//    var senderAvatarURL: String = ""
-//    var roomName: String = ""
-//    var textFontName: String = ""
-//    var textFontSize: Float = 0
-//    var displayImage: UIImage?
-//    var additionalData: String = ""
-////    var repliedText: String = ""
-//
-//    //audio variable
-//    var durationLabel: String = ""
-//    var currentTimeSlider: Float = 0
-//    var seekTimeLabel: String = "00:00"
-//    var audioIsPlaying: Bool = false
-//
-//    //file variable
-//    var isDownloading: Bool = false
-//    var isUploading: Bool = false
-//    var progress: CGFloat = 0
-//
-//    var isRead: Bool = false
-//    var extras: [String: Any]?
-//
-//    var isMyComment: Bool = false
-////    var commentType: CommentModelType = .text
-////    var commentStatus: CommentModelStatus = .sending
-////    var file: QFile?
-//}
