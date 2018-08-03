@@ -30,6 +30,7 @@ class LeftTextCell: BaseChatCell {
     }
     
     override func bindDataToView() {
+        
         self.tvContent.text = self.comment.message
         self.lbName.text = self.comment.username
         self.lbTime.text = self.comment.status

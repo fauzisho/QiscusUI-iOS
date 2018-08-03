@@ -263,7 +263,9 @@ class UIChatPresenter: UIChatUserInteraction {
     func getAvatarImage(section: Int, imageView: UIImageView) {
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
-                imageView.loadAsync(url: self.comments[0][0].userAvatarUrl)
+                if let url = self.comments[0][0].userAvatarUrl {
+                    imageView.loadAsync(url: url.absoluteString)
+                }
             }
         }
         
