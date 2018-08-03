@@ -7,6 +7,7 @@
 
 import UIKit
 import SimpleImageViewer
+import QiscusCore
 
 class QImageCell: BaseChatCell {
     @IBOutlet weak var lbName: UILabel!
@@ -61,6 +62,8 @@ class QImageCell: BaseChatCell {
     }
     
     func configureDisplayImage() {
+        let data = self.comment.payload as! PayloadFile
+        self.tvContent.text = data.caption
 //        if let displayImage = self.comment.displayImage {
 //            self.ivComment.image = displayImage
 //            self.btnDownload.isHidden = true
