@@ -78,6 +78,10 @@ class UIChatPresenter: UIChatUserInteraction {
     func loadMore() {
         if loadMoreAvailable {
             if let lastGroup = self.comments.last, let lastComment = lastGroup.last {
+                if lastComment.id.isEmpty {
+                    return
+                }
+                
                 QiscusCore.shared.loadMore(roomID: (self.room?.id)!, lastCommentID: Int(lastComment.id)!, completion: { (commentsRsponse, error) in
                     
                     if let comments = commentsRsponse {
