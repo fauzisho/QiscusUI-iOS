@@ -83,7 +83,6 @@ class UIChatPresenter: UIChatUserInteraction {
                 }
                 
                 QiscusCore.shared.loadMore(roomID: (self.room?.id)!, lastCommentID: Int(lastComment.id)!, completion: { (commentsRsponse, error) in
-                    
                     if let comments = commentsRsponse {
                         if comments.count == 0 {
                             self.loadMoreAvailable = false
@@ -222,7 +221,6 @@ class UIChatPresenter: UIChatUserInteraction {
         message.id = ""
         message.message = text
         message.type = .text
-        message.uniqueTempId = "ask123421"
         message.status = "sending"
         message.email = NetworkManager.userEmail
         
@@ -267,7 +265,7 @@ class UIChatPresenter: UIChatUserInteraction {
     func getAvatarImage(section: Int, imageView: UIImageView) {
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
-                imageView.loadAsync(url: self.comments[0][0].userAvatarUrl)
+                imageView.loadAsync(url: "\(self.comments[0][0].userAvatarUrl)")
             }
         }
         

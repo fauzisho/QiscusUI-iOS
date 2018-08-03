@@ -79,7 +79,7 @@ open class UIChatViewController: UIViewController {
     }
     
     @IBAction func attachment(_ sender: UIButton) {
-        var attachmentSheet = UIAlertController(title: "Attachment", message: nil, preferredStyle: .actionSheet)
+        let attachmentSheet = UIAlertController(title: "Attachment", message: nil, preferredStyle: .actionSheet)
         let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let image = UIAlertAction(title: "image", style: .default) { (action) in
             self.presenter.sendImage()
@@ -249,12 +249,12 @@ extension UIChatViewController: UIChatViewDelegate {
     func onSendingComment(comment: CommentModel, newSection: Bool) {
         if newSection {
             self.tableViewConversation.beginUpdates()
-            self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .none)
+            self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .left)
             self.tableViewConversation.endUpdates()
         } else {
             let indexPath = IndexPath(row: 0, section: 0)
             self.tableViewConversation.beginUpdates()
-            self.tableViewConversation.insertRows(at: [indexPath], with: .none)
+            self.tableViewConversation.insertRows(at: [indexPath], with: .left)
             self.tableViewConversation.endUpdates()
         }
         
@@ -283,7 +283,7 @@ extension UIChatViewController: UIChatViewDelegate {
         if Thread.isMainThread {
             if newSection {
                 self.tableViewConversation.beginUpdates()
-                self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .none)
+                self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
                 if isMyComment {
                     self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }
@@ -291,7 +291,7 @@ extension UIChatViewController: UIChatViewDelegate {
             } else {
                 let indexPath = IndexPath(row: 0, section: 0)
                 self.tableViewConversation.beginUpdates()
-                self.tableViewConversation.insertRows(at: [indexPath], with: .none)
+                self.tableViewConversation.insertRows(at: [indexPath], with: .right)
                 if isMyComment {
                     self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }
@@ -371,7 +371,7 @@ extension UIChatViewController: UITableViewDataSource {
         cell.layer.rasterizationScale = UIScreen.main.scale
         
         if indexPath.section == comments.count - 1 && indexPath.row == comments[indexPath.section].count - 1 {
-            presenter.loadMore()
+//            presenter.loadMore()
         }
         
         return cell
