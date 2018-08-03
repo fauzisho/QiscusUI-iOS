@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -134,7 +134,7 @@
                             <constraint firstItem="LJa-bo-Yyi" firstAttribute="top" secondItem="jwu-WM-yfp" secondAttribute="top" id="n26-Jh-rN8"/>
                             <constraint firstItem="ziX-Dj-tux" firstAttribute="leading" secondItem="ijD-Qz-Bd2" secondAttribute="leading" constant="5" id="nxP-hq-BEo"/>
                             <constraint firstItem="vrc-mq-6cI" firstAttribute="top" secondItem="Rlk-R0-cSp" secondAttribute="bottom" constant="2" id="tuR-D5-T5O"/>
-                            <constraint firstItem="Rlk-R0-cSp" firstAttribute="leading" secondItem="LJa-bo-Yyi" secondAttribute="leading" constant="5" id="z13-hc-45B"/>
+                            <constraint firstItem="Rlk-R0-cSp" firstAttribute="leading" secondItem="LJa-bo-Yyi" secondAttribute="leading" constant="90" id="z13-hc-45B"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NIz-Nz-xHb"/>
                         <variation key="default">
