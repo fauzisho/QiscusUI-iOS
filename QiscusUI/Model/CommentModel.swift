@@ -25,7 +25,8 @@ class CommentModel : QComment {
         new.email           = i.email
         new.username        = i.username
         new.userAvatarUrl   = i.userAvatarUrl
-        // ...
+        new.type            = i.type
+        new.payload         = i.payload
         return new
     }
 }

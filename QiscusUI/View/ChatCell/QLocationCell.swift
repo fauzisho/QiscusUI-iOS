@@ -8,6 +8,8 @@
 import UIKit
 import MapKit
 import SwiftyJSON
+import QiscusCore
+
 class QLocationCell: BaseChatCell {
     
     @IBOutlet weak var lbName: UILabel!
@@ -30,7 +32,9 @@ class QLocationCell: BaseChatCell {
         self.mapView.addGestureRecognizer(tapRecognizer)
     }
      override func bindDataToView() {
-        self.lbName.text = self.comment.username
+//        let data = self.comment.payload as? FilePayload
+//        
+//        self.lbName.text = self.comment.username
 //        self.lbTime.text = self.comment.time
 //        let data = self.comment.additionalData
 //        let payload = JSON(parseJSON: data)
@@ -39,7 +43,7 @@ class QLocationCell: BaseChatCell {
 //        print("name \(payload["map_url"].stringValue)")
 //        print("name \(payload["name"].stringValue)")
         
-//        self.locationLabel.text = payload["name"].stringValue
+//        self.locationLabel.text = data.caption
 //        let address = payload["address"].stringValue
 //        self.addressView.text = address
         
