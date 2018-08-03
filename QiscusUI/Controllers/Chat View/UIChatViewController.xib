@@ -115,12 +115,12 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="XjR-Mj-c6H" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="AVd-I5-3cz"/>
-                <constraint firstItem="XjR-Mj-c6H" firstAttribute="top" secondItem="DF6-Lu-tNz" secondAttribute="bottom" id="At5-Ii-bha"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DF6-Lu-tNz" secondAttribute="trailing" id="GkU-D9-vCV"/>
+                <constraint firstItem="DF6-Lu-tNz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Eln-w1-9kb"/>
+                <constraint firstItem="XjR-Mj-c6H" firstAttribute="top" secondItem="DF6-Lu-tNz" secondAttribute="bottom" id="Jrg-op-IQh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XjR-Mj-c6H" secondAttribute="trailing" id="Pnc-wO-kV5"/>
+                <constraint firstItem="DF6-Lu-tNz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="X7e-vI-QbR"/>
+                <constraint firstItem="DF6-Lu-tNz" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Z7V-uh-0bT"/>
                 <constraint firstItem="XjR-Mj-c6H" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="db4-PW-nUe"/>
-                <constraint firstItem="DF6-Lu-tNz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fzH-U2-HmD"/>
-                <constraint firstItem="DF6-Lu-tNz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mC1-uj-Zkm"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

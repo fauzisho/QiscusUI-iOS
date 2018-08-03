@@ -371,7 +371,7 @@ extension UIChatViewController: UITableViewDataSource {
         cell.layer.rasterizationScale = UIScreen.main.scale
         
         if indexPath.section == comments.count - 1 && indexPath.row == comments[indexPath.section].count - 1 {
-//            presenter.loadMore()
+            presenter.loadMore()
         }
         
         return cell
