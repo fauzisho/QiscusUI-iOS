@@ -7,6 +7,7 @@
 
 import UIKit
 import SimpleImageViewer
+import QiscusCore
 
 class QImageCell: BaseChatCell {
     @IBOutlet weak var lbName: UILabel!
@@ -61,20 +62,16 @@ class QImageCell: BaseChatCell {
     }
     
     func configureDisplayImage() {
-//        if let displayImage = self.comment.displayImage {
-//            self.ivComment.image = displayImage
-//            self.btnDownload.isHidden = true
-//            self.progressContainer.isHidden = true
-//        } else {
-//            self.btnDownload.isHidden = false
-//            self.progressContainer.isHidden = false
-//            if let file = self.comment.file {
-//                self.ivComment.loadAsync(url: file.thumbURL, onLoaded: { (image, _) in
-//                    self.ivComment.image = image
-//                    file.saveThumbImage(withImage: image)
-//                })
-//            }
-//        }
+        let data = self.comment.payload as! PayloadFile
+        self.tvContent.text = data.caption
+        if let displayImage = self.comment.displayImage {
+            self.ivComment.image = displayImage
+            self.btnDownload.isHidden = true
+            self.progressContainer.isHidden = true
+        } else {
+            self.btnDownload.isHidden = false
+            self.progressContainer.isHidden = false
+        }
     }
     override func bindDataToView() {
         self.tvContent.text = "asdsad"

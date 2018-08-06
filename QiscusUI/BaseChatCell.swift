@@ -115,7 +115,7 @@ class BaseChatCell: UITableViewCell {
 //                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: CommentModel.uniqueId)
 //                self.displayDownloadedImage(image: image)
 //            }, onError: { (error) in
-//                
+//
 //            }, onProgress: { (progress) in
 //                self.updateDownloadProgress(progress: progress)
 //                print("download progress \(progress)")
