@@ -353,16 +353,16 @@ extension UIChatViewController: UITableViewDataSource {
 
         switch commentType {
         case .fileAttachment:
-            if comment.fileType == .image {
+            switch comment.fileType {
+            case .image:
                 cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
-            } else if comment.fileType == .audio {
+            case .audio:
                 cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
-            } else if comment.fileType == .video {
+            case .video:
                 cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
-            } else {
+            case .document:
                 cell = tableView.dequeueReusableCell(withIdentifier: "QDocumentCell", for: indexPath) as! QDocumentCell
             }
-            
             break
         case .contactPerson:
             cell = tableView.dequeueReusableCell(withIdentifier: "QContactCell", for: indexPath) as! QContactCell
