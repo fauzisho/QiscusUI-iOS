@@ -46,7 +46,7 @@ class UIChatListViewCell: UITableViewCell {
     
     private func setupUI() {
         if let data = data {
-            self.labelName.text = data.roomName
+            self.labelName.text = data.name
 //            self.labelDate.text = data.lastComment?.time
             self.labelLastMessage.text  = data.lastComment?.message
             self.imageViewRoom.af_setImage(withURL: URL.init(string: data.avatarUrl)!)

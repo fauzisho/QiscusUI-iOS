@@ -40,7 +40,7 @@ class UIChatPresenter: UIChatUserInteraction {
         viewPresenter = view
         if let room = self.room {
             self.loadComments(withID: room.id)
-            viewPresenter?.onLoadRoomFinished(roomName: room.roomName, roomAvatarURL: URL.init(string: room.avatarUrl))
+            viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: URL.init(string: room.avatarUrl))
         }
     }
     
