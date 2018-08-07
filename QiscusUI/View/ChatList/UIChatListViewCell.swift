@@ -25,7 +25,7 @@ class UIChatListViewCell: UITableViewCell {
     @IBOutlet weak var imageViewRoom: UIImageView!
     @IBOutlet weak var labelDate: UILabel!
     
-    var data : QRoom? {
+    var data : RoomModel? {
         didSet {
             if data != nil {
                 self.setupUI()

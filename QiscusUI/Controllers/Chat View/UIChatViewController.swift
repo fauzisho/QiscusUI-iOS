@@ -27,7 +27,7 @@ open class UIChatViewController: UIViewController {
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
     var tempSection = -1
-    public var room : QRoom? {
+    public var room : RoomModel? {
         set(newValue) {
             self.presenter.room = newValue
         }
@@ -246,7 +246,7 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
-    func onSendingComment(comment: CommentModel, newSection: Bool) {
+    func onSendingComment(comment: UICommentModel, newSection: Bool) {
         if newSection {
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .left)
@@ -275,7 +275,7 @@ extension UIChatViewController: UIChatViewDelegate {
         self.tableViewConversation.reloadData()
     }
     
-    func onSendMessageFinished(comment: CommentModel) {
+    func onSendMessageFinished(comment: UICommentModel) {
         
     }
     

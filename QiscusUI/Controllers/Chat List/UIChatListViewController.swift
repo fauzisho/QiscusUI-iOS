@@ -13,7 +13,7 @@ open class UIChatListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
-    public var rooms : [QRoom] = [QRoom]()
+    public var rooms : [RoomModel] = [RoomModel]()
     public init() {
         super.init(nibName: "UIChatListViewController", bundle: QiscusUI.bundle)
     }
@@ -77,7 +77,7 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 }
 
 extension UIChatListViewController : UIChatListView {
-    func didFinishLoadChat(rooms: [QRoom]) {
+    func didFinishLoadChat(rooms: [RoomModel]) {
         //
         print("load rooms :\(rooms.count)")
         self.rooms = rooms

@@ -48,7 +48,7 @@ class ListChatViewController: UIChatListViewController {
         self.chat(withRoom: room)
     }
 
-    private func chat(withRoom room: QRoom) {
+    private func chat(withRoom room: RoomModel) {
         let target = ChatViewController()
         target.room = room
         self.navigationController?.pushViewController(target, animated: true)

@@ -21,19 +21,19 @@ protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
     func onLoadMoreMesageFinished()
-    func onSendingComment(comment: CommentModel, newSection: Bool)
-    func onSendMessageFinished(comment: CommentModel)
+    func onSendingComment(comment: UICommentModel, newSection: Bool)
+    func onSendMessageFinished(comment: UICommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
 }
 
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
-    var comments: [[CommentModel]] = []
-    var room: QRoom?
+    var comments: [[UICommentModel]] = []
+    var room: RoomModel?
     var loadMoreAvailable: Bool = true
     
     init() {
-        self.comments = [[CommentModel]]()
+        self.comments = [[UICommentModel]]()
     }
     
     func attachView(view : UIChatViewDelegate){
@@ -48,7 +48,7 @@ class UIChatPresenter: UIChatUserInteraction {
         viewPresenter = nil
     }
     
-    func getComments() -> [[CommentModel]] {
+    func getComments() -> [[UICommentModel]] {
         return self.comments
     }
     
@@ -60,10 +60,10 @@ class UIChatPresenter: UIChatUserInteraction {
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             self.comments.removeAll()
             // convert model
-            var tempComments = [CommentModel]()
+            var tempComments = [UICommentModel]()
             if let data = dataResponse {
                 for i in data {
-                    tempComments.append(CommentModel.generate(i))
+                    tempComments.append(UICommentModel.generate(i))
                 }
                 // MARK: TODO improve and grouping
                 self.comments = self.groupingComments(comments: tempComments)
@@ -87,8 +87,8 @@ class UIChatPresenter: UIChatUserInteraction {
                         if comments.count == 0 {
                             self.loadMoreAvailable = false
                         }
-                        let tempComments = comments.map({ (qComment) -> CommentModel in
-                            return CommentModel.generate(qComment)
+                        let tempComments = comments.map({ (qComment) -> UICommentModel in
+                            return UICommentModel.generate(qComment)
                         })
                         
                         self.comments.append(contentsOf: self.groupingComments(comments: tempComments))
@@ -103,7 +103,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendLocation() {
         // create object comment
-        let message = CommentModel()
+        let message = UICommentModel()
         message.id = ""
         message.type = .location
         message.status = "sending"
@@ -129,7 +129,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.viewPresenter?.onSendingComment(comment: message, newSection: true)
         }
         
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as QComment) { (comment, error) in
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
             if comment != nil {
                 message.status = "deliverd"
             }else {
@@ -141,7 +141,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendContact() {
         // create object comment
-        let message = CommentModel()
+        let message = UICommentModel()
         message.id = ""
         message.type = .contactPerson
         message.status = "sending"
@@ -167,7 +167,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.viewPresenter?.onSendingComment(comment: message, newSection: true)
         }
         
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as QComment) { (comment, error) in
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
             if comment != nil {
                 message.status = "deliverd"
             }else {
@@ -179,7 +179,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendImage() {
         // create object comment
-        let message = CommentModel()
+        let message = UICommentModel()
         message.id = ""
         message.type = .fileAttachment
         message.status = "sending"
@@ -205,7 +205,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.viewPresenter?.onSendingComment(comment: message, newSection: true)
         }
         
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as QComment) { (comment, error) in
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
             if comment != nil {
                 message.status = "deliverd"
             }else {
@@ -217,7 +217,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendMessage(withText text: String) {
         // create object comment
-        let message = CommentModel()
+        let message = UICommentModel()
         message.id = ""
         message.message = text
         message.type = .text
@@ -243,7 +243,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.viewPresenter?.onSendingComment(comment: message, newSection: true)
         }
         
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as QComment) { (comment, error) in
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
             if comment != nil {
                 message.status = "deliverd"
             }else {
@@ -260,7 +260,7 @@ class UIChatPresenter: UIChatUserInteraction {
         let commentType: CommentType = commentTypes[Int(arc4random_uniform(UInt32(commentTypes.count)))]
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            let message = CommentModel()
+            let message = UICommentModel()
             message.id = ""
             message.message = "rasakan ini balasanmu"
             message.type = commentType
@@ -312,7 +312,7 @@ class UIChatPresenter: UIChatUserInteraction {
         //        }
     }
     
-    private func loadRoomAvatar(room: QRoom) {
+    private func loadRoomAvatar(room: RoomModel) {
         //        room.loadAvatar(onSuccess: { (avatar) in
         //            self.view.onLoadRoomFinished(roomName: room.name, roomAvatar: room.avatar)
         //        }, onError: { (error) in
@@ -322,23 +322,23 @@ class UIChatPresenter: UIChatUserInteraction {
         //        })
     }
     
-    //    private func generateComments(CommentModels: [CommentModel]) -> [[CommentModel]] {
-    //        var CommentModels = CommentModels.map { (comment) -> CommentModel in
-    //            let comment = CommentModel(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
+    //    private func generateComments(UICommentModels: [UICommentModel]) -> [[UICommentModel]] {
+    //        var UICommentModels = UICommentModels.map { (comment) -> UICommentModel in
+    //            let comment = UICommentModel(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
     //
     //            return comment
     //        }
-    //        return self.groupingComments(comments: CommentModels)
+    //        return self.groupingComments(comments: UICommentModels)
     //    }
     
     
     
-    private func groupingComments(comments: [CommentModel]) -> [[CommentModel]]{
-        var retVal = [[CommentModel]]()
-        var uidList = [CommentModel]()
+    private func groupingComments(comments: [UICommentModel]) -> [[UICommentModel]]{
+        var retVal = [[UICommentModel]]()
+        var uidList = [UICommentModel]()
         
-        var prevComment:CommentModel?
-        var group = [CommentModel]()
+        var prevComment:UICommentModel?
+        var group = [UICommentModel]()
         var count = 0
         //        func checkPosition(ids:[String]) {
         //            var n = 0
@@ -360,15 +360,15 @@ class UIChatPresenter: UIChatUserInteraction {
         //                    position = .single
         //                }
         //                n += 1
-        //                if let c = CommentModel.threadSaveComment(withUniqueId: id){
+        //                if let c = UICommentModel.threadSaveComment(withUniqueId: id){
         //                    c.updateCellPos(cellPos: position)
         //                }
         //            }
         //        }
         
         for comment in comments {
-            if !uidList.contains(where: { (CommentModel) -> Bool in
-                return CommentModel.id == comment.id
+            if !uidList.contains(where: { (UICommentModel) -> Bool in
+                return UICommentModel.id == comment.id
             }) {
                 if let prev = prevComment{
                     if prev.timestamp == comment.timestamp && prev.email == comment.email {
@@ -377,7 +377,7 @@ class UIChatPresenter: UIChatUserInteraction {
                     }else{
                         retVal.append(group)
                         //                        checkPosition(ids: group)
-                        group = [CommentModel]()
+                        group = [UICommentModel]()
                         group.append(comment)
                         uidList.append(comment)
                     }
@@ -400,9 +400,9 @@ class UIChatPresenter: UIChatUserInteraction {
     // MARK : Notification center function
     @objc private func newCommentNotif(_ notification: Notification) {
         if notification.userInfo != nil {
-            //            guard let property = userInfo["property"] as? QRoomProperty else {return}
+            //            guard let property = userInfo["property"] as? RoomModelProperty else {return}
             //            if property == .lastComment {
-            //                guard let room = userInfo["room"] as? QRoom else {return}
+            //                guard let room = userInfo["room"] as? RoomModel else {return}
             //                guard let comment = room.lastComment else {return}
             //
             //                if room.isInvalidated { return }
@@ -411,20 +411,20 @@ class UIChatPresenter: UIChatUserInteraction {
             //                    return
             //                }
             //
-            //                let CommentModel = CommentModel(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
+            //                let UICommentModel = UICommentModel(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
             //
             //                if let latestCommentSection = self.comments.first {
             //                    if let latestComment = latestCommentSection.first {
-            //                        if CommentModel.senderName != latestComment.senderName || CommentModel.date != latestComment.date {
-            //                            self.comments.insert([CommentModel], at: 0)
+            //                        if UICommentModel.senderName != latestComment.senderName || UICommentModel.date != latestComment.date {
+            //                            self.comments.insert([UICommentModel], at: 0)
             //                            self.view.onGotNewComment(newSection: true, isMyComment: false)
             //                        } else {
-            //                            self.comments[0].insert(CommentModel, at: 0)
+            //                            self.comments[0].insert(UICommentModel, at: 0)
             //                            self.view.onGotNewComment(newSection: false, isMyComment: false)
             //                        }
             //                    }
             //                } else {
-            //                    self.comments.insert([CommentModel], at: 0)
+            //                    self.comments.insert([UICommentModel], at: 0)
             //                    self.view.onGotNewComment(newSection: true, isMyComment: false)
             //                }
             //
@@ -434,9 +434,9 @@ class UIChatPresenter: UIChatUserInteraction {
 }
 
 //extension QChatPresenter: QChatServiceDelegate {
-//    func chatService(didFinishLoadRoom room:QRoom, withMessage message:String?) {
+//    func chatService(didFinishLoadRoom room:RoomModel, withMessage message:String?) {
 //        self.room = room
-//        self.comments = self.generateComments(CommentModels: room.comments)
+//        self.comments = self.generateComments(UICommentModels: room.comments)
 //        self.view.onLoadMessageFinished()
 //
 //        self.view.onLoadRoomFinished(roomName: room.name, roomAvatar: room.avatar)

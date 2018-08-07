@@ -10,7 +10,7 @@ import Foundation
 import QiscusCore
 
 protocol UIChatListView : BaseView {
-    func didFinishLoadChat(rooms : [QRoom])
+    func didFinishLoadChat(rooms : [RoomModel])
 }
 
 class UIChatListPresenter {

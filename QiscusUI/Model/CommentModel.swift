@@ -1,5 +1,5 @@
 //
-//  CommentModel.swift
+//  UICommentModel.swift
 //  Qiscus
 //
 //  Created by Rahardyan Bisma on 07/05/18.
@@ -8,8 +8,8 @@
 import Foundation
 import QiscusCore
 
-class CommentModel : QComment {
-    var onChange : (CommentModel) -> Void = { _ in}
+class UICommentModel : CommentModel {
+    var onChange : (UICommentModel) -> Void = { _ in}
     var displayImage : UIImage? = nil
     var fileType : FileType {
         get {
@@ -38,8 +38,8 @@ class CommentModel : QComment {
         }
     }
     
-    class func generate(_ i:QComment) -> CommentModel {
-        let new = CommentModel()
+    class func generate(_ i:CommentModel) -> UICommentModel {
+        let new = UICommentModel()
         new.id              = i.id
         new.message         = i.message
         new.commentBeforeId = i.commentBeforeId
