@@ -107,7 +107,10 @@ class UIChatPresenter: UIChatUserInteraction {
         message.id = ""
         message.type = .location
         message.status = "sending"
-        message.email = NetworkManager.userEmail
+        
+        if let user = QiscusCore.getUserLogin() {
+            message.email = user.email
+        }
         
         // add new comment to ui
         if self.comments.count > 0 {
@@ -145,7 +148,9 @@ class UIChatPresenter: UIChatUserInteraction {
         message.id = ""
         message.type = .contactPerson
         message.status = "sending"
-        message.email = NetworkManager.userEmail
+        if let user = QiscusCore.getUserLogin() {
+            message.email = user.email
+        }
         
         // add new comment to ui
         if self.comments.count > 0 {
@@ -183,7 +188,9 @@ class UIChatPresenter: UIChatUserInteraction {
         message.id = ""
         message.type = .fileAttachment
         message.status = "sending"
-        message.email = NetworkManager.userEmail
+        if let user = QiscusCore.getUserLogin() {
+            message.email = user.email
+        }
         
         // add new comment to ui
         if self.comments.count > 0 {
@@ -222,7 +229,9 @@ class UIChatPresenter: UIChatUserInteraction {
         message.message = text
         message.type = .text
         message.status = "sending"
-        message.email = NetworkManager.userEmail
+        if let user = QiscusCore.getUserLogin() {
+            message.email = user.email
+        }
         // add new comment to ui
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {

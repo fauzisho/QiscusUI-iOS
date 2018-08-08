@@ -21,17 +21,21 @@ class LoginViewController: UIViewController {
         QiscusCore.enableDebugPrint = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if QiscusCore.isLogined() {
+            self.navigationController?.pushViewController(ListChatViewController(), animated: true)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func clickLogin(_ sender: Any) {
-        let list = ListChatViewController()
-        
         QiscusCore.connect(userID: "amsibsan", userKey: "12345678") { (result, error) in
             if result != nil {
-                self.navigationController?.pushViewController(list, animated: true)
+                self.navigationController?.pushViewController(ListChatViewController(), animated: true)
             }else {
                 print("error \(String(describing: error))")
             }
