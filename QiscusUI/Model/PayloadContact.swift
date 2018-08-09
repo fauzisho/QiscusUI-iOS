@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QiscusCore
 
 /**
  {
@@ -31,7 +32,7 @@ public class PayloadContact : Payload {
         name = try values.decodeIfPresent(String.self, forKey: .name)
         value = try values.decodeIfPresent(String.self, forKey: .value)
         type = try values.decodeIfPresent(String.self, forKey: .type)
-        super.init()
+        try super.init(from: decoder)
     }
     
 }

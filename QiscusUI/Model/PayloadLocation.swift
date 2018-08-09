@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QiscusCore
 
 /**
  {
@@ -48,7 +49,7 @@ public class PayloadLocation : Payload {
         map_url = try values.decodeIfPresent(String.self, forKey: .map_url)
         encrypted_latitude = try values.decodeIfPresent(String.self, forKey: .encrypted_latitude)
         encrypted_longitude = try values.decodeIfPresent(String.self, forKey: .encrypted_longitude)
-        super.init()
+        try super.init(from: decoder)
     }
     
 }

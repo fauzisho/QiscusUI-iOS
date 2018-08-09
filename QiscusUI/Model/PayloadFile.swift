@@ -6,7 +6,7 @@
 //  Credits :
 
 import Foundation
-
+import QiscusCore
 /**
  File Attachment payload:
  {
@@ -35,6 +35,6 @@ public class PayloadFile : Payload {
         caption = try values.decode(String.self, forKey: .caption)
         url     = try values.decode(URL.self, forKey: .url)
         fileName = try values.decode(String.self, forKey: .fileName)
-        super.init()
+        try super.init(from: decoder)
     }
 }

@@ -49,23 +49,23 @@ class UICommentModel : CommentModel {
         }
     }
     
-    var commentPayload : Payload {
-        get {
-//            switch commentType {
-//            case .fileAttachment:
-//                commentPayload = try values.decodeIfPresent(PayloadFile.self, forKey: .payload)
-//            case .location:
-//                payload = try values.decodeIfPresent(PayloadLocation.self, forKey: .payload)
-//            case .contactPerson:
-//                payload = try values.decodeIfPresent(PayloadContact.self, forKey: .payload)
-//            default:
-//                break
-//            }
-        }
-        set {
-            self.commentPayload = newValue
-        }
-    }
+//    var commentPayload : Payload {
+//        get {
+////            switch commentType {
+////            case .fileAttachment:
+////                commentPayload = try values.decodeIfPresent(PayloadFile.self, forKey: .payload)
+////            case .location:
+////                payload = try values.decodeIfPresent(PayloadLocation.self, forKey: .payload)
+////            case .contactPerson:
+////                payload = try values.decodeIfPresent(PayloadContact.self, forKey: .payload)
+////            default:
+////                break
+////            }
+//        }
+//        set {
+//            self.commentPayload = newValue
+//        }
+//    }
     
     var isMyComment: Bool {
         get {
