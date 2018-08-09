@@ -346,7 +346,7 @@ extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let comments = self.presenter.comments
         let comment = comments[indexPath.section][indexPath.row]
-        let commentType = comment.commentType
+        let commentType = comment.type
         
         tempSection = indexPath.section
         var cell = BaseChatCell()

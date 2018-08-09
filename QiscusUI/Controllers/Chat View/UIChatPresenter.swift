@@ -105,9 +105,8 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = UICommentModel()
         message.id = ""
-        message.commentType = .location
+        message.type = .location
         message.status = "sending"
-        
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
         }
@@ -146,12 +145,11 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = UICommentModel()
         message.id = ""
-        message.commentType = .contactPerson
+        message.type = .contactPerson
         message.status = "sending"
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
         }
-        
         // add new comment to ui
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
@@ -186,12 +184,11 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = UICommentModel()
         message.id = ""
-        message.commentType = .fileAttachment
+        message.type = .fileAttachment
         message.status = "sending"
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
         }
-        
         // add new comment to ui
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
@@ -227,7 +224,7 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = UICommentModel()
         message.id = ""
         message.message = text
-        message.commentType = .text
+        message.type = .text
         message.status = "sending"
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
@@ -272,7 +269,7 @@ class UIChatPresenter: UIChatUserInteraction {
             let message = UICommentModel()
             message.id = ""
             message.message = "rasakan ini balasanmu"
-//            message.type = commentType
+            message.type = commentType
             message.email = "asik"
             message.username = "horee"
             message.userAvatarUrl = URL(string: "https://image.tmdb.org/t/p/w185/tGGJOuLHX7UDlTz57sjfhW1qreP.jpg")
