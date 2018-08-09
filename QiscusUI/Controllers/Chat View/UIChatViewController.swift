@@ -135,8 +135,8 @@ open class UIChatViewController: UIViewController {
         //        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(QiscusChatVC.goToTitleAction))
         //        self.titleView.addGestureRecognizer(tapRecognizer)
         
-        let containerWidth = QiscusHelper.screenWidth() - 49
-        let titleWidth = QiscusHelper.screenWidth() - CGFloat(49 * totalButton) - 40
+        let containerWidth = QiscusUIHelper.screenWidth() - 49
+        let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
         
         self.titleLabel.frame = CGRect(x: 40, y: 7, width: titleWidth, height: 17)
         self.titleLabel.textColor = UINavigationBar.appearance().tintColor
@@ -408,7 +408,7 @@ extension UIChatViewController: UITableViewDataSource {
 //    }
     // MARK: chat avatar setup
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusHelper.screenWidth(), height: 0))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusUIHelper.screenWidth(), height: 0))
         view.backgroundColor = .clear
         view.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
         

@@ -1,5 +1,5 @@
 //
-//  QiscusHelper.swift
+//  QiscusUIHelper.swift
 //  QiscusSDK
 //
 //  Created by Ahmad Athaullah on 7/22/16.
@@ -22,7 +22,7 @@ open class QCommentIndexPath{
     open var row = 0
     open var section = 0
 }
-open class QiscusHelper: NSObject {
+open class QiscusUIHelper: NSObject {
     class func screenWidth()->CGFloat{
         return UIScreen.main.bounds.size.width
     }
