@@ -16,16 +16,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Login"
         // Do any additional setup after loading the view.
-        
-        QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
-        QiscusCore.enableDebugPrint = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if QiscusCore.isLogined() {
-            self.navigationController?.pushViewController(ListChatViewController(), animated: true)
-        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QiscusCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let loginVC = LoginViewController()
+        QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
+//        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
+        QiscusCore.enableDebugPrint = true
+        
+        let target : UIViewController
+        if QiscusCore.isLogined {
+            target = ListChatViewController()
+        }else {
+            target = LoginViewController()
+        }
         let navbar = UINavigationController()
-        navbar.viewControllers = [loginVC]
+        navbar.viewControllers = [target]
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
         self.window?.rootViewController = navbar
         self.window?.makeKeyAndVisible()

@@ -105,7 +105,7 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = UICommentModel()
         message.id = ""
-        message.type = .location
+        message.commentType = .location
         message.status = "sending"
         
         if let user = QiscusCore.getUserLogin() {
@@ -146,7 +146,7 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = UICommentModel()
         message.id = ""
-        message.type = .contactPerson
+        message.commentType = .contactPerson
         message.status = "sending"
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
@@ -186,7 +186,7 @@ class UIChatPresenter: UIChatUserInteraction {
         // create object comment
         let message = UICommentModel()
         message.id = ""
-        message.type = .fileAttachment
+        message.commentType = .fileAttachment
         message.status = "sending"
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
@@ -227,7 +227,7 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = UICommentModel()
         message.id = ""
         message.message = text
-        message.type = .text
+        message.commentType = .text
         message.status = "sending"
         if let user = QiscusCore.getUserLogin() {
             message.email = user.email
@@ -272,7 +272,7 @@ class UIChatPresenter: UIChatUserInteraction {
             let message = UICommentModel()
             message.id = ""
             message.message = "rasakan ini balasanmu"
-            message.type = commentType
+//            message.type = commentType
             message.email = "asik"
             message.username = "horee"
             message.userAvatarUrl = URL(string: "https://image.tmdb.org/t/p/w185/tGGJOuLHX7UDlTz57sjfhW1qreP.jpg")
