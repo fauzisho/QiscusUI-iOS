@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        QiscusCore.enableDebugPrint = true
         QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
 //        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
-        QiscusCore.enableDebugPrint = true
         
         let target : UIViewController
         if QiscusCore.isLogined {

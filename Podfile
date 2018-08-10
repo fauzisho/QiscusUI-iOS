@@ -6,4 +6,5 @@ target 'Example' do
   use_frameworks!
     pod 'QiscusUI', :path => '.'
     pod 'QiscusCore', :path => '../QiscusCore'
+    pod 'QiscusRealtime', :path => '../QiscusRealtime'
 end
