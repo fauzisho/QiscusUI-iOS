@@ -8,6 +8,8 @@
 import UIKit
 import SimpleImageViewer
 import QiscusCore
+import Alamofire
+import AlamofireImage
 
 class QImageCell: BaseChatCell {
     @IBOutlet weak var lbName: UILabel!
@@ -72,7 +74,18 @@ class QImageCell: BaseChatCell {
             self.btnDownload.isHidden = false
             self.progressContainer.isHidden = false
         }
+        
+        self.autoDownloadImage(urlImage: data.url)
     }
+    
+    func autoDownloadImage(urlImage : URL){
+        self.btnDownload.isHidden = true
+        self.progressContainer.isHidden = true
+        DispatchQueue.main.async {
+            self.ivComment.af_setImage(withURL: urlImage)
+        }
+    }
+    
     override func bindDataToView() {
         self.tvContent.text = "asdsad"
         self.lbName.text = self.comment.username
