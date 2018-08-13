@@ -395,8 +395,13 @@ extension UIChatViewController: UITableViewDataSource {
 //            }
 //        }
         
-        return 1
+        return 0.01
     }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
 //    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 //        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
 //        label.textAlignment = NSTextAlignment.center
