@@ -78,8 +78,6 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 
 extension UIChatListViewController : UIChatListView {
     func didFinishLoadChat(rooms: [RoomModel]) {
-        //
-        print("load rooms :\(rooms.count)")
         self.rooms = rooms
         self.tableView.reloadData()
     }
