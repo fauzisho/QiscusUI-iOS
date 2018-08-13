@@ -51,15 +51,15 @@ class ListChatViewController: UIChatListViewController {
     private func chat(withRoom room: RoomModel) {
         let target = ChatViewController()
         // alternative load ui then set room data, but you need to handle loading
-        QiscusCore.shared.getRoom(withID: room.id) { (roomData, error) in
-            if let data = roomData {
-                target.room = data
-            }else {
-                // show error
-                print("error load room \(String(describing: error?.message))")
-            }
-        }
-        // target.room = room
+//        QiscusCore.shared.getRoom(withID: room.id) { (roomData, error) in
+//            if let data = roomData {
+//                target.room = data
+//            }else {
+//                // show error
+//                print("error load room \(String(describing: error?.message))")
+//            }
+//        }
+         target.room = room
         self.navigationController?.pushViewController(target, animated: true)
     }
 }
