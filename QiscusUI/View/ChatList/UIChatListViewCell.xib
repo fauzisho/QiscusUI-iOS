@@ -82,12 +82,21 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TuX-OW-oJJ">
+                        <rect key="frame" x="95" y="74" width="225" height="0.5"/>
+                        <color key="backgroundColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="0.70307707060000002" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="XCj-ok-zGg"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="73m-0b-2Yc" firstAttribute="leading" secondItem="3dO-lh-ltC" secondAttribute="trailing" constant="-5" id="5sb-i8-sSd"/>
                     <constraint firstItem="3dO-lh-ltC" firstAttribute="leading" secondItem="Jee-lw-rQq" secondAttribute="trailing" constant="12" id="5sy-0R-0OE"/>
                     <constraint firstItem="3dO-lh-ltC" firstAttribute="leading" secondItem="UC3-pb-PeH" secondAttribute="trailing" constant="14" id="ChH-rJ-gQv"/>
+                    <constraint firstAttribute="bottom" secondItem="TuX-OW-oJJ" secondAttribute="bottom" id="Czu-OI-qWN"/>
                     <constraint firstItem="Jee-lw-rQq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="D2T-BG-pNY"/>
+                    <constraint firstAttribute="trailing" secondItem="TuX-OW-oJJ" secondAttribute="trailing" id="G10-7X-6po"/>
                     <constraint firstItem="GcT-oK-RZz" firstAttribute="leading" secondItem="3dO-lh-ltC" secondAttribute="leading" id="HUQ-48-R7c"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Jee-lw-rQq" secondAttribute="bottom" constant="32" id="L6g-rB-p94"/>
                     <constraint firstAttribute="bottom" secondItem="aYr-1A-NvS" secondAttribute="bottom" constant="21" id="LSS-kF-n2n"/>
@@ -103,6 +112,7 @@
                     <constraint firstItem="aYr-1A-NvS" firstAttribute="top" secondItem="73m-0b-2Yc" secondAttribute="bottom" constant="4" id="qPF-An-hCE"/>
                     <constraint firstItem="UC3-pb-PeH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xZ2-8h-lgP"/>
                     <constraint firstAttribute="bottom" secondItem="UC3-pb-PeH" secondAttribute="bottom" constant="6.5" id="xmK-6g-U91"/>
+                    <constraint firstItem="TuX-OW-oJJ" firstAttribute="leading" secondItem="GcT-oK-RZz" secondAttribute="leading" id="yQl-Lt-gyS"/>
                     <constraint firstItem="UC3-pb-PeH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="zr1-Pn-2aL"/>
                 </constraints>
             </tableViewCellContentView>

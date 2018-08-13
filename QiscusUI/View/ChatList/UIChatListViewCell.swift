@@ -82,10 +82,18 @@ class UIChatListViewCell: UITableViewCell {
         if let data = data {
             self.labelName.text = data.name
             self.labelDate.text = lastMessageCreateAt
-            if(data.chatType != "single"){
-                self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \((data.lastComment?.message)!)"
+            
+            var message = ""
+            if data.lastComment?.type == CommentType.fileAttachment{
+                message = "File Attachment"
             }else{
-                 self.labelLastMessage.text  = data.lastComment?.message
+                message = (data.lastComment?.message)!
+            }
+            
+            if(data.chatType != "single"){
+                self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
+            }else{
+                 self.labelLastMessage.text  = message
             }
            
             self.imageViewRoom.af_setImage(withURL: URL.init(string: data.avatarUrl)!)
