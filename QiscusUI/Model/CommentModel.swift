@@ -34,7 +34,7 @@ class UICommentModel : CommentModel {
     var isMyComment: Bool {
         get {
             // change this later when user savevd on presisstance storage
-            if let user = QiscusCore.getUserLogin() {
+            if let user = QiscusCore.getProfile() {
                 return email == user.email
             }else {
                 return false
