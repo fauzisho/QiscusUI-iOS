@@ -30,6 +30,7 @@ open class UIChatViewController: UIViewController {
     public var room : RoomModel? {
         set(newValue) {
             self.presenter.room = newValue
+            self.refreshUI()
         }
         get {
             return self.presenter.room
@@ -53,7 +54,7 @@ open class UIChatViewController: UIViewController {
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.presenter.loadRoom(withId: self.roomId)
+//        self.presenter.loadRoom(withId: self.roomId)
         let center: NotificationCenter = NotificationCenter.default
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
@@ -68,7 +69,15 @@ open class UIChatViewController: UIViewController {
         view.endEditing(true)
     }
     
-    //    MARK: View Event Listener
+    // Provide new flow, load chat ui then set room. old Qiscus SDK
+    func refreshUI() {
+        if self.isViewLoaded {
+            self.presenter.attachView(view: self)
+            self.setupUI()
+        }
+    }
+    
+    // MARK: View Event Listener
     @IBAction func send(_ sender: UIButton) {
         guard let text = self.tfInput.text else {return}
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
