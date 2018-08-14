@@ -11,11 +11,13 @@ import QiscusCore
 
 protocol UIChatListView : BaseView {
     func didFinishLoadChat(rooms : [RoomModel])
+    
 }
 
 class UIChatListPresenter {
     
     private var viewPresenter : UIChatListView?
+    var rooms : [RoomModel]? = nil
     
     init() {
         
@@ -33,6 +35,7 @@ class UIChatListPresenter {
         QiscusCore.shared.getAllRoom { (rooms, error) in
             if let results = rooms {
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
+                self.rooms = results
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }

@@ -93,6 +93,4 @@ extension UIChatListViewController : UIChatListView {
     func setEmptyData(message: String) {
         //
     }
-    
-    
 }
