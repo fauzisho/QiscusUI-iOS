@@ -20,7 +20,7 @@ class UIChatListPresenter {
     var rooms : [RoomModel]? = nil
     
     init() {
-        
+        QiscusCore.delegate = self
     }
     
     func attachView(view : UIChatListView){
@@ -40,5 +40,36 @@ class UIChatListPresenter {
                 self.viewPresenter?.setEmptyData(message: "")
             }
         }
+    }
+}
+
+extension UIChatListPresenter : QiscusCoreDelegate {
+    func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
+        //
+        print("got new comment: \(comment.message)")
+    }
+    
+    func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
+        //
+    }
+    
+    func onRoom(_ room: RoomModel, thisParticipant user: ParticipantModel, isTyping typing: Bool) {
+        //
+    }
+    
+    func onChangeUser(_ user: UserModel, onlineStatus status: Bool, whenTime time: Date) {
+        //
+    }
+    
+    func gotNew(room: RoomModel) {
+        //
+    }
+    
+    func onroom(change: RoomModel) {
+        //
+    }
+    
+    func remove(room: RoomModel) {
+        //
     }
 }
