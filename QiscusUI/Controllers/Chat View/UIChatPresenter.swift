@@ -29,17 +29,7 @@ protocol UIChatViewDelegate {
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
     var comments: [[UICommentModel]] = []
-    var room: RoomModel? {
-        get {
-            return self.room
-        }
-        set {
-            room = newValue
-            if room != nil {
-                room?.delegate = self
-            }
-        }
-    }
+    var room: RoomModel? 
     var loadMoreAvailable: Bool = true
     
     init() {
@@ -49,6 +39,7 @@ class UIChatPresenter: UIChatUserInteraction {
     func attachView(view : UIChatViewDelegate){
         viewPresenter = view
         if let room = self.room {
+            self.room?.delegate = self
             self.loadComments(withID: room.id)
             viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: URL.init(string: room.avatarUrl))
         }
