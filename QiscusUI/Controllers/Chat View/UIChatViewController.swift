@@ -266,7 +266,6 @@ extension UIChatViewController: UIChatViewDelegate {
             self.tableViewConversation.insertRows(at: [indexPath], with: .left)
             self.tableViewConversation.endUpdates()
         }
-        self.presenter.mockGotNewComment()
     }
     
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
