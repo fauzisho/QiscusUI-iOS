@@ -29,7 +29,17 @@ protocol UIChatViewDelegate {
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
     var comments: [[UICommentModel]] = []
-    var room: RoomModel?
+    var room: RoomModel? {
+        get {
+            return self.room
+        }
+        set {
+            room = newValue
+            if room != nil {
+                room?.delegate = self
+            }
+        }
+    }
     var loadMoreAvailable: Bool = true
     
     init() {
@@ -439,18 +449,23 @@ class UIChatPresenter: UIChatUserInteraction {
     }
 }
 
-//extension QChatPresenter: QChatServiceDelegate {
-//    func chatService(didFinishLoadRoom room:RoomModel, withMessage message:String?) {
-//        self.room = room
-//        self.comments = self.generateComments(UICommentModels: room.comments)
-//        self.view.onLoadMessageFinished()
-//
-//        self.view.onLoadRoomFinished(roomName: room.name, roomAvatar: room.avatar)
-//        self.loadRoomAvatar(room: room)
-//    }
-//
-//    func chatService(didFailLoadRoom error:String) {
-//
-//    }
-//}
 
+extension UIChatPresenter : QiscusCoreRoomDelegate {
+    func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
+        let message = UICommentModel.generate(comment)
+        self.comments.insert([message], at: 0)
+        self.viewPresenter?.onGotNewComment(newSection: true, isMyComment: false)
+    }
+    
+    func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
+        //
+    }
+    
+    func onRoom(_ room: RoomModel, thisParticipant user: ParticipantModel, isTyping typing: Bool) {
+        //
+    }
+    
+    func onChangeUser(_ user: UserModel, onlineStatus status: Bool, whenTime time: Date) {
+        //
+    }
+}
