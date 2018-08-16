@@ -13,7 +13,11 @@ open class UIChatListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
-    public var rooms : [RoomModel] = [RoomModel]()
+    public var rooms : [RoomModel] {
+        get {
+            return presenter.rooms
+        }
+    }
     public init() {
         super.init(nibName: "UIChatListViewController", bundle: QiscusUI.bundle)
     }
@@ -29,7 +33,7 @@ open class UIChatListViewController: UIViewController {
         
         self.tableView.register(UIChatListViewCell.nib, forCellReuseIdentifier: UIChatListViewCell.identifier)
         
-        self.presenter.attachView(view: self)
+        
         self.presenter.loadChat()
         // Do any additional setup after loading the view.
     }
@@ -41,6 +45,8 @@ open class UIChatListViewController: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.presenter.attachView(view: self)
+        self.tableView.reloadData()
         self.presenter.loadChat()
     }
     
@@ -77,8 +83,13 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 }
 
 extension UIChatListViewController : UIChatListView {
+    func updateRooms(data: RoomModel) {
+        // improve only reload for new cell with room data
+        self.tableView.reloadData()
+    }
+    
     func didFinishLoadChat(rooms: [RoomModel]) {
-        self.rooms = rooms
+        // 1st time load data
         self.tableView.reloadData()
     }
     

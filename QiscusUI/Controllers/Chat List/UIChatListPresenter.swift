@@ -11,13 +11,17 @@ import QiscusCore
 
 protocol UIChatListView : BaseView {
     func didFinishLoadChat(rooms : [RoomModel])
-    
+    func updateRooms(data: RoomModel)
 }
 
 class UIChatListPresenter {
     
     private var viewPresenter : UIChatListView?
-    var rooms : [RoomModel]? = nil
+    var rooms : [RoomModel] {
+        get {
+            return QiscusCore.storage.getRooms()
+        }
+    }
     
     init() {
         QiscusCore.delegate = self
@@ -32,10 +36,10 @@ class UIChatListPresenter {
     }
     
     func loadChat() {
-        QiscusCore.shared.getAllRoom { (rooms, error) in
+        QiscusCore.shared.getAllRoom(limit: 20, page: 1) { (rooms, error) in
             if let results = rooms {
+                // load from qiscus core local storage
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
-                self.rooms = results
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }
@@ -45,8 +49,9 @@ class UIChatListPresenter {
 
 extension UIChatListPresenter : QiscusCoreDelegate {
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
-        //
+        // show in app notification
         print("got new comment: \(comment.message)")
+        self.viewPresenter?.updateRooms(data: room)
     }
     
     func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
@@ -62,13 +67,10 @@ extension UIChatListPresenter : QiscusCoreDelegate {
     }
     
     func gotNew(room: RoomModel) {
-        //
+        // add not if exist
+        
     }
-    
-    func onroom(change: RoomModel) {
-        //
-    }
-    
+
     func remove(room: RoomModel) {
         //
     }

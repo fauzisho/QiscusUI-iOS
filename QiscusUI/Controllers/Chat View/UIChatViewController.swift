@@ -69,6 +69,11 @@ open class UIChatViewController: UIViewController {
         view.endEditing(true)
     }
     
+    override open func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.presenter.detachView()
+    }
+    
     // Provide new flow, load chat ui then set room. old Qiscus SDK
     func refreshUI() {
         if self.isViewLoaded {

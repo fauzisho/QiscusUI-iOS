@@ -39,7 +39,7 @@ class UIChatPresenter: UIChatUserInteraction {
     func attachView(view : UIChatViewDelegate){
         viewPresenter = view
         if let room = self.room {
-            self.room?.delegate = self
+            room.delegate = self
             self.loadComments(withID: room.id)
             viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: URL.init(string: room.avatarUrl))
         }
@@ -47,6 +47,9 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func detachView() {
         viewPresenter = nil
+        if let room = self.room {
+            room.delegate = nil
+        }
     }
     
     func getComments() -> [[UICommentModel]] {
