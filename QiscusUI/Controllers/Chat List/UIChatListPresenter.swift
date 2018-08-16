@@ -36,7 +36,7 @@ class UIChatListPresenter {
     }
     
     func loadChat() {
-        QiscusCore.shared.getAllRoom(limit: 20, page: 1) { (rooms, error) in
+        QiscusCore.shared.getAllRoom(limit: 100, page: 1) { (rooms, error) in
             if let results = rooms {
                 // load from qiscus core local storage
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
