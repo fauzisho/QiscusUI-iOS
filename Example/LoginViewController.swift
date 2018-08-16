@@ -27,7 +27,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func clickLogin(_ sender: Any) {
-        QiscusCore.connect(userID: "hijuju", userKey: "12345678") { (result, error) in
+        QiscusCore.connect(userID: "amsibsan", userKey: "12345678") { (result, error) in
             if result != nil {
                 self.navigationController?.pushViewController(ListChatViewController(), animated: true)
             }else {
