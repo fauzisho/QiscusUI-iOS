@@ -52,6 +52,8 @@ extension UIChatListPresenter : QiscusCoreDelegate {
         // show in app notification
         print("got new comment: \(comment.message)")
         self.viewPresenter?.updateRooms(data: room)
+        // MARK: TODO receive new comment, need trotle
+        QiscusCore.shared.updateCommentReceive(roomId: room.id, lastCommentReceivedId: comment.id)
     }
     
     func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {

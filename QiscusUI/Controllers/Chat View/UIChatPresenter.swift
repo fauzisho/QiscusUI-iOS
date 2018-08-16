@@ -449,6 +449,8 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
         let message = UICommentModel.generate(comment)
         self.comments.insert([message], at: 0)
         self.viewPresenter?.onGotNewComment(newSection: true, isMyComment: false)
+        // MARK: TODO unread new comment, need trotle
+        QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
     }
     
     func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
