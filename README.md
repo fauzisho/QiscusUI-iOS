@@ -32,10 +32,11 @@ The table bellow details the most important classess in QiscusUI.
 | **UIChatViewController**                          | A controller that a scrollable, auto-pagination view of the messagess. |
 
 
+
 | TableViewCell                                       | Description                                                                                                                                                                            |
 |-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **UIBaseChatCell**                   |                                       |
-| **UIChatListViewCell. |						|
+| **UIChatListViewCell** |						|
 
 
 ## Installation
