@@ -32,6 +32,8 @@ The table bellow details the most important classess in QiscusUI.
 | **UIChatViewController**                          | A controller that a scrollable, auto-pagination view of the messagess. |
 
 
+Custumize you chat buble or create you specific chat buble for custom comment/message type.
+
 
 | TableViewCell                                       | Description                                                                                                                                                                            |
 |-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
