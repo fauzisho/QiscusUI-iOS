@@ -48,6 +48,10 @@ class UIChatListPresenter {
 }
 
 extension UIChatListPresenter : QiscusCoreDelegate {
+    func onChange(user: UserModel, isOnline online: Bool, at time: Date) {
+        //
+    }
+    
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
         // show in app notification
         print("got new comment: \(comment.message)")
@@ -61,10 +65,6 @@ extension UIChatListPresenter : QiscusCoreDelegate {
     }
     
     func onRoom(_ room: RoomModel, thisParticipant user: ParticipantModel, isTyping typing: Bool) {
-        //
-    }
-    
-    func onChangeUser(_ user: UserModel, onlineStatus status: Bool, whenTime time: Date) {
         //
     }
     
