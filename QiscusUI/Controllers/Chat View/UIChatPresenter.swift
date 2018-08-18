@@ -24,6 +24,7 @@ protocol UIChatViewDelegate {
     func onSendingComment(comment: UICommentModel, newSection: Bool)
     func onSendMessageFinished(comment: UICommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
+    func onUser(name: String, typing: Bool)
 }
 
 class UIChatPresenter: UIChatUserInteraction {
@@ -102,6 +103,12 @@ class UIChatPresenter: UIChatUserInteraction {
                     }
                 })
             }
+        }
+    }
+    
+    func isTyping(_ value: Bool) {
+        if let r = self.room {
+            QiscusCore.shared.isTyping(value, roomID: r.id)
         }
     }
     
@@ -445,6 +452,10 @@ class UIChatPresenter: UIChatUserInteraction {
 
 
 extension UIChatPresenter : QiscusCoreRoomDelegate {
+    func onRoom(thisParticipant user: ParticipantModel, isTyping typing: Bool) {
+        self.viewPresenter?.onUser(name: user.username, typing: typing)
+    }
+    
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
         let message = UICommentModel.generate(comment)
         self.comments.insert([message], at: 0)
@@ -454,10 +465,6 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
     }
     
     func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
-        //
-    }
-    
-    func onRoom(_ room: RoomModel, thisParticipant user: ParticipantModel, isTyping typing: Bool) {
         //
     }
     

@@ -132,6 +132,8 @@ open class UIChatViewController: UIViewController {
         self.setupNavigationTitle()
         self.qiscusAutoHideKeyboard()
         self.setupTableView()
+        // setup input
+        self.tfInput.delegate = self
     }
     
     private func setupNavigationTitle(){
@@ -260,6 +262,10 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
+    func onUser(name: String, typing: Bool) {
+        self.subtitleLabel.text = "\(name) is Typing"
+    }
+    
     func onSendingComment(comment: UICommentModel, newSection: Bool) {
         if newSection {
             self.tableViewConversation.beginUpdates()
@@ -452,6 +458,16 @@ extension UIChatViewController: UITableViewDataSource {
             }
         }
         return view
+    }
+}
+
+extension UIChatViewController : UITextFieldDelegate {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.presenter.isTyping(true)
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        self.presenter.isTyping(false)
     }
 }
 
