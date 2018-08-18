@@ -29,6 +29,7 @@ class UIChatListPresenter {
     
     func attachView(view : UIChatListView){
         viewPresenter = view
+        QiscusCore.shared.isOnline(true)
     }
     
     func detachView() {
@@ -64,7 +65,7 @@ extension UIChatListPresenter : QiscusCoreDelegate {
         //
     }
     
-    func onRoom(_ room: RoomModel, thisParticipant user: ParticipantModel, isTyping typing: Bool) {
+    func onRoom(_ room: RoomModel, thisParticipant user: MemberModel, isTyping typing: Bool) {
         //
     }
     

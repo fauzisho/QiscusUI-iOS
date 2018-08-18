@@ -452,7 +452,7 @@ class UIChatPresenter: UIChatUserInteraction {
 
 
 extension UIChatPresenter : QiscusCoreRoomDelegate {
-    func onRoom(thisParticipant user: ParticipantModel, isTyping typing: Bool) {
+    func onRoom(thisParticipant user: MemberModel, isTyping typing: Bool) {
         self.viewPresenter?.onUser(name: user.username, typing: typing)
     }
     
