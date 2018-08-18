@@ -158,7 +158,8 @@ open class UIChatViewController: UIViewController {
         self.titleLabel.textColor = UINavigationBar.appearance().tintColor
         
         self.subtitleLabel.frame = CGRect(x: 40, y: 25, width: titleWidth, height: 13)
-        self.subtitleLabel.textColor = UINavigationBar.appearance().tintColor
+//        self.subtitleLabel.font.withSize(9.0)
+        self.subtitleLabel.textColor = UIColor.gray
         
         self.roomAvatar.frame = CGRect(x: 0,y: 6,width: 32,height: 32)
         self.roomAvatar.layer.cornerRadius = 16
@@ -259,11 +260,39 @@ open class UIChatViewController: UIViewController {
             //            }
         }, completion: nil)
     }
+    
+    func getParticipant() -> String {
+        var result = ""
+        for m in self.presenter.participants {
+            if result.isEmpty {
+                result = m.username
+            }else {
+                result = result + ", \(m.username)"
+            }
+        }
+        return result
+    }
 }
 
 extension UIChatViewController: UIChatViewDelegate {
     func onUser(name: String, typing: Bool) {
-        self.subtitleLabel.text = "\(name) is Typing"
+        if typing {
+            if let room = self.presenter.room {
+                if room.chatType == "group" {
+                    self.subtitleLabel.text = "\(name) is Typing..."
+                }else {
+                    self.subtitleLabel.text = "is Typing..."
+                }
+            }
+        }else {
+            if let room = self.presenter.room {
+                if room.chatType == "group" {
+                    self.subtitleLabel.text = getParticipant()
+                }else {
+                    self.subtitleLabel.text = "Online" // or last seen at
+                }
+            }
+        }
     }
     
     func onSendingComment(comment: UICommentModel, newSection: Bool) {

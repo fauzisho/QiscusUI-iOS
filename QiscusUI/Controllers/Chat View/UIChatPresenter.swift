@@ -32,6 +32,7 @@ class UIChatPresenter: UIChatUserInteraction {
     var comments: [[UICommentModel]] = []
     var room: RoomModel? 
     var loadMoreAvailable: Bool = true
+    var participants : [MemberModel] = [MemberModel]()
     
     init() {
         self.comments = [[UICommentModel]]()
@@ -43,6 +44,9 @@ class UIChatPresenter: UIChatUserInteraction {
             room.delegate = self
             self.loadComments(withID: room.id)
             viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: URL.init(string: room.avatarUrl))
+            if let p = room.participants {
+                self.participants = p
+            }
         }
     }
     
