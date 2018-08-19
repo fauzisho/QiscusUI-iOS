@@ -17,11 +17,7 @@ protocol UIChatListView : BaseView {
 class UIChatListPresenter {
     
     private var viewPresenter : UIChatListView?
-    var rooms : [RoomModel] {
-        get {
-            return QiscusCore.storage.getRooms()
-        }
-    }
+    var rooms : [RoomModel] = [RoomModel]()
     
     init() {
         QiscusCore.delegate = self
@@ -39,7 +35,7 @@ class UIChatListPresenter {
     func loadChat() {
         QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, error) in
             if let results = rooms {
-                // load from qiscus core local storage
+                self.rooms = results
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
