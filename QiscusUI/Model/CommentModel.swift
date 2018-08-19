@@ -52,6 +52,7 @@ class UICommentModel : CommentModel {
         new.userAvatarUrl   = i.userAvatarUrl
         new.type            = i.type
         new.payload         = i.payload
+        new.uniqueTempId    = i.uniqueTempId
         // ...
         return new
     }

@@ -120,7 +120,6 @@ class UIChatPresenter: UIChatUserInteraction {
     func sendLocation() {
         // create object comment
         let message = UICommentModel()
-        message.id = ""
         message.type = .location
         message.status = "sending"
         if let user = QiscusCore.getProfile() {
@@ -160,7 +159,6 @@ class UIChatPresenter: UIChatUserInteraction {
     func sendContact() {
         // create object comment
         let message = UICommentModel()
-        message.id = ""
         message.type = .contactPerson
         message.status = "sending"
         if let user = QiscusCore.getProfile() {
@@ -199,7 +197,6 @@ class UIChatPresenter: UIChatUserInteraction {
     func sendImage() {
         // create object comment
         let message = UICommentModel()
-        message.id = ""
         message.type = .fileAttachment
         message.status = "sending"
         if let user = QiscusCore.getProfile() {
@@ -238,7 +235,6 @@ class UIChatPresenter: UIChatUserInteraction {
     func sendMessage(withText text: String) {
         // create object comment
         let message = UICommentModel()
-        message.id = ""
         message.message = text
         message.type = .text
         message.status = "sending"
@@ -299,21 +295,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     // MARK: private function
     private func getReplyData(stringJSON: String) {
-        //        let replyData = JSON(parseJSON: self.comment!.data)
-        //        var text = replyData["replied_comment_message"].stringValue
-        //        var replyType = self.comment!.replyType(message: text)
-        //        if replyType == .text  {
-        //            switch replyData["replied_comment_type"].stringValue {
-        //            case "location":
-        //                replyType = .location
-        //                break
-        //            case "contact_person":
-        //                replyType = .contact
-        //                break
-        //            default:
-        //                break
-        //            }
-        //        }
+
     }
     
     private func groupingComments(comments: [UICommentModel]) -> [[UICommentModel]]{
@@ -323,31 +305,6 @@ class UIChatPresenter: UIChatUserInteraction {
         var prevComment:UICommentModel?
         var group = [UICommentModel]()
         var count = 0
-        //        func checkPosition(ids:[String]) {
-        //            var n = 0
-        //            for id in ids {
-        //                var position = QCellPosition.middle
-        //                if ids.count > 1 {
-        //                    switch n {
-        //                    case 0 :
-        //                        position = .first
-        //                        break
-        //                    case ids.count - 1 :
-        //                        position = .last
-        //                        break
-        //                    default:
-        //                        position = .middle
-        //                        break
-        //                    }
-        //                }else{
-        //                    position = .single
-        //                }
-        //                n += 1
-        //                if let c = UICommentModel.threadSaveComment(withUniqueId: id){
-        //                    c.updateCellPos(cellPos: position)
-        //                }
-        //            }
-        //        }
         
         for comment in comments {
             if !uidList.contains(where: { (UICommentModel) -> Bool in
@@ -385,11 +342,8 @@ class UIChatPresenter: UIChatUserInteraction {
 
 
 extension UIChatPresenter : QiscusCoreRoomDelegate {
-    func onRoom(thisParticipant user: MemberModel, isTyping typing: Bool) {
-        self.viewPresenter?.onUser(name: user.username, typing: typing)
-    }
-    
-    func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
+    func gotNewComment(comment: CommentModel) {
+        guard let room = self.room else { return }
         let message = UICommentModel.generate(comment)
         self.comments.insert([message], at: 0)
         self.viewPresenter?.onGotNewComment(newSection: true, isMyComment: false)
@@ -397,8 +351,12 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
         QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
     }
     
-    func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
+    func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
         //
+    }
+    
+    func onRoom(thisParticipant user: MemberModel, isTyping typing: Bool) {
+        self.viewPresenter?.onUser(name: user.username, typing: typing)
     }
     
     func onChangeUser(_ user: MemberModel, onlineStatus status: Bool, whenTime time: Date) {
