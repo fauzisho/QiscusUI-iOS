@@ -275,6 +275,10 @@ open class UIChatViewController: UIViewController {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
+    func onUser(name: String, isOnline: Bool, message: String) {
+        self.subtitleLabel.text = message
+    }
+    
     func onUser(name: String, typing: Bool) {
         if typing {
             if let room = self.presenter.room {
@@ -289,7 +293,7 @@ extension UIChatViewController: UIChatViewDelegate {
                 if room.chatType == "group" {
                     self.subtitleLabel.text = getParticipant()
                 }else {
-                    self.subtitleLabel.text = "Online" // or last seen at
+                    self.subtitleLabel.text = "" // or last seen at
                 }
             }
         }

@@ -25,7 +25,7 @@ protocol UIChatViewDelegate {
     func onSendMessageFinished(comment: UICommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
     func onUser(name: String, typing: Bool)
-    func onUser(name: String, isOnline: Bool)
+    func onUser(name: String, isOnline: Bool, message: String)
 }
 
 class UIChatPresenter: UIChatUserInteraction {
@@ -245,6 +245,18 @@ class UIChatPresenter: UIChatUserInteraction {
         if let user = QiscusCore.getProfile() {
             message.email = user.email
         }
+        addNewCommentUI(message)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
+            if comment != nil {
+                message.status = "deliverd"
+            }else {
+                message.status = "failed"
+            }
+            message.onChange(message)
+        }
+    }
+    
+    private func addNewCommentUI(_ message: UICommentModel) {
         // add new comment to ui
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
@@ -264,38 +276,8 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments.insert([message], at: 0)
             self.viewPresenter?.onSendingComment(comment: message, newSection: true)
         }
-        
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
-            if comment != nil {
-                message.status = "deliverd"
-            }else {
-                message.status = "failed"
-            }
-            message.onChange(message)
-        }
     }
-    
-    
-    // MARK: TODO change this using got new comment from core
-    func mockGotNewComment() {
-        let commentTypes =  [CommentType.text, CommentType.fileAttachment, CommentType.contactPerson, CommentType.location]
-        let commentType: CommentType = commentTypes[Int(arc4random_uniform(UInt32(commentTypes.count)))]
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            let message = UICommentModel()
-            message.id = ""
-            message.message = "rasakan ini balasanmu"
-            message.type = commentType
-            message.email = "asik"
-            message.username = "horee"
-            message.userAvatarUrl = URL(string: "https://image.tmdb.org/t/p/w185/tGGJOuLHX7UDlTz57sjfhW1qreP.jpg")
-            
-            
-            self.comments.insert([message], at: 0)
-            self.viewPresenter?.onGotNewComment(newSection: true, isMyComment: false)
-        }
-    }
-    
+
     func getMessage(inRoom roomId: String) {
         
     }
@@ -333,27 +315,6 @@ class UIChatPresenter: UIChatUserInteraction {
         //            }
         //        }
     }
-    
-    private func loadRoomAvatar(room: RoomModel) {
-        //        room.loadAvatar(onSuccess: { (avatar) in
-        //            self.view.onLoadRoomFinished(roomName: room.name, roomAvatar: room.avatar)
-        //        }, onError: { (error) in
-        //            room.downloadRoomAvatar(onSuccess: { room in
-        //                self.loadRoomAvatar(room: room)
-        //            })
-        //        })
-    }
-    
-    //    private func generateComments(UICommentModels: [UICommentModel]) -> [[UICommentModel]] {
-    //        var UICommentModels = UICommentModels.map { (comment) -> UICommentModel in
-    //            let comment = UICommentModel(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
-    //
-    //            return comment
-    //        }
-    //        return self.groupingComments(comments: UICommentModels)
-    //    }
-    
-    
     
     private func groupingComments(comments: [UICommentModel]) -> [[UICommentModel]]{
         var retVal = [[UICommentModel]]()
@@ -419,40 +380,7 @@ class UIChatPresenter: UIChatUserInteraction {
         return retVal
     }
     
-    // MARK : Notification center function
-    @objc private func newCommentNotif(_ notification: Notification) {
-        if notification.userInfo != nil {
-            //            guard let property = userInfo["property"] as? RoomModelProperty else {return}
-            //            if property == .lastComment {
-            //                guard let room = userInfo["room"] as? RoomModel else {return}
-            //                guard let comment = room.lastComment else {return}
-            //
-            //                if room.isInvalidated { return }
-            //                if comment.senderEmail == Qiscus.client.email {
-            //                    self.chatService.room(withId: room.id)
-            //                    return
-            //                }
-            //
-            //                let UICommentModel = UICommentModel(uniqueId: comment.uniqueId, id: comment.id, roomId: comment.roomId, text: comment.text, time: comment.time, date: comment.date, senderEmail: comment.senderEmail, senderName: comment.senderName, senderAvatarURL: comment.senderAvatarURL, roomName: comment.roomName, textFontName: "", textFontSize: 0, displayImage: QCacheManager.shared.getImage(onCommentUniqueId: comment.uniqueId), additionalData: comment.data, durationLabel: comment.durationLabel, currentTimeSlider: comment.currentTimeSlider, seekTimeLabel: comment.seekTimeLabel, audioIsPlaying: comment.audioIsPlaying, isDownloading: comment.isDownloading, isUploading: comment.isUploading, progress: comment.progress, isRead: comment.isRead, extras: comment.extras, isMyComment: comment.senderEmail == Qiscus.client.email, commentType: comment.type, commentStatus: comment.status, file: comment.file)
-            //
-            //                if let latestCommentSection = self.comments.first {
-            //                    if let latestComment = latestCommentSection.first {
-            //                        if UICommentModel.senderName != latestComment.senderName || UICommentModel.date != latestComment.date {
-            //                            self.comments.insert([UICommentModel], at: 0)
-            //                            self.view.onGotNewComment(newSection: true, isMyComment: false)
-            //                        } else {
-            //                            self.comments[0].insert(UICommentModel, at: 0)
-            //                            self.view.onGotNewComment(newSection: false, isMyComment: false)
-            //                        }
-            //                    }
-            //                } else {
-            //                    self.comments.insert([UICommentModel], at: 0)
-            //                    self.view.onGotNewComment(newSection: true, isMyComment: false)
-            //                }
-            //
-            //            }
-        }
-    }
+    
 }
 
 
@@ -474,6 +402,18 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
     }
     
     func onChangeUser(_ user: MemberModel, onlineStatus status: Bool, whenTime time: Date) {
-        self.viewPresenter?.onUser(name: user.username, isOnline: status)
+        if let room = self.room {
+            if room.chatType != "group" {
+                var message = ""
+                //let lessMinute = time.timeIntervalSinceNow.second
+                //if lessMinute <= 59 {
+                    message = "online"
+               // }else {
+                    //if lessMinute
+                   // message = "Last seen .. ago"
+                //}
+                self.viewPresenter?.onUser(name: user.username, isOnline: status, message: message)
+            }
+        }
     }
 }
