@@ -25,6 +25,7 @@ protocol UIChatViewDelegate {
     func onSendMessageFinished(comment: UICommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
     func onUser(name: String, typing: Bool)
+    func onUser(name: String, isOnline: Bool)
 }
 
 class UIChatPresenter: UIChatUserInteraction {
@@ -472,7 +473,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
         //
     }
     
-    func onChangeUser(_ user: UserModel, onlineStatus status: Bool, whenTime time: Date) {
-        //
+    func onChangeUser(_ user: MemberModel, onlineStatus status: Bool, whenTime time: Date) {
+        self.viewPresenter?.onUser(name: user.username, isOnline: status)
     }
 }

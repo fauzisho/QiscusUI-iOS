@@ -49,7 +49,7 @@ class UIChatListPresenter {
 }
 
 extension UIChatListPresenter : QiscusCoreDelegate {
-    func onChange(user: UserModel, isOnline online: Bool, at time: Date) {
+    func onChange(user: MemberModel, isOnline online: Bool, at time: Date) {
         //
     }
     
