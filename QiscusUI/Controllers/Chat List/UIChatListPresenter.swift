@@ -35,8 +35,21 @@ class UIChatListPresenter {
     func loadChat() {
         QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, error) in
             if let results = rooms {
-                self.rooms = results
-                self.viewPresenter?.didFinishLoadChat(rooms: results)
+                if self.rooms.count != results.count {
+                    print("result is not equal") // got have new room
+                    self.rooms = results
+                    self.viewPresenter?.didFinishLoadChat(rooms: results)
+                }else {
+                    // compare ui data with core, anything changes
+                    for (index,room) in results.enumerated() {
+                        let current = self.rooms[index]
+                        if !(current === room) {
+                            // MARK: TODO Reload/flick effect
+                            // need reload ui
+                            self.viewPresenter?.didFinishLoadChat(rooms: results)
+                        }
+                    }
+                }
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }
@@ -67,7 +80,6 @@ extension UIChatListPresenter : QiscusCoreDelegate {
     
     func gotNew(room: RoomModel) {
         // add not if exist
-        
     }
 
     func remove(room: RoomModel) {
