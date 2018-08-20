@@ -28,7 +28,7 @@ class ListChatViewController: UIChatListViewController {
     }
     
     @objc func addChat() {
-        QiscusCore.shared.getRoom(withUser: "amsibsam") { (room, error) in
+        QiscusCore.shared.getRoom(withUser: "amsibsan") { (room, error) in
             guard let room = room else {return}
             self.chat(withRoom: room)
         }
