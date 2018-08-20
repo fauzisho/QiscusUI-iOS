@@ -33,8 +33,10 @@ class UIChatListPresenter {
     }
     
     func loadChat() {
-        QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, error) in
+        QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, meta, error) in
             if let results = rooms {
+                // MARK: TODO try to reduce reload table
+                /**
                 if self.rooms.count != results.count {
                     print("result is not equal") // got have new room
                     self.rooms = results
@@ -50,6 +52,9 @@ class UIChatListPresenter {
                         }
                     }
                 }
+                */
+                self.rooms = results
+                self.viewPresenter?.didFinishLoadChat(rooms: results)
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }
