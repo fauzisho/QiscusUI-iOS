@@ -17,7 +17,11 @@ protocol UIChatListView : BaseView {
 class UIChatListPresenter {
     
     private var viewPresenter : UIChatListView?
-    var rooms : [RoomModel] = [RoomModel]()
+    var rooms : [RoomModel] {
+        get {
+            return QiscusCore.storage.getRooms()
+        }
+    }
     
     init() {
         QiscusCore.delegate = self
@@ -35,25 +39,6 @@ class UIChatListPresenter {
     func loadChat() {
         QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, meta, error) in
             if let results = rooms {
-                // MARK: TODO try to reduce reload table
-                /**
-                if self.rooms.count != results.count {
-                    print("result is not equal") // got have new room
-                    self.rooms = results
-                    self.viewPresenter?.didFinishLoadChat(rooms: results)
-                }else {
-                    // compare ui data with core, anything changes
-                    for (index,room) in results.enumerated() {
-                        let current = self.rooms[index]
-                        if !(current === room) {
-                            // MARK: TODO Reload/flick effect
-                            // need reload ui
-                            self.viewPresenter?.didFinishLoadChat(rooms: results)
-                        }
-                    }
-                }
-                */
-                self.rooms = results
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
