@@ -17,11 +17,7 @@ protocol UIChatListView : BaseView {
 class UIChatListPresenter {
     
     private var viewPresenter : UIChatListView?
-    var rooms : [RoomModel] {
-        get {
-            return QiscusCore.storage.getRooms()
-        }
-    }
+    var rooms : [RoomModel] = [RoomModel]()
     
     init() {
         QiscusCore.delegate = self
@@ -37,9 +33,24 @@ class UIChatListPresenter {
     }
     
     func loadChat() {
+        self.loadFromLocal()
+        self.loadFromServer()
+    }
+    
+    private func loadFromLocal() {
+        // get from local
+        self.rooms = QiscusCore.storage.getRooms()
+        if self.rooms.count > 0 {
+            self.viewPresenter?.didFinishLoadChat(rooms: self.rooms)
+        }
+    }
+    
+    private func loadFromServer() {
+        // check update from server
         QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, meta, error) in
             if let results = rooms {
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
+                self.rooms = results
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }
@@ -56,6 +67,7 @@ extension UIChatListPresenter : QiscusCoreDelegate {
         // show in app notification
         print("got new comment: \(comment.message)")
         self.viewPresenter?.updateRooms(data: room)
+        self.rooms = QiscusCore.storage.getRooms()
         // MARK: TODO receive new comment, need trotle
         QiscusCore.shared.updateCommentReceive(roomId: room.id, lastCommentReceivedId: comment.id)
     }

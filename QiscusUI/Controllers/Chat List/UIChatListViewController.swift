@@ -41,7 +41,6 @@ open class UIChatListViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.presenter.attachView(view: self)
-        self.tableView.reloadData()
         self.presenter.loadChat()
     }
     
@@ -80,7 +79,14 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 extension UIChatListViewController : UIChatListView {
     func updateRooms(data: RoomModel) {
         // improve only reload for new cell with room data
-        self.tableView.reloadData()
+        // get current index
+        let rooms = self.presenter.rooms
+        for (i,r) in rooms.enumerated() {
+            if r.id == data.id {
+                self.tableView.moveRow(at: IndexPath(row: i, section: 0), to: IndexPath(row: 0, section: 0))
+            }
+        }
+        // self.tableView.reloadData()
     }
     
     func didFinishLoadChat(rooms: [RoomModel]) {
