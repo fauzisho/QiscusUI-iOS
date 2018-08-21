@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
 //        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
         
+        auth()
+        
+        return true
+    }
+    
+    func auth() {
         let target : UIViewController
         if QiscusCore.isLogined {
             target = ListChatViewController()
@@ -31,8 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
         self.window?.rootViewController = navbar
         self.window?.makeKeyAndVisible()
-        
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -20,11 +20,19 @@ class ListChatViewController: UIChatListViewController {
         let play = UIBarButtonItem(title: "Group", style: .plain, target: self, action: #selector(addGroup))
         
         navigationItem.rightBarButtonItems = [add, play]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func logout() {
+        QiscusCore.logout { (error) in
+            let app = UIApplication.shared.delegate as! AppDelegate
+            app.auth()
+        }
     }
     
     @objc func addChat() {

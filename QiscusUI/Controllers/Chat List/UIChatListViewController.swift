@@ -30,12 +30,7 @@ open class UIChatListViewController: UIViewController {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
         self.tableView.register(UIChatListViewCell.nib, forCellReuseIdentifier: UIChatListViewCell.identifier)
-        
-        
-        self.presenter.loadChat()
-        // Do any additional setup after loading the view.
     }
 
     override open func didReceiveMemoryWarning() {

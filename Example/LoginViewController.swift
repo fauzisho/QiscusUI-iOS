@@ -27,12 +27,36 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func clickLogin(_ sender: Any) {
-        QiscusCore.connect(userID: "hijuju", userKey: "12345678") { (result, error) in
-            if result != nil {
-                self.navigationController?.pushViewController(ListChatViewController(), animated: true)
-            }else {
-                print("error \(String(describing: error))")
+        let alert = UIAlertController(title: "Login Qiscus", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Qiscus User or email"
+        })
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "User Key or Password"
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+            if let name = alert.textFields?.first?.text {
+                if let key = alert.textFields?.last?.text {
+                    QiscusCore.connect(userID: name, userKey: key) { (result, error) in
+                        if result != nil {
+                            self.navigationController?.pushViewController(ListChatViewController(), animated: true)
+                        }else {
+                            print("error \(String(describing: error))")
+                            let alert = UIAlertController(title: "Failed to Login?", message: String(describing: error), preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
+                            
+                            self.present(alert, animated: true)
+                        }
+                    }
+                }
             }
-        }  
+        }))
+        
+        self.present(alert, animated: true)
+        
     }
 }
