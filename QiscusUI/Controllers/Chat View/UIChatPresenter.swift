@@ -237,18 +237,20 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = UICommentModel()
         message.message = text
         message.type = .text
-        message.status = "sending"
         if let user = QiscusCore.getProfile() {
             message.email = user.email
         }
         addNewCommentUI(message)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
-            if comment != nil {
-                message.status = "deliverd"
+            if let new = comment {
+                let cm = UICommentModel.generate(new)
+                message.onChange(cm)
             }else {
+                // MARK: TODO change comment status follow from core
                 message.status = "failed"
+                message.onChange(message)
             }
-            message.onChange(message)
+            
         }
     }
     
