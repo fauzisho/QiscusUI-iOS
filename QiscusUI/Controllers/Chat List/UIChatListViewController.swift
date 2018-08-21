@@ -83,7 +83,10 @@ extension UIChatListViewController : UIChatListView {
         let rooms = self.presenter.rooms
         for (i,r) in rooms.enumerated() {
             if r.id == data.id {
-                self.tableView.moveRow(at: IndexPath(row: i, section: 0), to: IndexPath(row: 0, section: 0))
+                let oldIndex = IndexPath(row: i, section: 0)
+                let newIndex = IndexPath(row: 0, section: 0)
+                self.tableView.reloadRows(at: [oldIndex], with: UITableViewRowAnimation.none)
+                self.tableView.moveRow(at: oldIndex, to: newIndex)
             }
         }
         // self.tableView.reloadData()
