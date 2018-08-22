@@ -12,6 +12,7 @@ import QiscusCore
 protocol UIChatListView : BaseView {
     func didFinishLoadChat(rooms : [RoomModel])
     func updateRooms(data: RoomModel)
+    func didUpdate(user: MemberModel, isTyping typing: Bool, in room: RoomModel)
 }
 
 class UIChatListPresenter {
@@ -81,7 +82,7 @@ extension UIChatListPresenter : QiscusCoreDelegate {
     }
     
     func onRoom(_ room: RoomModel, thisParticipant user: MemberModel, isTyping typing: Bool) {
-        //
+        self.viewPresenter?.didUpdate(user: user, isTyping: typing, in: room)
     }
     
     func gotNew(room: RoomModel) {

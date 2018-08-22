@@ -74,22 +74,34 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 
     }
 
+    private func getIndexpath(byRoom data: RoomModel, inRooms rooms: [RoomModel]) -> IndexPath? {
+        // get current index
+        for (i,r) in rooms.enumerated() {
+            if r.id == data.id {
+                return IndexPath(row: i, section: 0)
+            }
+        }
+        return nil
+    }
 }
 
 extension UIChatListViewController : UIChatListView {
+    func didUpdate(user: MemberModel, isTyping typing: Bool, in room: RoomModel) {
+        let rooms = self.presenter.rooms
+        if let index = getIndexpath(byRoom: room, inRooms: rooms) {
+            
+            self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
+        }
+    }
+    
     func updateRooms(data: RoomModel) {
         // improve only reload for new cell with room data
-        // get current index
         let rooms = self.presenter.rooms
-        for (i,r) in rooms.enumerated() {
-            if r.id == data.id {
-                let oldIndex = IndexPath(row: i, section: 0)
-                let newIndex = IndexPath(row: 0, section: 0)
-                self.tableView.reloadRows(at: [oldIndex], with: UITableViewRowAnimation.none)
-                self.tableView.moveRow(at: oldIndex, to: newIndex)
-            }
+        if let index = getIndexpath(byRoom: data, inRooms: rooms) {
+            let newIndex = IndexPath(row: 0, section: 0)
+            self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
+            self.tableView.moveRow(at: index, to: newIndex)
         }
-        // self.tableView.reloadData()
     }
     
     func didFinishLoadChat(rooms: [RoomModel]) {
