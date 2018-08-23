@@ -31,11 +31,11 @@ class LeftTextCell: BaseChatCell {
     
     override func bindDataToView() {
         
-        self.tvContent.text = self.comment.message
-        self.lbName.text = self.comment.username
-        self.lbTime.text = self.comment.status
+        self.tvContent.text = self.comment?.message
+        self.lbName.text = self.comment?.username
+        self.lbTime.text = self.comment?.status.rawValue
 
-        if self.comment.isMyComment {
+        if (self.comment?.isMyComment())! {
             DispatchQueue.main.async {
                 self.rightConstraint.isActive = true
                 self.leftConstraint.isActive = false

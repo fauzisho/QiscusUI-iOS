@@ -38,6 +38,7 @@ class UIChatListViewCell: UITableViewCell {
     
     var lastMessageCreateAt:String{
         get{
+            return ""
             var createAt = data?.lastComment?.unixTimestamp
             if createAt == 0 {
                 return ""
@@ -84,14 +85,14 @@ class UIChatListViewCell: UITableViewCell {
             self.labelDate.text = lastMessageCreateAt
             
             var message = ""
-            if data.lastComment?.type == CommentType.fileAttachment{
-                message = "File Attachment"
-            }else{
-                message = (data.lastComment?.message)!
-            }
+//            if data.lastComment?.type == CommentType.fileAttachment{
+//                message = "File Attachment"
+//            }else{
+//                //message = (data.lastComment?.message)!
+//            }
             
             if(data.chatType != "single"){
-                self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
+                //self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
             }else{
                  self.labelLastMessage.text  = message
             }

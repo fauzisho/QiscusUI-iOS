@@ -10,7 +10,7 @@ import QiscusCore
 
 protocol ChatCellDelegate {
     func onImageCellDidTap(imageSlideShow: UIViewController)
-    func onSaveContactCellDidTap(comment: UICommentModel)
+    func onSaveContactCellDidTap(comment: CommentModel)
 }
 
 protocol ChatCellAudioDelegate {
@@ -43,11 +43,11 @@ class BaseChatCell: UITableViewCell {
     }
     
     // MARK: cell data source
-    var comment: UICommentModel! {
+    var comment: CommentModel? {
         didSet {
             configureInteractino()
             bindDataToView()
-            comment.onChange = { newComment in
+            comment?.onChange = { newComment in
                 self.comment = newComment
                 self.bindDataToView()
             }
@@ -109,10 +109,10 @@ class BaseChatCell: UITableViewCell {
     }
     
     func downloadMedia() {
-//        if let UICommentModel = UICommentModel.comment(withId: self.comment.id), let RoomModel = RoomModel.room(withId: self.comment.roomId) {
-//            RoomModel.downloadMedia(onComment: UICommentModel, isAudioFile: self.comment.commentType == .audio, onSuccess: { (UICommentModel) in
-//                guard let image = UICommentModel.displayImage else {return}
-//                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: UICommentModel.uniqueId)
+//        if let CommentModel = CommentModel.comment(withId: self.comment.id), let RoomModel = RoomModel.room(withId: self.comment.roomId) {
+//            RoomModel.downloadMedia(onComment: CommentModel, isAudioFile: self.comment.commentType == .audio, onSuccess: { (CommentModel) in
+//                guard let image = CommentModel.displayImage else {return}
+//                QCacheManager.shared.cacheImage(image: image, onCommentUniqueId: CommentModel.uniqueId)
 //                self.displayDownloadedImage(image: image)
 //            }, onError: { (error) in
 //
@@ -187,7 +187,7 @@ extension BaseChatCell {
     }
     
     @objc open func copyComment() {
-        UIPasteboard.general.string = self.comment.message
+        UIPasteboard.general.string = self.comment?.message
     }
     
     @objc open func resend(){

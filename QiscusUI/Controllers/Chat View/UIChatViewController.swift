@@ -96,13 +96,13 @@ open class UIChatViewController: UIViewController {
         let attachmentSheet = UIAlertController(title: "Attachment", message: nil, preferredStyle: .actionSheet)
         let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let image = UIAlertAction(title: "image", style: .default) { (action) in
-            self.presenter.sendImage()
+            //self.presenter.sendImage()
         }
         let contact = UIAlertAction(title: "contact", style: .default) { (action) in
-            self.presenter.sendContact()
+            //self.presenter.sendContact()
         }
         let location = UIAlertAction(title: "location", style: .default) { (action) in
-            self.presenter.sendLocation()
+            //self.presenter.sendLocation()
         }
         
         
@@ -299,7 +299,7 @@ extension UIChatViewController: UIChatViewDelegate {
         }
     }
     
-    func onSendingComment(comment: UICommentModel, newSection: Bool) {
+    func onSendingComment(comment: CommentModel, newSection: Bool) {
         if newSection {
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .left)
@@ -327,7 +327,7 @@ extension UIChatViewController: UIChatViewDelegate {
         self.tableViewConversation.reloadData()
     }
     
-    func onSendMessageFinished(comment: UICommentModel) {
+    func onSendMessageFinished(comment: CommentModel) {
         
     }
     
@@ -403,28 +403,28 @@ extension UIChatViewController: UITableViewDataSource {
         tempSection = indexPath.section
         var cell = BaseChatCell()
 
-        switch commentType {
-        case .fileAttachment:
-            switch comment.fileType {
-            case .image:
-                cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
-            case .audio:
-                cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
-            case .video:
-                cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
-            case .document:
-                cell = tableView.dequeueReusableCell(withIdentifier: "QDocumentCell", for: indexPath) as! QDocumentCell
-            }
-            break
-        case .contactPerson:
-            cell = tableView.dequeueReusableCell(withIdentifier: "QContactCell", for: indexPath) as! QContactCell
-            break
-        case .location:
-            cell = tableView.dequeueReusableCell(withIdentifier: "QLocationCell", for: indexPath) as! QLocationCell
-            break
-        default:
+//        switch commentType {
+//        case .fileAttachment:
+//            switch comment.fileType {
+//            case .image:
+//                cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
+//            case .audio:
+//                cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
+//            case .video:
+//                cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
+//            case .document:
+//                cell = tableView.dequeueReusableCell(withIdentifier: "QDocumentCell", for: indexPath) as! QDocumentCell
+//            }
+//            break
+//        case .contactPerson:
+//            cell = tableView.dequeueReusableCell(withIdentifier: "QContactCell", for: indexPath) as! QContactCell
+//            break
+//        case .location:
+//            cell = tableView.dequeueReusableCell(withIdentifier: "QLocationCell", for: indexPath) as! QLocationCell
+//            break
+//        default:
             cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
-        }
+        //}
         
         cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.comment = comment
@@ -484,7 +484,7 @@ extension UIChatViewController: UITableViewDataSource {
         view.addSubview(viewAvatar)
         
         if let firstComment = self.presenter.getComments()[section].first {
-            if firstComment.isMyComment {
+            if firstComment.isMyComment() {
                 return nil
             } else {
                 return view
