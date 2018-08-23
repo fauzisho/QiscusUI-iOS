@@ -13,7 +13,7 @@ extension CommentModel {
     func isMyComment() -> Bool {
         // change this later when user savevd on presisstance storage
         if let user = QiscusCore.getProfile() {
-            return email == user.email
+            return userEmail == user.email
         }else {
             return false
         }

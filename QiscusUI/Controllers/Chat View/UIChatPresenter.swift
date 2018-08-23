@@ -73,7 +73,7 @@ class UIChatPresenter: UIChatUserInteraction {
             var tempComments = [CommentModel]()
             if let data = dataResponse {
                 for i in data {
-                    tempComments.append(i as! CommentModel)
+                    tempComments.append(i)
                 }
                 // MARK: TODO improve and grouping
                 self.comments = self.groupingComments(comments: tempComments)
@@ -119,18 +119,14 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendMessage(withText text: String) {
         // create object comment
-//        let message = CommentModel()
-//        addNewCommentUI(message)
-//        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message as CommentModel) { (comment, error) in
-//            if let new = comment {
-//                let cm = CommentModel.generate(new)
-//                message.onChange(cm)
-//            }else {
-//                // MARK: TODO change comment status follow from core
-//                message.onChange(message)
-//            }
-//
-//        }
+        // MARK: TODO improve object generator
+        let message = CommentModel()
+        message.message = text
+        message.type    = "text"
+        addNewCommentUI(message)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
+            // 
+        }
     }
     
     private func addNewCommentUI(_ message: CommentModel) {
@@ -138,7 +134,7 @@ class UIChatPresenter: UIChatUserInteraction {
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
                 let lastComment = self.comments[0][0]
-                if lastComment.email == message.email && lastComment.timestamp == message.timestamp {
+                if lastComment.userEmail == message.userEmail && lastComment.timestamp == message.timestamp {
                     self.comments[0].insert(message, at: 0)
                     self.viewPresenter?.onSendingComment(comment: message, newSection: false)
                 } else {
@@ -192,7 +188,7 @@ class UIChatPresenter: UIChatUserInteraction {
                 return CommentModel.id == comment.id
             }) {
                 if let prev = prevComment{
-                    if prev.timestamp == comment.timestamp && prev.email == comment.email {
+                    if prev.timestamp == comment.timestamp && prev.userEmail == comment.userEmail {
                         uidList.append(comment)
                         group.append(comment)
                     }else{
