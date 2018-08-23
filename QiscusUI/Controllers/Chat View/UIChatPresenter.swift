@@ -125,7 +125,23 @@ class UIChatPresenter: UIChatUserInteraction {
         message.type    = "text"
         addNewCommentUI(message)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
-            // 
+            self.sendMessageLoc()
+        }
+    }
+    
+    func sendMessageLoc() {
+        // create object comment
+        // MARK: TODO improve object generator
+        let message = CommentModel()
+        message.message = "location"
+        message.type    = "custom"
+        message.payload = [
+            "type" : "data",
+            "content" : "",
+        ]
+        addNewCommentUI(message)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
+            print("failed \(String(describing: error?.message))")
         }
     }
     
