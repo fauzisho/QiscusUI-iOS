@@ -39,7 +39,7 @@ class UIChatListViewCell: UITableViewCell {
     var lastMessageCreateAt:String{
         get{
             return ""
-            var createAt = data?.lastComment?.unixTimestamp
+            let createAt = data?.lastComment?.unixTimestamp
             if createAt == 0 {
                 return ""
             }else{
@@ -85,19 +85,20 @@ class UIChatListViewCell: UITableViewCell {
             self.labelDate.text = lastMessageCreateAt
             
             var message = ""
-//            if data.lastComment?.type == CommentType.fileAttachment{
-//                message = "File Attachment"
-//            }else{
-//                //message = (data.lastComment?.message)!
-//            }
+            if data.lastComment?.type == ""{
+                message = "File Attachment"
+            }else{
+                message = (data.lastComment?.message)!
+            }
             
             if(data.chatType != "single"){
-                //self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
+                self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
             }else{
                  self.labelLastMessage.text  = message
             }
-           
-            self.imageViewRoom.af_setImage(withURL: URL.init(string: data.avatarUrl)!)
+            if let avatar = data.avatarUrl {
+                self.imageViewRoom.af_setImage(withURL: avatar)
+            }
             if(data.unreadCount == 0){
                 self.hiddenBadge()
             }else{

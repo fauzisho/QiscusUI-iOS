@@ -44,7 +44,7 @@ class UIChatPresenter: UIChatUserInteraction {
         if let room = self.room {
             room.delegate = self
             self.loadComments(withID: room.id)
-            viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: URL.init(string: room.avatarUrl))
+            viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: room.avatarUrl)
             if let p = room.participants {
                 self.participants = p
             }
@@ -125,7 +125,7 @@ class UIChatPresenter: UIChatUserInteraction {
         message.type    = "text"
         addNewCommentUI(message)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
-            self.sendMessageLoc()
+            
         }
     }
     
