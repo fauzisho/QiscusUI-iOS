@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import QiscusCore
 
 protocol BaseView {
     func startLoading(message: String)
     func finishLoading(message: String)
     func setEmptyData(message: String)
+}
+
+public protocol UIChatDelegate : QiscusCoreDelegate {
+    
 }

@@ -21,7 +21,7 @@ class UIChatListPresenter {
     var rooms : [RoomModel] = [RoomModel]()
     
     init() {
-        QiscusCore.delegate = self
+        QiscusUIManager.shared.uidelegate = self
     }
     
     func attachView(view : UIChatListView){
@@ -63,7 +63,7 @@ class UIChatListPresenter {
     }
 }
 
-extension UIChatListPresenter : QiscusCoreDelegate {
+extension UIChatListPresenter : UIChatDelegate {
     func onChange(user: MemberModel, isOnline online: Bool, at time: Date) {
         //
     }

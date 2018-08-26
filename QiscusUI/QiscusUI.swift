@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import QiscusCore
 
-var QiscusRequestThread = DispatchQueue(label: "com.qiscus.request", attributes: .concurrent)
 public class QiscusUI {
-    static var cachedVC: [String: UIChatViewController] = [:]
     class var bundle:Bundle{
         get{
             let podBundle = Bundle(for: QiscusUI.self)
@@ -24,16 +23,12 @@ public class QiscusUI {
     
     static var disableLocalization: Bool = false
     
-    @objc public class func chatView(roomId: String) -> UIChatViewController {
-        if let cachedVC = self.cachedVC[roomId] {
-            return cachedVC
-        } else {
-            let chatView = UIChatViewController()
-            chatView.roomId = roomId
-            chatView.hidesBottomBarWhenPushed = true
-            
-            self.cachedVC[roomId] = chatView
-            return chatView
+    public static var delegate  : UIChatDelegate? {
+        get {
+            return QiscusUIManager.shared.delegate
+        }
+        set {
+            QiscusUIManager.shared.delegate = newValue
         }
     }
     
@@ -41,3 +36,5 @@ public class QiscusUI {
         return UIImage(named: name, in: QiscusUI.bundle, compatibleWith: nil)?.localizedImage()
     }
 }
+
+

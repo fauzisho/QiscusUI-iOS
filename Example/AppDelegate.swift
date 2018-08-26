@@ -8,6 +8,7 @@
 
 import UIKit
 import QiscusCore
+import QiscusUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let target : UIViewController
         if QiscusCore.isLogined {
             target = ListChatViewController()
+            // if your are using qiscus ui, qiscuscoredelegate already use in there. but, you can got qiscus event using ChatUIDelegate
+            QiscusUI.delegate = self
         }else {
             target = LoginViewController()
         }
@@ -58,7 +61,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
 
     }
+}
 
-
+extension AppDelegate : UIChatDelegate {
+    func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
+        print("got new comment: \(comment.message)")
+    }
+    
+    func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {
+        
+    }
+    
+    func onRoom(_ room: RoomModel, thisParticipant user: MemberModel, isTyping typing: Bool) {
+        
+    }
+    
+    func onChange(user: MemberModel, isOnline online: Bool, at time: Date) {
+        
+    }
+    
+    func gotNew(room: RoomModel) {
+        
+    }
+    
+    func remove(room: RoomModel) {
+        
+    }
 }
 
