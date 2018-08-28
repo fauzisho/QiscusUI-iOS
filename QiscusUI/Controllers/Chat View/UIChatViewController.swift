@@ -10,6 +10,11 @@ import ContactsUI
 import SwiftyJSON
 import QiscusCore
 
+// Chat view blue print
+protocol UIChatView {
+    func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String)
+}
+
 open class UIChatViewController: UIViewController {
     
     @IBOutlet weak var tableViewConversation: UITableView!
@@ -510,8 +515,9 @@ extension UIChatViewController: UITableViewDelegate {
     }
 }
 
-extension UIChatViewController: CNContactViewControllerDelegate{
-    
+extension UIChatViewController: UIChatView {
+    public func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String) {
+        self.tableViewConversation.register(nib, forCellReuseIdentifier: reuseIdentifier)
+    }
 }
-
 

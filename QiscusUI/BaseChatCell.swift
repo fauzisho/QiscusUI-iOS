@@ -21,7 +21,7 @@ protocol ChatCellAudioDelegate {
     func didEndSeekTimeSlider(_ slider: UISlider, onCell cell: BaseChatCell)
 }
 
-class BaseChatCell: UITableViewCell {
+open class BaseChatCell: UITableViewCell {
     var audioCellDelegate: ChatCellAudioDelegate?
     var _timeFormatter: DateComponentsFormatter?
     var currentTime = TimeInterval()
@@ -71,12 +71,12 @@ class BaseChatCell: UITableViewCell {
         self.configureUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.configureUI()
     }
     
-    override var canBecomeFirstResponder: Bool {
+    override open var canBecomeFirstResponder: Bool {
         return true
     }
     
@@ -137,7 +137,7 @@ class BaseChatCell: UITableViewCell {
     ///   - action: menu action selector
     ///   - sender:
     /// - Returns: bool contain menu or not
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    override open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(BaseChatCell.resend) || action == #selector(BaseChatCell.deleteComment) || action == #selector(BaseChatCell.deleteForMe) || action == #selector(BaseChatCell.reply) || action == #selector(BaseChatCell.forward) || action == #selector(BaseChatCell.share) || action == #selector(BaseChatCell.info) || action == #selector(BaseChatCell.copyComment) {
             return true
         }

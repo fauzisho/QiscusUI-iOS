@@ -23,7 +23,7 @@ class ChatViewController: UIChatViewController {
     }
     
     func registerCell() {
-        self.tableview
+        //self.registerClass(nib: BaseChatCell(), forMessageCellWithReuseIdentifier: "")
     }
 
 }
