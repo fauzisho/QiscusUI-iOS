@@ -2,7 +2,7 @@
 platform :ios, '10.0'
 
 def pod_release
-    pod 'QiscusCore', :path => '../QiscusCore'
+    pod 'QiscusCore', :git => 'https://github.com/qiscus/QiscusCore-iOS'
     pod 'QiscusRealtime', :git => 'https://github.com/qiscus/QiscusRealtime-iOS.git'
 end
 
@@ -18,5 +18,3 @@ target 'Example' do
 #  pod_release
   pod_dev
 end
-
-
