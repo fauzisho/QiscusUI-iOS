@@ -282,7 +282,7 @@ extension UIChatViewController: UIChatViewDelegate {
     func onUser(name: String, typing: Bool) {
         if typing {
             if let room = self.presenter.room {
-                if room.chatType == "group" {
+                if room.type == .group {
                     self.subtitleLabel.text = "\(name) is Typing..."
                 }else {
                     self.subtitleLabel.text = "is Typing..."
@@ -290,7 +290,7 @@ extension UIChatViewController: UIChatViewDelegate {
             }
         }else {
             if let room = self.presenter.room {
-                if room.chatType == "group" {
+                if room.type == .group {
                     self.subtitleLabel.text = getParticipant()
                 }else {
                     self.subtitleLabel.text = "" // or last seen at

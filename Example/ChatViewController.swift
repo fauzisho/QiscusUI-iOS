@@ -21,5 +21,9 @@ class ChatViewController: UIChatViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func registerCell() {
+        self.tableview
+    }
 
 }

@@ -91,7 +91,7 @@ class UIChatListViewCell: UITableViewCell {
                 message = (data.lastComment?.message)!
             }
             
-            if(data.chatType != "single"){
+            if(data.type != .single){
                 self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
             }else{
                  self.labelLastMessage.text  = message

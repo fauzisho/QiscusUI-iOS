@@ -254,7 +254,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
     
     func onChangeUser(_ user: MemberModel, onlineStatus status: Bool, whenTime time: Date) {
         if let room = self.room {
-            if room.chatType != "group" {
+            if room.type != .group {
                 var message = ""
                 //let lessMinute = time.timeIntervalSinceNow.second
                 //if lessMinute <= 59 {

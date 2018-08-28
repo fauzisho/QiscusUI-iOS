@@ -15,8 +15,8 @@ target 'Example' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'QiscusUI', :path => '.'
-  pod_release
-#  pod_dev
+#  pod_release
+  pod_dev
 end
 
 
