@@ -8,12 +8,22 @@
 
 import UIKit
 import QiscusUI
+import QiscusCore
 
 class ChatViewController: UIChatViewController {
-
+    var roomID : String?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // alternative load ui then set room data, but you need to handle loading
+        guard let roomid = roomID else { return }
+        QiscusCore.shared.getRoom(withID: roomid) { (roomData, error) in
+            if let data = roomData {
+                self.room = data
+            }else {
+                // show error
+                print("error load room \(String(describing: error?.message))")
+            }
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -23,7 +33,7 @@ class ChatViewController: UIChatViewController {
     }
     
     func registerCell() {
-        //self.registerClass(nib: BaseChatCell(), forMessageCellWithReuseIdentifier: "")
+        self.registerClass(nib: UINib(nibName: "QimageCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
     }
 
 }

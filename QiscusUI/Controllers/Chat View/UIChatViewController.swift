@@ -59,7 +59,6 @@ open class UIChatViewController: UIViewController {
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.presenter.loadRoom(withId: self.roomId)
         let center: NotificationCenter = NotificationCenter.default
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
@@ -80,10 +79,11 @@ open class UIChatViewController: UIViewController {
     }
     
     // Provide new flow, load chat ui then set room. old Qiscus SDK
+    // MARK: TODO need optimize, prevent call api twice
     func refreshUI() {
         if self.isViewLoaded {
-            self.presenter.attachView(view: self)
-            self.setupUI()
+             self.presenter.attachView(view: self)
+             self.setupUI()
         }
     }
     
@@ -109,20 +109,6 @@ open class UIChatViewController: UIViewController {
         let location = UIAlertAction(title: "location", style: .default) { (action) in
             //self.presenter.sendLocation()
         }
-        
-        
-//        case text                       = "text"
-//        case image                      = "image"
-//        case accountLink                = "account_linking"
-//        case buttons                    = "buttons"
-//        case buttonPostbackResponse     = "button_postback_response"
-//        case reply                      = "replay"
-//        case systemEvent                = "system_event"
-//        case card                       = "card"
-//        case custom                     = "custom"
-//        case location                   = "location"
-//        case contactPerson              = "contactPerson"
-//        case carousel                   = "carousel"
         
         attachmentSheet.addAction(cancelBtn)
         attachmentSheet.addAction(image)
@@ -218,14 +204,7 @@ open class UIChatViewController: UIViewController {
         self.tableViewConversation.scrollsToTop = false
         self.tableViewConversation.allowsSelection = false
         
-        self.tableViewConversation.register(UINib(nibName: "LeftTextCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "LeftTextCell")
-        self.tableViewConversation.register(UINib(nibName: "QImageCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "QImageCell")
-        self.tableViewConversation.register(UINib(nibName: "QSystemCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "QSystemCell")
-        self.tableViewConversation.register(UINib(nibName: "QContactCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "QContactCell")
-        self.tableViewConversation.register(UINib(nibName: "QAudioCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "QAudioCell")
-        self.tableViewConversation.register(UINib(nibName: "QDocumentCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "QDocumentCell")
-        
-        self.tableViewConversation.register(UINib(nibName: "QLocationCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "QLocationCell")
+        self.tableViewConversation.register(UINib(nibName: "TextCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "TextCell")
 
     }
     
@@ -325,7 +304,7 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onLoadMoreMesageFinished() {
-        self.tableViewConversation.reloadData()
+        //self.tableViewConversation.reloadData()
     }
     
     func onLoadMessageFinished() {
@@ -373,66 +352,22 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let commentId = self.presenter.comments[indexPath.section][indexPath.row].uniqueId
-//        if let cachedHeight = heightAtIndexPath[commentId] {
-//            return cachedHeight
-//        } else {
-            return UITableViewAutomaticDimension
-        //}
+        return UITableViewAutomaticDimension
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let commentId = self.presenter.comments[indexPath.section][indexPath.row].uniqueId
-//        if let cachedHeight = heightAtIndexPath[commentId] {
-//            return cachedHeight
-//        } else {
-            return UITableViewAutomaticDimension
-        //}
-    }
-    
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let commentId = self.presenter.comments[indexPath.section][indexPath.row].uniqueId
-//        if let height = self.heightAtIndexPath[commentId] {
-//
-//        } else {
-//            heightAtIndexPath[commentId] = cell.frame.size.height
-//        }
+        return UITableViewAutomaticDimension
     }
     
     // MARK: table cell confi
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let comments = self.presenter.comments
         let comment = comments[indexPath.section][indexPath.row]
-        let commentType = comment.type
-        
-        tempSection = indexPath.section
-        var cell = BaseChatCell()
 
-//        switch commentType {
-//        case .fileAttachment:
-//            switch comment.fileType {
-//            case .image:
-//                cell = tableView.dequeueReusableCell(withIdentifier: "QImageCell", for: indexPath) as! QImageCell
-//            case .audio:
-//                cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
-//            case .video:
-//                cell = tableView.dequeueReusableCell(withIdentifier: "QAudioCell", for: indexPath) as! QAudioCell
-//            case .document:
-//                cell = tableView.dequeueReusableCell(withIdentifier: "QDocumentCell", for: indexPath) as! QDocumentCell
-//            }
-//            break
-//        case .contactPerson:
-//            cell = tableView.dequeueReusableCell(withIdentifier: "QContactCell", for: indexPath) as! QContactCell
-//            break
-//        case .location:
-//            cell = tableView.dequeueReusableCell(withIdentifier: "QLocationCell", for: indexPath) as! QLocationCell
-//            break
-//        default:
-            cell = tableView.dequeueReusableCell(withIdentifier: "LeftTextCell", for: indexPath) as! LeftTextCell
-        //}
-        
-        cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
+        tempSection = indexPath.section
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextCell
         cell.comment = comment
+        cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
         
