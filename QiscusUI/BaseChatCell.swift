@@ -44,11 +44,11 @@ open class UIBaseChatCell: UITableViewCell, UIMessagePresenting {
         self.configureUI()
     }
     
-    public func present(message: CommentModel) {
+    open func present(message: CommentModel) {
         preconditionFailure("this func must be override, without super")
     }
     
-    public func update(message: CommentModel) {
+    open func update(message: CommentModel) {
         preconditionFailure("this func must be override, without super")
     }
     

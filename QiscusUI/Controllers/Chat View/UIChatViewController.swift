@@ -13,9 +13,10 @@ import QiscusCore
 // Chat view blue print
 protocol UIChatView {
     func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String)
+    func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String
 }
 
-open class UIChatViewController: UIViewController {
+open class UIChatViewController: UIViewController, UIChatView {
     
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewInput: NSLayoutConstraint!
@@ -256,6 +257,14 @@ open class UIChatViewController: UIViewController {
         }
         return result
     }
+    
+    open func indentifierFor(message: CommentModel, atUIChatViewController: UIChatViewController) -> String {
+        return "TextCell"
+    }
+    
+    public func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String) {
+        self.tableViewConversation.register(nib, forCellReuseIdentifier: reuseIdentifier)
+    }
 }
 
 extension UIChatViewController: UIChatViewDelegate {
@@ -361,20 +370,25 @@ extension UIChatViewController: UITableViewDataSource {
     
     // MARK: table cell confi
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let comments = self.presenter.comments
-        let comment = comments[indexPath.section][indexPath.row]
-
-        tempSection = indexPath.section
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextCell
+        // get mesage at indexpath
+        let comment = self.presenter.getMessage(atIndexPath: indexPath)
+        // get cell identifier at indexpath
+        let identifier = indentifierFor(message: comment, atUIChatViewController: self)
+        // generate cell by index path
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UIBaseChatCell
+        // setup cell message = this message
         cell.comment = comment
         cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
         
+        // setup cell delegate, unknown
+        tempSection = indexPath.section
+        // Load More
+        let comments = self.presenter.comments
         if indexPath.section == comments.count - 1 && indexPath.row > comments[indexPath.section].count - 10 {
             presenter.loadMore()
         }
-        
         return cell
     }
     
@@ -449,10 +463,3 @@ extension UIChatViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-extension UIChatViewController: UIChatView {
-    public func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String) {
-        self.tableViewConversation.register(nib, forCellReuseIdentifier: reuseIdentifier)
-    }
-}
-

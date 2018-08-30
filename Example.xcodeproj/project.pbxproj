@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2721378C4000867E10 /* ImageViewCell.swift */; };
+		3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06AE2821378C4000867E10 /* ImageViewCell.xib */; };
+		3D06AE2E2137D08900867E10 /* CommentPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2D2137D08900867E10 /* CommentPayload.swift */; };
 		3DA307162117FBCB00E4282E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA307152117FBCB00E4282E /* AppDelegate.swift */; };
 		3DA307182117FBCB00E4282E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA307172117FBCB00E4282E /* ViewController.swift */; };
 		3DA3071B2117FBCB00E4282E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DA307192117FBCB00E4282E /* Main.storyboard */; };
@@ -24,6 +27,9 @@
 /* Begin PBXFileReference section */
 		1BDB6F925F7D7EAFCF71DD1F /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		221597F99FD1F5FC4BC93182 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		3D06AE2721378C4000867E10 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
+		3D06AE2821378C4000867E10 /* ImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewCell.xib; sourceTree = "<group>"; };
+		3D06AE2D2137D08900867E10 /* CommentPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPayload.swift; sourceTree = "<group>"; };
 		3DA307122117FBCB00E4282E /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA307152117FBCB00E4282E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DA307172117FBCB00E4282E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +87,9 @@
 		3DA307142117FBCB00E4282E /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				3D06AE2721378C4000867E10 /* ImageViewCell.swift */,
+				3D06AE2D2137D08900867E10 /* CommentPayload.swift */,
+				3D06AE2821378C4000867E10 /* ImageViewCell.xib */,
 				3DA3072C2117FC7700E4282E /* ChatViewController.swift */,
 				3DA307282117FC7600E4282E /* ChatViewController.xib */,
 				3DA3072A2117FC7600E4282E /* ListChatViewController.swift */,
@@ -172,6 +181,7 @@
 				3DA307302117FC7700E4282E /* ListChatViewController.xib in Resources */,
 				3DA3071D2117FBCE00E4282E /* Assets.xcassets in Resources */,
 				3DA3072F2117FC7700E4282E /* ChatViewController.xib in Resources */,
+				3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */,
 				3DA3071B2117FBCB00E4282E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +269,8 @@
 				3DA307312117FC7700E4282E /* ListChatViewController.swift in Sources */,
 				3DA307182117FBCB00E4282E /* ViewController.swift in Sources */,
 				3DA307332117FC7700E4282E /* ChatViewController.swift in Sources */,
+				3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */,
+				3D06AE2E2137D08900867E10 /* CommentPayload.swift in Sources */,
 				3DA307162117FBCB00E4282E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

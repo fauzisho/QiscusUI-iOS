@@ -13,8 +13,8 @@ protocol UIChatUserInteraction {
     func loadRoom(withId roomId: String)
     func loadComments(withID roomId: String)
     func loadMore()
-    func getMessage(inRoom roomId: String)
     func getAvatarImage(section: Int, imageView: UIImageView)
+    func getMessage(atIndexPath: IndexPath) -> CommentModel
 }
 
 protocol UIChatViewDelegate {
@@ -58,6 +58,12 @@ class UIChatPresenter: UIChatUserInteraction {
         }
     }
     
+    func getMessage(atIndexPath: IndexPath) -> CommentModel {
+        let comments = self.comments
+        let comment = comments[atIndexPath.section][atIndexPath.row]
+        return comment
+    }
+    
     func getComments() -> [[CommentModel]] {
         return self.comments
     }
@@ -67,6 +73,11 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func loadComments(withID roomId: String) {
+        // load local
+        if let _comments = QiscusCore.dataStore.getCommentbyRoomID(id: roomId) {
+            self.comments = self.groupingComments(comments: _comments)
+            self.viewPresenter?.onLoadMessageFinished()
+        }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             self.comments.removeAll()
             // convert model
@@ -78,10 +89,7 @@ class UIChatPresenter: UIChatUserInteraction {
                 // MARK: TODO improve and grouping
                 self.comments = self.groupingComments(comments: tempComments)
                 self.viewPresenter?.onLoadMessageFinished()
-            } else {
-                
             }
-            
         }
     }
     
@@ -166,14 +174,6 @@ class UIChatPresenter: UIChatUserInteraction {
             self.viewPresenter?.onSendingComment(comment: message, newSection: true)
         }
     }
-
-    func getMessage(inRoom roomId: String) {
-        
-    }
-    
-    func getDate(section:Int, labelView : UILabel) {
-        
-    }
     
     func getAvatarImage(section: Int, imageView: UIImageView) {
         if self.comments.count > 0 {
@@ -184,11 +184,6 @@ class UIChatPresenter: UIChatUserInteraction {
             }
         }
         
-    }
-    
-    // MARK: private function
-    private func getReplyData(stringJSON: String) {
-
     }
     
     private func groupingComments(comments: [CommentModel]) -> [[CommentModel]]{

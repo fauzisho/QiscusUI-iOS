@@ -14,6 +14,7 @@ class ChatViewController: UIChatViewController {
     var roomID : String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerCell()
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
         QiscusCore.shared.getRoom(withID: roomid) { (roomData, error) in
@@ -26,14 +27,17 @@ class ChatViewController: UIChatViewController {
         }
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func registerCell() {
-        self.registerClass(nib: UINib(nibName: "QimageCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
+        self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
+    }
+    
+    override func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String {
+        if message.type == "file_attachment" {
+            return "image"
+        }else {
+            return super.indentifierFor(message: message, atUIChatViewController: atUIChatViewController)
+        }
     }
 
 }
