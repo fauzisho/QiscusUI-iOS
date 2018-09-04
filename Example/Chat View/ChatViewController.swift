@@ -12,10 +12,11 @@ import QiscusCore
 
 class ChatViewController: UIChatViewController {
     var roomID : String?
+    let picker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        picker.delegate = self
         registerCell()
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
@@ -70,5 +71,15 @@ extension ChatViewController : CustomChatInputDelegate {
         optionMenu.addAction(saveAction)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
+    }
+}
+
+extension ChatViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        //
     }
 }
