@@ -72,6 +72,10 @@ extension ChatViewController : CustomChatInputDelegate {
             (alert: UIAlertAction!) -> Void in
             self.getContact()
         })
+        let couponAction = UIAlertAction(title: "Coupon", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.getCoupon()
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
@@ -80,6 +84,7 @@ extension ChatViewController : CustomChatInputDelegate {
         optionMenu.addAction(saveAction)
         optionMenu.addAction(docAction)
         optionMenu.addAction(contactAction)
+        optionMenu.addAction(couponAction)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
@@ -91,6 +96,18 @@ extension ChatViewController : CustomChatInputDelegate {
             [CNContactGivenNameKey
                 , CNContactPhoneNumbersKey]
         self.present(contactPicker, animated: true, completion: nil)
+    }
+    
+    private func getCoupon() {
+        // send custom comment type, ex: coupon. payload can be anything dictionary
+        let message = CommentModel()
+        message.type = "Coupon/BukaToko"
+        message.payload = [
+            "name"  : "BukaToko",
+            "voucher" : "xyz"
+        ]
+        message.message = "Send Coupon"
+        self.send(message: message)
     }
 }
 
