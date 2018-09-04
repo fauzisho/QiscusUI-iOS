@@ -19,10 +19,8 @@ protocol UIChatView {
 open class UIChatViewController: UIViewController, UIChatView {
     
     @IBOutlet weak var tableViewConversation: UITableView!
+    @IBOutlet weak var viewChatInput: UIChatInput!
     @IBOutlet weak var viewInput: NSLayoutConstraint!
-    @IBOutlet weak var btnAttachment: UIButton!
-    @IBOutlet weak var btnSend: UIButton!
-    @IBOutlet weak var tfInput: UITextField!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
     private var titleLabel = UILabel()
     private var subtitleLabel = UILabel()
@@ -90,12 +88,12 @@ open class UIChatViewController: UIViewController, UIChatView {
     
     // MARK: View Event Listener
     @IBAction func send(_ sender: UIButton) {
-        guard let text = self.tfInput.text else {return}
+        guard let text = self.viewChatInput.tfInput.text else {return}
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             self.presenter.sendMessage(withText: text)
         }
         
-        self.tfInput.text = ""
+        self.viewChatInput.tfInput.text = ""
     }
     
     @IBAction func attachment(_ sender: UIButton) {
@@ -125,7 +123,7 @@ open class UIChatViewController: UIViewController, UIChatView {
         self.qiscusAutoHideKeyboard()
         self.setupTableView()
         // setup input
-        self.tfInput.delegate = self
+//        self.tfInput.delegate = self
     }
     
     private func setupNavigationTitle(){

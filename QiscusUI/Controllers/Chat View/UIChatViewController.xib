@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,12 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UIChatViewController" customModule="QiscusUI" customModuleProvider="target">
             <connections>
-                <outlet property="btnAttachment" destination="ie2-3Q-gZR" id="uVB-br-o1l"/>
-                <outlet property="btnSend" destination="pcJ-tT-Xn1" id="GEU-Ru-vsn"/>
                 <outlet property="constraintViewInputBottom" destination="AVd-I5-3cz" id="5XK-Jf-2YL"/>
                 <outlet property="tableViewConversation" destination="DF6-Lu-tNz" id="n8q-S5-uDs"/>
-                <outlet property="tfInput" destination="bXL-df-oZf" id="b7f-S9-Wz0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewChatInput" destination="XjR-Mj-c6H" id="7c0-sB-u7H"/>
                 <outlet property="viewInput" destination="XjR-Mj-c6H" id="TBQ-yD-cnU"/>
             </connections>
         </placeholder>
@@ -26,74 +24,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjR-Mj-c6H">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjR-Mj-c6H" customClass="UIChatInput" customModule="QiscusUI" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="553" width="375" height="50"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ie2-3Q-gZR">
-                            <rect key="frame" x="8" y="10" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="TCB-1e-vLq"/>
-                                <constraint firstAttribute="width" constant="30" id="muE-bO-HTM"/>
-                            </constraints>
-                            <state key="normal" title="Button" image="share_attachment"/>
-                            <connections>
-                                <action selector="attachment:" destination="-1" eventType="touchUpInside" id="4rq-bX-BMB"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcJ-tT-Xn1">
-                            <rect key="frame" x="325" y="0.0" width="50" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="50" id="F9v-2b-ElU"/>
-                                <constraint firstAttribute="height" constant="50" id="vTY-Og-8cN"/>
-                            </constraints>
-                            <state key="normal" image="send"/>
-                            <connections>
-                                <action selector="send:" destination="-1" eventType="touchUpInside" id="pUz-0U-bvb"/>
-                            </connections>
-                        </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bXL-df-oZf">
-                            <rect key="frame" x="46" y="10" width="279" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="JHT-gr-j5t"/>
-                            </constraints>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
-                                    <real key="value" value="15"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidths">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="leftBorderWidth">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="topBorderWidth">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="rightBorderWidth">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="bottomBorderWidth">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" red="0.82533193010000006" green="0.82533193010000006" blue="0.82533193010000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
-                    </subviews>
-                    <color key="backgroundColor" red="0.95191062180984465" green="0.95191062180984465" blue="0.95191062180984465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="pcJ-tT-Xn1" firstAttribute="centerY" secondItem="XjR-Mj-c6H" secondAttribute="centerY" id="3pX-3a-hit"/>
-                        <constraint firstItem="bXL-df-oZf" firstAttribute="leading" secondItem="ie2-3Q-gZR" secondAttribute="trailing" constant="8" id="5gE-nB-bXm"/>
-                        <constraint firstItem="bXL-df-oZf" firstAttribute="centerY" secondItem="XjR-Mj-c6H" secondAttribute="centerY" id="73b-Ql-qKM"/>
                         <constraint firstAttribute="height" constant="50" id="JR1-fH-mcK"/>
-                        <constraint firstItem="ie2-3Q-gZR" firstAttribute="centerY" secondItem="XjR-Mj-c6H" secondAttribute="centerY" id="Y9K-TJ-LMm"/>
-                        <constraint firstAttribute="trailing" secondItem="pcJ-tT-Xn1" secondAttribute="trailing" id="YWz-Rc-mBp"/>
-                        <constraint firstItem="pcJ-tT-Xn1" firstAttribute="leading" secondItem="bXL-df-oZf" secondAttribute="trailing" id="ZkP-v1-3NJ"/>
-                        <constraint firstItem="ie2-3Q-gZR" firstAttribute="leading" secondItem="XjR-Mj-c6H" secondAttribute="leading" constant="8" id="xOU-MS-9Xo"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidths">
@@ -126,8 +61,4 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
     </objects>
-    <resources>
-        <image name="send" width="28" height="28"/>
-        <image name="share_attachment" width="28" height="28"/>
-    </resources>
 </document>

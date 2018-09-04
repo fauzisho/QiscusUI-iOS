@@ -28,6 +28,7 @@ class ChatViewController: UIChatViewController {
         // Do any additional setup after loading the view.
     }
     
+    // MARK: How to implement custom view cell by comment type
     func registerCell() {
         self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
     }
@@ -39,5 +40,7 @@ class ChatViewController: UIChatViewController {
             return super.indentifierFor(message: message, atUIChatViewController: atUIChatViewController)
         }
     }
-
+    
+    // MARK: How to implement custom input chat
+    // register custom input
 }
