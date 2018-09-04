@@ -9,6 +9,7 @@
 import UIKit
 import QiscusUI
 import QiscusCore
+import ContactsUI
 
 class ChatViewController: UIChatViewController {
     var roomID : String?
@@ -55,13 +56,21 @@ class ChatViewController: UIChatViewController {
 extension ChatViewController : CustomChatInputDelegate {
     func sendAttachment() {
         let optionMenu = UIAlertController()
-        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: {
+        let deleteAction = UIAlertAction(title: "Camera", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("File Deleted")
         })
-        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
+        let saveAction = UIAlertAction(title: "Photo & Video Library", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("File Saved")
+        })
+        let docAction = UIAlertAction(title: "Document", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("File Saved")
+        })
+        let contactAction = UIAlertAction(title: "Contact", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.getContact()
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -69,11 +78,49 @@ extension ChatViewController : CustomChatInputDelegate {
         })
         optionMenu.addAction(deleteAction)
         optionMenu.addAction(saveAction)
+        optionMenu.addAction(docAction)
+        optionMenu.addAction(contactAction)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
+    
+    private func getContact() {
+        let contactPicker = CNContactPickerViewController()
+        contactPicker.delegate = self
+        contactPicker.displayedPropertyKeys =
+            [CNContactGivenNameKey
+                , CNContactPhoneNumbersKey]
+        self.present(contactPicker, animated: true, completion: nil)
+    }
 }
 
+// Contact Picker
+extension ChatViewController : CNContactPickerDelegate {
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        let userName:String = contact.givenName
+        let surName:String = contact.familyName
+        let fullName:String = userName + " " + surName
+        print("Select contact \(fullName)")
+        //  user phone number
+        let userPhoneNumbers:[CNLabeledValue<CNPhoneNumber>] = contact.phoneNumbers
+        let firstPhoneNumber:CNPhoneNumber = userPhoneNumbers[0].value
+        let primaryPhoneNumberStr:String = firstPhoneNumber.stringValue
+        print(primaryPhoneNumberStr)
+        
+        // send contact, with qiscus comment type "contact_person" payload must valit
+        let message = CommentModel()
+        message.type = "contact_person"
+        message.payload = [
+            "name"  : fullName,
+            "value" : primaryPhoneNumberStr,
+            "type"  : "phone"
+        ]
+        message.message = "Send Contact"
+        self.send(message: message)
+    }
+}
+
+// Image Picker
 extension ChatViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         //

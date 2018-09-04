@@ -14,6 +14,7 @@ import QiscusCore
 protocol UIChatView {
     func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String)
     func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String
+    func chatInputBar() -> UIChatInput?
 }
 
 open class UIChatViewController: UIViewController, UIChatView {
@@ -450,8 +451,7 @@ extension UIChatViewController: UITableViewDelegate {
 }
 
 extension UIChatViewController : UIChatInputDelegate {
-    func send(message: CommentModel) {
+    public func send(message: CommentModel) {
         self.presenter.sendMessage(withComment: message)
     }
-    
 }
