@@ -19,7 +19,7 @@ protocol UIChatView {
 open class UIChatViewController: UIViewController, UIChatView {
     
     @IBOutlet weak var tableViewConversation: UITableView!
-    @IBOutlet weak var viewChatInput: UIChatInput!
+    @IBOutlet weak var viewChatInput: UIView!
     @IBOutlet weak var viewInput: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
     private var titleLabel = UILabel()
@@ -53,7 +53,6 @@ open class UIChatViewController: UIViewController, UIChatView {
         super.viewDidLoad()
         self.presenter.attachView(view: self)
         self.setupUI()
-        // Do any additional setup after loading the view.
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -87,43 +86,31 @@ open class UIChatViewController: UIViewController, UIChatView {
     }
     
     // MARK: View Event Listener
-    @IBAction func send(_ sender: UIButton) {
-        guard let text = self.viewChatInput.tfInput.text else {return}
-        if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            self.presenter.sendMessage(withText: text)
-        }
-        
-        self.viewChatInput.tfInput.text = ""
-    }
-    
-    @IBAction func attachment(_ sender: UIButton) {
-        let attachmentSheet = UIAlertController(title: "Attachment", message: nil, preferredStyle: .actionSheet)
-        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let image = UIAlertAction(title: "image", style: .default) { (action) in
-            //self.presenter.sendImage()
-        }
-        let contact = UIAlertAction(title: "contact", style: .default) { (action) in
-            //self.presenter.sendContact()
-        }
-        let location = UIAlertAction(title: "location", style: .default) { (action) in
-            //self.presenter.sendLocation()
-        }
-        
-        attachmentSheet.addAction(cancelBtn)
-        attachmentSheet.addAction(image)
-        attachmentSheet.addAction(contact)
-        attachmentSheet.addAction(location)
-        self.navigationController?.present(attachmentSheet, animated: true, completion: nil)
-    }
-    
-    
+
     private func setupUI() {
         // config navBar
         self.setupNavigationTitle()
         self.qiscusAutoHideKeyboard()
         self.setupTableView()
-        // setup input
-//        self.tfInput.delegate = self
+        
+        // setup chatInputBar
+        if let customInputBar = chatInputBar() {
+            self.setupInputBar(customInputBar)
+        }else {
+            // use default
+            self.setupInputBar(UIChatInput())
+        }
+    }
+    
+    open func chatInputBar() -> UIChatInput? {
+        return nil
+    }
+    
+    private func setupInputBar(_ inputchatview: UIChatInput) {
+        inputchatview.frame.size    = self.viewChatInput.frame.size
+        inputchatview.frame.origin  = CGPoint.init(x: 0, y: 0)
+        inputchatview.delegate = self
+        self.viewChatInput.addSubview(inputchatview)
     }
     
     private func setupNavigationTitle(){
@@ -460,4 +447,11 @@ extension UIChatViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+extension UIChatViewController : UIChatInputDelegate {
+    func send(message: CommentModel) {
+        self.presenter.sendMessage(withComment: message)
+    }
+    
 }

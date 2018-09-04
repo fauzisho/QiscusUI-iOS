@@ -125,6 +125,13 @@ class UIChatPresenter: UIChatUserInteraction {
         }
     }
     
+    func sendMessage(withComment comment: CommentModel) {
+        addNewCommentUI(comment)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: comment) { (_comment, error) in
+            
+        }
+    }
+    
     func sendMessage(withText text: String) {
         // create object comment
         // MARK: TODO improve object generator

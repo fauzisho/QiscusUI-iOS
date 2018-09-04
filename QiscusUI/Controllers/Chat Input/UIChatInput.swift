@@ -6,36 +6,49 @@
 //
 
 import UIKit
+import QiscusCore
 
-public protocol UIChatInputDelegate {
-    func send()
+protocol UIChatInputAction {
+    func send(message : CommentModel)
 }
 
-class UIChatInput: UIView {
+protocol UIChatInputDelegate {
+    func send(message : CommentModel)
+}
+
+open class UIChatInput: UIView {
 
     @IBOutlet weak var btnAttachment: UIButton!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var tfInput: UITextField!
-    
-    var contentsView: UIView!
+    var delegate : UIChatInputDelegate? {
+        set {
+            self._delegate = newValue
+        }
+        get {
+            return self._delegate
+        }
+    }
+    private var _delegate       : UIChatInputDelegate? = nil
+    var contentsView            : UIView!
 
     // If someone is to initialize a UIChatInput in code
     public override init(frame: CGRect) {
         // For use in code
         super.init(frame: frame)
-        commonInit()
+        let nib = UINib(nibName: "UIChatInput", bundle: QiscusUI.bundle)
+        commonInit(nib: nib)
     }
     
     // If someone is to initalize a UIChatInput in Storyboard setting the Custom Class of a UIView
     public required init?(coder aDecoder: NSCoder) {
         // For use in Interface Builder
         super.init(coder: aDecoder)
-        commonInit()
+        let nib = UINib(nibName: "UIChatInput", bundle: QiscusUI.bundle)
+        commonInit(nib: nib)
     }
     
-    private func commonInit() {
-        // 1. Load the nib named 'UIChatInput' into memory, finding it in the bundle.
-        let nib = UINib(nibName: "UIChatInput", bundle: QiscusUI.bundle)
+    open func commonInit(nib: UINib) {
         self.contentsView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         // 2. Adding the 'contentView' to self (self represents the instance of a WeatherView which is a 'UIView').
         addSubview(contentsView)
@@ -48,11 +61,25 @@ class UIChatInput: UIView {
         contentsView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         contentsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         contentsView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        self.autoresizingMask  = (UIViewAutoresizing.flexibleWidth)
+    }
+    
+    @IBAction private func clickUISendButton(_ sender: Any) {
+        guard let text = self.tfInput.text else {return}
+        if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            let message = CommentModel()
+            message.message = text
+            message.type    = "text"
+            self._delegate?.send(message: message)
+        }
+        
+        self.tfInput.text = ""
     }
 }
 
-extension UIChatInput : UIChatInputDelegate {
-    open func send() {
-        //
+extension UIChatInput : UIChatInputAction {
+    public func send(message : CommentModel) {
+        self._delegate?.send(message: message)
     }
 }
