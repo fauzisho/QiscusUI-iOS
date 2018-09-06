@@ -52,12 +52,12 @@ open class UIChatViewController: UIViewController, UIChatView {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter.attachView(view: self)
         self.setupUI()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.presenter.attachView(view: self)
         let center: NotificationCenter = NotificationCenter.default
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)

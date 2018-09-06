@@ -126,6 +126,7 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func sendMessage(withComment comment: CommentModel) {
+        
         addNewCommentUI(comment)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: comment) { (_comment, error) in
             
@@ -161,13 +162,17 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     private func addNewCommentUI(_ message: CommentModel) {
-        // add new comment to ui
-        if self.comments.count > 0 {
-            if self.comments[0].count > 0 {
-                let lastComment = self.comments[0][0]
-                if lastComment.userEmail == message.userEmail && lastComment.timestamp == message.timestamp {
-                    self.comments[0].insert(message, at: 0)
-                    self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+            // add new comment to ui
+            if self.comments.count > 0 {
+                if self.comments[0].count > 0 {
+                    let lastComment = self.comments[0][0]
+                    if lastComment.userEmail == message.userEmail && lastComment.timestamp == message.timestamp {
+                        self.comments[0].insert(message, at: 0)
+                        self.viewPresenter?.onSendingComment(comment: message, newSection: false)
+                    } else {
+                        self.comments.insert([message], at: 0)
+                        self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                    }
                 } else {
                     self.comments.insert([message], at: 0)
                     self.viewPresenter?.onSendingComment(comment: message, newSection: true)
@@ -176,10 +181,6 @@ class UIChatPresenter: UIChatUserInteraction {
                 self.comments.insert([message], at: 0)
                 self.viewPresenter?.onSendingComment(comment: message, newSection: true)
             }
-        } else {
-            self.comments.insert([message], at: 0)
-            self.viewPresenter?.onSendingComment(comment: message, newSection: true)
-        }
     }
     
     func getAvatarImage(section: Int, imageView: UIImageView) {

@@ -44,6 +44,11 @@ open class UIChatListViewController: UIViewController {
         self.presenter.loadChat()
     }
     
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.presenter.detachView()
+    }
+    
 }
 
 extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource {

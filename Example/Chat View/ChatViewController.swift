@@ -58,7 +58,7 @@ extension ChatViewController : CustomChatInputDelegate {
         let optionMenu = UIAlertController()
         let deleteAction = UIAlertAction(title: "Camera", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("File Deleted")
+            self.getCamera()
         })
         let saveAction = UIAlertAction(title: "Photo & Video Library", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -87,6 +87,20 @@ extension ChatViewController : CustomChatInputDelegate {
         optionMenu.addAction(couponAction)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    private func getCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        picker.allowsEditing = false
+        picker.sourceType = .camera
+        picker.cameraCaptureMode = .photo
+        picker.modalPresentationStyle = .popover
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(picker, animated: true, completion: nil)
+//        picker.popoverPresentationController?.barButtonItem = sender
+        }else {
+            print("no camera")
+        }
     }
     
     private func getContact() {
@@ -140,10 +154,32 @@ extension ChatViewController : CNContactPickerDelegate {
 // Image Picker
 extension ChatViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        //
+        var chosenImage = UIImage()
+        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        dismiss(animated:true, completion: nil)
+        
+        // send image
+        let data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+        QiscusCore.shared.upload(data: data, filename: "fileupload.jpg", onSuccess: { (file) in
+            // send image, with qiscus comment type "file_attachment" payload must valid
+            let message = CommentModel()
+            message.type = "file_attachment"
+            message.payload = [
+                "url"       : file.url.absoluteString,
+                "file_name" : file.name,
+                "size"      : file.size,
+                "caption"   : ""
+            ]
+            message.message = "Send Attachment"
+            self.send(message: message)
+        }, onError: { (error) in
+            //
+        }) { (progress) in
+            print("upload progress: \(progress)")
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        //
+        dismiss(animated: true, completion: nil)
     }
 }
