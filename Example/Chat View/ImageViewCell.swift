@@ -43,7 +43,27 @@ class ImageViewCell: UIBaseChatCell {
         
         self.labelCaption.text = caption
         if let url = payload["url"] as? String {
-            self.imageViewMessage.af_setImage(withURL: URL(string: url)!)
+//            self.imageViewMessage.af_setImage(withURL: URL(string: url)!)
+      
+            // Download file, becareful for lag
+            QiscusCore.shared.download(url: URL(string: url)!, onSuccess: { (localPath) in
+                print("download result : \(localPath)")
+                // handle lagging
+                if let cache = ImageCache.shared.cache.object(forKey: NSString(string: url)) {
+                    self.imageViewMessage.image = cache
+                }else {
+                    DispatchQueue.global(qos: .background).async {
+                        let data    = NSData(contentsOf: localPath)
+                        let image   = UIImage(data: data! as Data)
+                        DispatchQueue.main.async {
+                            ImageCache.shared.cache.setObject(image!, forKey: NSString(string: url))
+                            self.imageViewMessage.image = image
+                        }
+                    }
+                }
+            }) { (progress) in
+                print("Download Progress \(progress)")
+            }
         }
     }
     

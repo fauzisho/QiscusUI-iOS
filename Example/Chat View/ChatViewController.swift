@@ -14,6 +14,7 @@ import ContactsUI
 class ChatViewController: UIChatViewController {
     var roomID : String?
     let picker = UIImagePickerController()
+    let imageCache = NSCache<NSString, UIImage>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,7 @@ class ChatViewController: UIChatViewController {
         inputBar.delegate = self
         return inputBar
     }
+    
 }
 
 extension ChatViewController : CustomChatInputDelegate {
