@@ -52,10 +52,7 @@ class ChatViewController: UIChatViewController {
         inputBar.delegate = self
         return inputBar
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
-    }
+
 }
 
 extension ChatViewController : CustomChatInputDelegate {

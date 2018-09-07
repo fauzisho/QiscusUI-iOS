@@ -7,7 +7,7 @@ def pod_release
 end
 
 def pod_dev
-    pod 'QiscusCore', :path => '../QiscusCore'
+    pod 'QiscusCore', :path => '../QiscusCore/Cocoapods'
     pod 'QiscusRealtime', :path => '../QiscusRealtime'
 end
 
