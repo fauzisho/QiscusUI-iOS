@@ -162,7 +162,8 @@ extension ChatViewController : UIImagePickerControllerDelegate, UINavigationCont
         
         // send image
         let data = UIImageJPEGRepresentation(chosenImage, 0.5)!
-        QiscusCore.shared.upload(data: data, filename: "fileupload.jpg", onSuccess: { (file) in
+        let timestamp = "\(NSDate().timeIntervalSince1970 * 1000).jpg"
+        QiscusCore.shared.upload(data: data, filename: timestamp, onSuccess: { (file) in
             // send image, with qiscus comment type "file_attachment" payload must valid
             let message = CommentModel()
             message.type = "file_attachment"
