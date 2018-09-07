@@ -15,10 +15,11 @@ protocol UIChatView {
     func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String)
     func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String
     func chatInputBar() -> UIChatInput?
+    func chatViewController(viewController : UIChatViewController, didSelectMessage message: CommentModel)
+//    func allComments() -> [[CommentModel]]
 }
 
 open class UIChatViewController: UIViewController, UIChatView {
-    
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewChatInput: UIView!
     @IBOutlet weak var viewInput: NSLayoutConstraint!
@@ -251,6 +252,10 @@ open class UIChatViewController: UIViewController, UIChatView {
     public func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String) {
         self.tableViewConversation.register(nib, forCellReuseIdentifier: reuseIdentifier)
     }
+    
+    open func chatViewController(viewController: UIChatViewController, didSelectMessage message: CommentModel) {
+        //
+    }
 }
 
 extension UIChatViewController: UIChatViewDelegate {
@@ -379,14 +384,6 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if let firstComment = self.presenter.comments[section].first {
-//            if firstComment.isMyComment {
-//                return 1
-//            } else {
-//                return 1
-//            }
-//        }
-        
         return 0.01
     }
     
@@ -394,15 +391,17 @@ extension UIChatViewController: UITableViewDataSource {
         return 0.01
     }
     
-//    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
-//        label.textAlignment = NSTextAlignment.center
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
+        label.textAlignment = NSTextAlignment.center
 //        self.presenter.getDate(section: section,labelView: label)
-//        label.clipsToBounds = true
-//        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
-//        self.view.addSubview(label)
-//        return label
-//    }
+        label.text = "00.00"
+        label.clipsToBounds = true
+        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        self.view.addSubview(label)
+        return label
+    }
+    
     // MARK: chat avatar setup
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusUIHelper.screenWidth(), height: 0))
@@ -447,7 +446,11 @@ extension UIChatViewController : UITextFieldDelegate {
 extension UIChatViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        // get mesage at indexpath
+        let comment = self.presenter.getMessage(atIndexPath: indexPath)
+        self.chatViewController(viewController: self, didSelectMessage: comment)
     }
+    
 }
 
 extension UIChatViewController : UIChatInputDelegate {

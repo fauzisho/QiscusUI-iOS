@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QiscusCore.enableDebugPrint = true
         QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
 //        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
-        
         auth()
         
         return true
@@ -32,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             target = ListChatViewController()
             // if your are using qiscus ui, qiscuscoredelegate already use in there. but, you can got qiscus event using ChatUIDelegate
             QiscusUI.delegate = self
+            QiscusCore.connect(delegate: self)
         }else {
             target = LoginViewController()
         }
@@ -87,5 +87,20 @@ extension AppDelegate : UIChatDelegate {
     func remove(room: RoomModel) {
         
     }
+}
+
+extension AppDelegate : QiscusConnectionDelegate {
+    func disconnect(withError err: QError?) {
+        //
+    }
+    
+    func connected() {
+        //
+    }
+    
+    func connectionState(change state: QiscusConnectionState) {
+        //
+    }
+    
 }
 

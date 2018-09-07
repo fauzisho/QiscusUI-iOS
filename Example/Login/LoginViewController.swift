@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
             
             if let name = alert.textFields?.first?.text {
                 if let key = alert.textFields?.last?.text {
-                    QiscusCore.connect(userID: name, userKey: key) { (result, error) in
+                    QiscusCore.login(userID: name, userKey: key) { (result, error) in
                         if result != nil {
                             self.navigationController?.pushViewController(ListChatViewController(), animated: true)
                         }else {
