@@ -59,7 +59,6 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func getMessage(atIndexPath: IndexPath) -> CommentModel {
-        let comments = self.comments
         let comment = comments[atIndexPath.section][atIndexPath.row]
         return comment
     }
@@ -74,7 +73,7 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func loadComments(withID roomId: String) {
         // load local
-        if let _comments = QiscusCore.dataStore.getCommentbyRoomID(id: roomId) {
+        if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
             self.comments = self.groupingComments(comments: _comments)
             self.viewPresenter?.onLoadMessageFinished()
         }

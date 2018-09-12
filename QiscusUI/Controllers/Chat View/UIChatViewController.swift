@@ -299,7 +299,8 @@ extension UIChatViewController: UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
         DispatchQueue.main.async {
             self.titleLabel.text = roomName
-            self.roomAvatar.af_setImage(withURL: roomAvatarURL!)
+            guard let avatar = roomAvatarURL else { return }
+            self.roomAvatar.af_setImage(withURL: avatar)
         }
     }
     

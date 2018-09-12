@@ -83,19 +83,7 @@ class UIChatListViewCell: UITableViewCell {
         if let data = data {
             self.labelName.text = data.name
             self.labelDate.text = lastMessageCreateAt
-            
-            var message = ""
-            if data.lastComment?.type == ""{
-                message = "File Attachment"
-            }else{
-                message = (data.lastComment?.message)!
-            }
-            
-            if(data.type != .single){
-                self.labelLastMessage.text  =  "\((data.lastComment?.username)!): \(message)"
-            }else{
-                 self.labelLastMessage.text  = message
-            }
+
             if let avatar = data.avatarUrl {
                 self.imageViewRoom.af_setImage(withURL: avatar)
             }
@@ -106,6 +94,18 @@ class UIChatListViewCell: UITableViewCell {
                 self.labelBadge.text = "\(data.unreadCount)"
             }
             
+            var message = ""
+            guard let lastComment = data.lastComment else { return }
+            if lastComment.type == ""{
+                message = "File Attachment"
+            }else {
+                message = lastComment.message
+            }
+            if(data.type != .single){
+                self.labelLastMessage.text  =  "\(lastComment.username): \(message)"
+            }else{
+                self.labelLastMessage.text  = message
+            }
         }
     }
     
