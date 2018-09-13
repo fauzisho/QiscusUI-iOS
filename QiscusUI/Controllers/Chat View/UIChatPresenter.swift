@@ -73,10 +73,10 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func loadComments(withID roomId: String) {
         // load local
-        if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
-            self.comments = self.groupingComments(comments: _comments)
-            self.viewPresenter?.onLoadMessageFinished()
-        }
+//        if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
+//            self.comments = self.groupingComments(comments: _comments)
+//            self.viewPresenter?.onLoadMessageFinished()
+//        }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             self.comments.removeAll()
             // convert model
