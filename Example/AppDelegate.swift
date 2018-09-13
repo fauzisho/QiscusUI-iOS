@@ -47,7 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-
+        QiscusCore.shared.sync { (comments, error) in
+            //
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -55,7 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-
+        QiscusCore.shared.sync { (comments, error) in
+            //
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
