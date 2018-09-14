@@ -120,7 +120,11 @@ extension ChatViewController : CustomChatInputDelegate {
         message.type = "Coupon/BukaToko"
         message.payload = [
             "name"  : "BukaToko",
-            "voucher" : "xyz"
+            "voucher" : "xyz",
+            "extra" : [
+                "id" : "112",
+                "value" : "20000",
+            ]
         ]
         message.message = "Send Coupon"
         self.send(message: message)

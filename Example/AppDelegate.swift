@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         QiscusCore.enableDebugPrint = true
-        QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
+        self.setupAppID()
 //        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
         auth()
         
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             target = ListChatViewController()
             // if your are using qiscus ui, qiscuscoredelegate already use in there. but, you can got qiscus event using ChatUIDelegate
             QiscusUI.delegate = self
-            QiscusCore.connect(delegate: self)
+            _ = QiscusCore.connect(delegate: self)
         }else {
             target = LoginViewController()
         }
@@ -42,6 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
 
+    // save app id from login with user or jwt
+    func setupAppID() {
+        let local = UserDefaults.standard
+        if let appid = local.string(forKey: "AppID") {
+            QiscusCore.setup(WithAppID: appid)
+        }else {
+            QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse") // default
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
 
     }

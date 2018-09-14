@@ -93,8 +93,9 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 extension UIChatListViewController : UIChatListView {
     func didUpdate(user: MemberModel, isTyping typing: Bool, in room: RoomModel) {
         let rooms = self.presenter.rooms
-        if let index = getIndexpath(byRoom: room, inRooms: rooms) {
-            
+        let indexPath = getIndexpath(byRoom: room, inRooms: rooms)
+        let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
+        if let v = isVisible, let index = indexPath, v == true {
             self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
         }
     }
@@ -102,7 +103,9 @@ extension UIChatListViewController : UIChatListView {
     func updateRooms(data: RoomModel) {
         // improve only reload for new cell with room data
         let rooms = self.presenter.rooms
-        if let index = getIndexpath(byRoom: data, inRooms: rooms) {
+        let indexPath = getIndexpath(byRoom: data, inRooms: rooms)
+        let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
+        if let v = isVisible, let index = indexPath, v == true {
             let newIndex = IndexPath(row: 0, section: 0)
             self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
             self.tableView.moveRow(at: index, to: newIndex)

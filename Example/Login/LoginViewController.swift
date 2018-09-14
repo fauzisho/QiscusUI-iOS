@@ -41,6 +41,9 @@ class LoginViewController: UIViewController {
             
             if let name = alert.textFields?.first?.text {
                 if let key = alert.textFields?.last?.text {
+                    let local = UserDefaults.standard
+                    local.set("sampleapp-65ghcsaysse", forKey: "AppID")
+                    QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
                     QiscusCore.login(userID: name, userKey: key) { (result, error) in
                         if result != nil {
                             self.navigationController?.pushViewController(ListChatViewController(), animated: true)
@@ -59,4 +62,9 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true)
         
     }
+    
+    @IBAction func loginWithQR(_ sender: Any) {
+        self.navigationController?.pushViewController(LoginQRController(), animated: true)
+    }
+    
 }

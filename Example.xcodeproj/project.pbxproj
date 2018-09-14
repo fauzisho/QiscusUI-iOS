@@ -12,6 +12,8 @@
 		3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2721378C4000867E10 /* ImageViewCell.swift */; };
 		3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06AE2821378C4000867E10 /* ImageViewCell.xib */; };
 		3D06AE2E2137D08900867E10 /* CommentPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2D2137D08900867E10 /* CommentPayload.swift */; };
+		3D728936214A9D2500B373A9 /* LoginQRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D728934214A9D2400B373A9 /* LoginQRController.swift */; };
+		3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D728935214A9D2400B373A9 /* LoginQRController.xib */; };
 		3D7385FE21411CD8000BB592 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7385FD21411CD8000BB592 /* ImageCache.swift */; };
 		3DA307162117FBCB00E4282E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA307152117FBCB00E4282E /* AppDelegate.swift */; };
 		3DA307202117FBCE00E4282E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DA3071E2117FBCE00E4282E /* LaunchScreen.storyboard */; };
@@ -33,6 +35,8 @@
 		3D06AE2721378C4000867E10 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		3D06AE2821378C4000867E10 /* ImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewCell.xib; sourceTree = "<group>"; };
 		3D06AE2D2137D08900867E10 /* CommentPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPayload.swift; sourceTree = "<group>"; };
+		3D728934214A9D2400B373A9 /* LoginQRController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginQRController.swift; sourceTree = "<group>"; };
+		3D728935214A9D2400B373A9 /* LoginQRController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginQRController.xib; sourceTree = "<group>"; };
 		3D7385FD21411CD8000BB592 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		3DA307122117FBCB00E4282E /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA307152117FBCB00E4282E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 		3D0348FE213E553C0061900B /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3D728934214A9D2400B373A9 /* LoginQRController.swift */,
+				3D728935214A9D2400B373A9 /* LoginQRController.xib */,
 				3DA3072B2117FC7600E4282E /* LoginViewController.swift */,
 				3DA307272117FC7600E4282E /* LoginViewController.xib */,
 			);
@@ -216,6 +222,7 @@
 				3DA307302117FC7700E4282E /* ListChatViewController.xib in Resources */,
 				3DDF12C7213ED3EE00E15B36 /* Assets.xcassets in Resources */,
 				3DA3072F2117FC7700E4282E /* ChatViewController.xib in Resources */,
+				3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */,
 				3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +293,7 @@
 			files = (
 				3DA307322117FC7700E4282E /* LoginViewController.swift in Sources */,
 				3DA307312117FC7700E4282E /* ListChatViewController.swift in Sources */,
+				3D728936214A9D2500B373A9 /* LoginQRController.swift in Sources */,
 				3D7385FE21411CD8000BB592 /* ImageCache.swift in Sources */,
 				3DA307332117FC7700E4282E /* ChatViewController.swift in Sources */,
 				3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */,

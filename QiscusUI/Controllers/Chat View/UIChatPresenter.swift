@@ -105,7 +105,7 @@ class UIChatPresenter: UIChatUserInteraction {
                             self.loadMoreAvailable = false
                         }
                         let tempComments = comments.map({ (qComment) -> CommentModel in
-                            return qComment as! CommentModel
+                            return qComment 
                         })
                         
                         self.comments.append(contentsOf: self.groupingComments(comments: tempComments))
@@ -239,7 +239,7 @@ class UIChatPresenter: UIChatUserInteraction {
 extension UIChatPresenter : QiscusCoreRoomDelegate {
     func gotNewComment(comment: CommentModel) {
         guard let room = self.room else { return }
-        let message = comment as! CommentModel
+        let message = comment
         self.comments.insert([message], at: 0)
         self.viewPresenter?.onGotNewComment(newSection: true, isMyComment: false)
         // MARK: TODO unread new comment, need trotle

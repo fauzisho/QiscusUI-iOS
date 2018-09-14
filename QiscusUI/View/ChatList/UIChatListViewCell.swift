@@ -38,7 +38,6 @@ class UIChatListViewCell: UITableViewCell {
     
     var lastMessageCreateAt:String{
         get{
-            return ""
             let createAt = data?.lastComment?.unixTimestamp
             if createAt == 0 {
                 return ""

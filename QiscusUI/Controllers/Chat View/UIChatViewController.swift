@@ -393,12 +393,12 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
+        let label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
         label.textAlignment = NSTextAlignment.center
 //        self.presenter.getDate(section: section,labelView: label)
         label.text = "00.00"
         label.clipsToBounds = true
-        label.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        label.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         self.view.addSubview(label)
         return label
     }
@@ -407,7 +407,7 @@ extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusUIHelper.screenWidth(), height: 0))
         view.backgroundColor = .clear
-        view.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        view.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         
         let viewAvatar = UIView(frame: CGRect(x: 5, y: -30, width: 30, height: 60))
         let avatar = UIImageView(frame: CGRect(x: 5, y: 0, width: 30, height: 30))
