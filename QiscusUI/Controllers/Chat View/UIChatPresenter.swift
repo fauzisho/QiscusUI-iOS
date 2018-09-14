@@ -20,6 +20,7 @@ protocol UIChatUserInteraction {
 protocol UIChatViewDelegate {
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?)
     func onLoadMessageFinished()
+    func onLoadMessageFailed(message: String)
     func onLoadMoreMesageFinished()
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
@@ -78,17 +79,21 @@ class UIChatPresenter: UIChatUserInteraction {
             self.viewPresenter?.onLoadMessageFinished()
         }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
+            guard let response = dataResponse else {
+                guard let _error = error else { return }
+                self.viewPresenter?.onLoadMessageFailed(message: _error.message)
+                return
+            }
             self.comments.removeAll()
             // convert model
             var tempComments = [CommentModel]()
-            if let data = dataResponse {
-                for i in data {
-                    tempComments.append(i)
-                }
-                // MARK: TODO improve and grouping
-                self.comments = self.groupingComments(comments: tempComments)
-                self.viewPresenter?.onLoadMessageFinished()
+            for i in response {
+                tempComments.append(i)
             }
+            // MARK: TODO improve and grouping
+            self.comments = self.groupingComments(comments: tempComments)
+            self.viewPresenter?.onLoadMessageFinished()
+            
         }
     }
     

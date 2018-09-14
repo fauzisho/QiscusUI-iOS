@@ -259,6 +259,10 @@ open class UIChatViewController: UIViewController, UIChatView {
 }
 
 extension UIChatViewController: UIChatViewDelegate {
+    func onLoadMessageFailed(message: String) {
+        //
+    }
+    
     func onUser(name: String, isOnline: Bool, message: String) {
         self.subtitleLabel.text = message
     }
@@ -349,6 +353,7 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
+        print("number of section \(self.presenter.comments.count)")
         return self.presenter.comments.count
     }
     
@@ -456,6 +461,7 @@ extension UIChatViewController: UITableViewDelegate {
 
 extension UIChatViewController : UIChatInputDelegate {
     public func send(message: CommentModel) {
+        print("number of comment : \(self.presenter.comments.count)")
         self.presenter.sendMessage(withComment: message)
     }
 }
