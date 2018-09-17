@@ -38,12 +38,13 @@ class UIChatListViewCell: UITableViewCell {
     
     var lastMessageCreateAt:String{
         get{
-            let createAt = data?.lastComment?.unixTimestamp
+            guard let comment = data?.lastComment else { return "" }
+            let createAt = comment.unixTimestamp
             if createAt == 0 {
                 return ""
             }else{
                 var result = ""
-                let date = Date(timeIntervalSince1970: Double(createAt!))
+                let date = Date(timeIntervalSince1970: Double(createAt))
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "d/MM"
                 let dateString = dateFormatter.string(from: date)

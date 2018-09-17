@@ -21,10 +21,10 @@ open class UIBaseChatCell: UITableViewCell, UIMessagePresenting {
         set {
             self._comment = newValue
             if let data = newValue { present(message: data) } // bind data only
-            comment?.onChange = { newComment in
-                self.comment = newComment
-                self.update(message: newComment)
-            }
+//            comment?.onChange = { newComment in
+//                self.comment = newComment
+//                self.update(message: newComment)
+//            }
         }
         get {
             return self._comment

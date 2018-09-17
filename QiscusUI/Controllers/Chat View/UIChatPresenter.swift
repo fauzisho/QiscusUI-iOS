@@ -25,6 +25,7 @@ protocol UIChatViewDelegate {
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
+    func onGotComment(comment: CommentModel, isUpdate: CommentModel)
     func onUser(name: String, typing: Bool)
     func onUser(name: String, isOnline: Bool, message: String)
 }
@@ -75,7 +76,9 @@ class UIChatPresenter: UIChatUserInteraction {
     func loadComments(withID roomId: String) {
         // load local
         if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
+            self.comments.removeAll()
             self.comments = self.groupingComments(comments: _comments)
+            debugPrint(self.comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
@@ -91,9 +94,10 @@ class UIChatPresenter: UIChatUserInteraction {
                 tempComments.append(i)
             }
             // MARK: TODO improve and grouping
+            self.comments.removeAll()
             self.comments = self.groupingComments(comments: tempComments)
+            debugPrint(self.comments)
             self.viewPresenter?.onLoadMessageFinished()
-            
         }
     }
     
@@ -133,6 +137,8 @@ class UIChatPresenter: UIChatUserInteraction {
         
         addNewCommentUI(comment)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: comment) { (_comment, error) in
+            guard let c = _comment else { return }
+            self.viewPresenter?.onGotComment(comment: comment, isUpdate: c)
             
         }
     }
@@ -145,7 +151,8 @@ class UIChatPresenter: UIChatUserInteraction {
         message.type    = "text"
         addNewCommentUI(message)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
-            
+            guard let c = comment else { return }
+            self.viewPresenter?.onGotComment(comment: message, isUpdate: c)
         }
     }
     
@@ -198,46 +205,84 @@ class UIChatPresenter: UIChatUserInteraction {
         
     }
     
+    /// Grouping by useremail and date(same day), example [[you,you],[me,me],[me]]
     private func groupingComments(comments: [CommentModel]) -> [[CommentModel]]{
         var retVal = [[CommentModel]]()
-        var uidList = [CommentModel]()
-        
-        var prevComment:CommentModel?
         var group = [CommentModel]()
-        var count = 0
-        
         for comment in comments {
-            if !uidList.contains(where: { (CommentModel) -> Bool in
-                return CommentModel.id == comment.id
-            }) {
-                if let prev = prevComment{
-                    if prev.timestamp == comment.timestamp && prev.userEmail == comment.userEmail {
-                        uidList.append(comment)
+            if !group.contains(where: { $0.uniqId == comment.uniqId}) {
+                // check last comment in group
+                if let last = group.last {
+                    // compare email with last group
+                    if last.userEmail == comment.userEmail {
                         group.append(comment)
-                    }else{
+                    }else {
                         retVal.append(group)
-                        //                        checkPosition(ids: group)
-                        group = [CommentModel]()
-                        group.append(comment)
-                        uidList.append(comment)
+                        group.removeAll()
                     }
-                }else{
+                }else {
                     group.append(comment)
-                    uidList.append(comment)
-                }
-                if count == comments.count - 1  {
-                    retVal.append(group)
-                    //                    checkPosition(ids: group)
-                }else{
-                    prevComment = comment
                 }
             }
-            count += 1
         }
         return retVal
+//        var uidList = [CommentModel]()
+//        var prevComment:CommentModel?
+//        var group = [CommentModel]()
+//        var count = 0
+//
+//        for comment in comments {
+//
+//            if !uidList.contains(where: { $0.uniqId == comment.uniqId}) {
+//                // check last comment
+//                if let prev = prevComment {
+//                    // check difference time(in same day) and user group
+//                    if prev.timestamp == comment.timestamp && prev.userEmail == comment.userEmail {
+//                        uidList.append(comment)
+//                        group.append(comment)
+//                    }else{
+//                        retVal.append(group)
+//                        //                        checkPosition(ids: group)
+//                        group = [CommentModel]()
+//                        group.append(comment)
+//                        uidList.append(comment)
+//                    }
+//                }else{
+//                    // add new group
+//                    group.append(comment)
+//                    uidList.append(comment)
+//                }
+//                if count == comments.count - 1  {
+//                    retVal.append(group)
+//                    //                    checkPosition(ids: group)
+//                }else{
+//                    prevComment = comment
+//                }
+//            }
+//            count += 1
+//        }
+//        return retVal
     }
     
-    
+    func getIndexPath(comment : CommentModel) -> IndexPath? {
+        let data = self.comments
+        print("data \(data.count)")
+        for (group,c) in data.enumerated() {
+            print("data \(group), count \(c.count)")
+            for (index,i) in c.enumerated() {
+                print("i.uniqueid \(i.uniqId), \(comment.uniqId)")
+                if i.uniqId == comment.uniqId {
+                    print("found data \(index), count \(group)")
+                    return IndexPath.init(row: index, section: group)
+                }
+            }
+//            if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
+//                print("found data \(index), count \(c.count)")
+//                return IndexPath.init(row: index, section: group)
+//            }
+        }
+        return nil
+    }
 }
 
 
@@ -252,7 +297,18 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
     }
     
     func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
-        //
+        print("comment \(comment.message), status update \(status.rawValue)")
+        // check comment already exist in view
+        for (group,c) in comments.enumerated() {
+            if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
+                // then update comment value and notice onChange()
+                print("comment change last \(comments.count), \(c.count)")
+                comments[group][index] = comment
+//                comments[group][index].onChange(comment)
+                self.viewPresenter?.onGotComment(comment: comments[group][index], isUpdate: comment)
+            }
+        }
+        
     }
     
     func onRoom(thisParticipant user: MemberModel, isTyping typing: Bool) {

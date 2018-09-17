@@ -20,7 +20,7 @@ public class QiscusUI {
             }
         }
     }
-    
+    public static var enableDebugPrint: Bool = false
     static var disableLocalization: Bool = false
     
     public static var delegate  : UIChatDelegate? {

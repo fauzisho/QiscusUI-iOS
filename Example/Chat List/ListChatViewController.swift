@@ -48,7 +48,7 @@ class ListChatViewController: UIChatListViewController {
     @objc func addGroup() {
         let names = ["Semarang", "jogja", "jakarta", "bogor", "palembang"]
         let randomName = names[Int(arc4random_uniform(UInt32(names.count)))]
-        QiscusCore.shared.createGroup(withName: randomName, participants: ["amsibsam", "amsibsan"], avatarUrl: nil) { (room, error) in
+        QiscusCore.shared.createGroup(withName: randomName, participants: ["amsibsam", "amsibsan", "hijuju", "qwerty"], avatarUrl: nil) { (room, error) in
             guard let room = room else {return}
             self.chat(withRoom: room)
         }

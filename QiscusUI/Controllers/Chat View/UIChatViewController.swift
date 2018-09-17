@@ -258,7 +258,22 @@ open class UIChatViewController: UIViewController, UIChatView {
     }
 }
 
+// MARK: UIChatDelegate
 extension UIChatViewController: UIChatViewDelegate {
+    func onGotComment(comment: CommentModel, isUpdate: CommentModel) {
+        // get index path
+        if let indexpath = self.presenter.getIndexPath(comment: isUpdate) {
+        let comments = self.presenter.comments
+            print("number of section \(comments.count)")
+        for (index,data) in comments.enumerated() {
+            print("number of row \(data.count), in section \(index)")
+        }
+        print("section \(indexpath.section), row \(indexpath.row)")
+        // reload cell in section and index path
+            self.tableViewConversation.rectForRow(at: indexpath)
+        }
+    }
+    
     func onLoadMessageFailed(message: String) {
         //
     }
