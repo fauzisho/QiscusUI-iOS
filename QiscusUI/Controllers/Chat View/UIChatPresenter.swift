@@ -32,7 +32,7 @@ protocol UIChatViewDelegate {
 
 class UIChatPresenter: UIChatUserInteraction {
     private var viewPresenter: UIChatViewDelegate?
-    var comments: [[CommentModel]] = []
+    var comments: [[CommentModel]]
     var room: RoomModel? 
     var loadMoreAvailable: Bool = true
     var participants : [MemberModel] = [MemberModel]()
@@ -65,12 +65,8 @@ class UIChatPresenter: UIChatUserInteraction {
         return comment
     }
     
-    func getComments() -> [[CommentModel]] {
-        return self.comments
-    }
-    
     func loadRoom(withId roomId: String) {
-        
+        //
     }
     
     func loadComments(withID roomId: String) {
@@ -79,6 +75,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
+        return
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             guard let response = dataResponse else {
                 guard let _error = error else { return }
@@ -283,11 +280,14 @@ class UIChatPresenter: UIChatUserInteraction {
 extension UIChatPresenter : QiscusCoreRoomDelegate {
     func gotNewComment(comment: CommentModel) {
         guard let room = self.room else { return }
-        // MARK: TODO check comment already in ui?
-        self.addNewCommentUI(comment, isIncoming: true)
-        // MARK: TODO unread new comment, need trotle
-        QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
+        // 2check comment already in ui?
+        if (self.getIndexPath(comment: comment, in: self.comments) == nil) {
+            self.addNewCommentUI(comment, isIncoming: true)
+            // MARK: TODO unread new comment, need trotle
+            QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
+        }
     }
+        
     
     func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
         print("comment \(comment.message), status update \(status.rawValue)")

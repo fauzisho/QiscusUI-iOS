@@ -467,7 +467,7 @@ extension UIChatViewController: UITableViewDataSource {
         
         view.addSubview(viewAvatar)
         
-        if let firstComment = self.presenter.getComments()[section].first {
+        if let firstComment = self.presenter.comments[section].first {
             if firstComment.isMyComment() {
                 return nil
             } else {
@@ -500,7 +500,6 @@ extension UIChatViewController: UITableViewDelegate {
 
 extension UIChatViewController : UIChatInputDelegate {
     public func send(message: CommentModel) {
-        print("number of comment : \(self.presenter.comments.count)")
         self.presenter.sendMessage(withComment: message)
     }
 }
