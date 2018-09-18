@@ -130,8 +130,7 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func sendMessage(withComment comment: CommentModel) {
-        
-        addNewCommentUI(comment)
+        addNewCommentUI(comment, isIncoming: false)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: comment) { (_comment, error) in
             guard let c = _comment else { return }
             self.didComment(comment: c, changeStatus: c.status)
@@ -144,7 +143,7 @@ class UIChatPresenter: UIChatUserInteraction {
         let message = CommentModel()
         message.message = text
         message.type    = "text"
-        addNewCommentUI(message)
+        addNewCommentUI(message, isIncoming: false)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
             guard let c = comment else { return }
             self.didComment(comment: c, changeStatus: c.status)
@@ -161,32 +160,40 @@ class UIChatPresenter: UIChatUserInteraction {
             "type" : "data",
             "content" : "",
         ]
-        addNewCommentUI(message)
+        addNewCommentUI(message, isIncoming: false)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
             print("failed \(String(describing: error?.message))")
         }
     }
     
-    private func addNewCommentUI(_ message: CommentModel) {
-            // add new comment to ui
-            if self.comments.count > 0 {
-                if self.comments[0].count > 0 {
-                    let lastComment = self.comments[0][0]
-                    if lastComment.userEmail == message.userEmail && lastComment.timestamp == message.timestamp {
-                        self.comments[0].insert(message, at: 0)
-                        self.viewPresenter?.onSendingComment(comment: message, newSection: false)
-                    } else {
-                        self.comments.insert([message], at: 0)
-                        self.viewPresenter?.onSendingComment(comment: message, newSection: true)
-                    }
+    private func addNewCommentUI(_ message: CommentModel, isIncoming: Bool) {
+        // add new comment to ui
+        var section = false
+        if self.comments.count > 0 {
+            if self.comments[0].count > 0 {
+                let lastComment = self.comments[0][0]
+                if lastComment.userEmail == message.userEmail {
+                    self.comments[0].insert(message, at: 0)
+                    section = false
                 } else {
                     self.comments.insert([message], at: 0)
-                    self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                    section = true
                 }
             } else {
                 self.comments.insert([message], at: 0)
-                self.viewPresenter?.onSendingComment(comment: message, newSection: true)
+                section = true
             }
+        } else {
+            // last comments is empty, then create new group and append this comment
+            self.comments.insert([message], at: 0)
+            section = true
+        }
+        // choose uidelegate
+        if isIncoming {
+            self.viewPresenter?.onGotNewComment(newSection: section, isMyComment: false)
+        }else {
+            self.viewPresenter?.onSendingComment(comment: message, newSection: section)
+        }
     }
     
     func getAvatarImage(section: Int, imageView: UIImageView) {
@@ -272,12 +279,12 @@ class UIChatPresenter: UIChatUserInteraction {
 }
 
 
+// MARK: Core Delegate
 extension UIChatPresenter : QiscusCoreRoomDelegate {
     func gotNewComment(comment: CommentModel) {
         guard let room = self.room else { return }
-        let message = comment
-        self.comments.insert([message], at: 0)
-        self.viewPresenter?.onGotNewComment(newSection: true, isMyComment: false)
+        // MARK: TODO check comment already in ui?
+        self.addNewCommentUI(comment, isIncoming: true)
         // MARK: TODO unread new comment, need trotle
         QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
     }

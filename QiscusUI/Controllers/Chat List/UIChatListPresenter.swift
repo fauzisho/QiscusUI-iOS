@@ -40,7 +40,7 @@ class UIChatListPresenter {
     
     private func loadFromLocal() {
         // get from local
-        self.rooms = QiscusCore.dataStore.getRooms()
+        self.rooms = QiscusCore.database.room.all()
         if self.rooms.count > 0 {
             self.viewPresenter?.didFinishLoadChat(rooms: self.rooms)
         }
@@ -72,7 +72,7 @@ extension UIChatListPresenter : UIChatDelegate {
         // show in app notification
         print("got new comment: \(comment.message)")
         self.viewPresenter?.updateRooms(data: room)
-        self.rooms = QiscusCore.dataStore.getRooms()
+        self.rooms = QiscusCore.database.room.all()
         // MARK: TODO receive new comment, need trotle
         QiscusCore.shared.updateCommentReceive(roomId: room.id, lastCommentReceivedId: comment.id)
     }

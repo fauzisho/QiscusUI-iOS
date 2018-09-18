@@ -288,7 +288,7 @@ open class UIChatViewController: UIViewController, UIChatView {
 extension UIChatViewController: UIChatViewDelegate {
     func onGotComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-        self.tableViewConversation.reloadRows(at: [indexpath], with: .automatic)
+        self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
     }
     
     func onLoadMessageFailed(message: String) {
@@ -325,7 +325,7 @@ extension UIChatViewController: UIChatViewDelegate {
             self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .left)
             self.tableViewConversation.endUpdates()
         } else {
-            let indexPath = IndexPath(row: 0, section: 0)
+            let indexPath = IndexPath(row: 0, section: 0) // all view rotate because of this
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertRows(at: [indexPath], with: .left)
             self.tableViewConversation.endUpdates()
@@ -353,15 +353,15 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onGotNewComment(newSection: Bool, isMyComment: Bool) {
-        if Thread.isMainThread {
-            if newSection {
-                self.tableViewConversation.beginUpdates()
-                self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
-                if isMyComment {
-                    self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
-                }
-                self.tableViewConversation.endUpdates()
-            } else {
+//        if Thread.isMainThread {
+//            if newSection {
+//                self.tableViewConversation.beginUpdates()
+//                self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
+//                if isMyComment {
+//                    self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+//                }
+//                self.tableViewConversation.endUpdates()
+//            } else {
                 let indexPath = IndexPath(row: 0, section: 0)
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertRows(at: [indexPath], with: .right)
@@ -369,8 +369,8 @@ extension UIChatViewController: UIChatViewDelegate {
                     self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }
                 self.tableViewConversation.endUpdates()
-            }
-        }
+//            }
+//        }
     }
 }
 
