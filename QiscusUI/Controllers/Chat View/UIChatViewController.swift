@@ -341,7 +341,7 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onLoadMoreMesageFinished() {
-        //self.tableViewConversation.reloadData()
+        self.tableViewConversation.reloadData()
     }
     
     func onLoadMessageFinished() {

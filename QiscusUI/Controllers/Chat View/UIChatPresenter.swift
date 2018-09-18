@@ -75,7 +75,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
-        return
+//        return
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             guard let response = dataResponse else {
                 guard let _error = error else { return }
@@ -95,6 +95,7 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func loadMore() {
+        return
         if loadMoreAvailable {
             if let lastGroup = self.comments.last, let lastComment = lastGroup.last {
                 if lastComment.id.isEmpty {
