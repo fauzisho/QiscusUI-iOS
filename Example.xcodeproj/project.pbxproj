@@ -15,6 +15,7 @@
 		3D728936214A9D2500B373A9 /* LoginQRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D728934214A9D2400B373A9 /* LoginQRController.swift */; };
 		3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D728935214A9D2400B373A9 /* LoginQRController.xib */; };
 		3D7385FE21411CD8000BB592 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7385FD21411CD8000BB592 /* ImageCache.swift */; };
+		3D78C5B12150DCC0004E033A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D78C5B02150DCBF004E033A /* Assets.xcassets */; };
 		3DA307162117FBCB00E4282E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA307152117FBCB00E4282E /* AppDelegate.swift */; };
 		3DA307202117FBCE00E4282E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DA3071E2117FBCE00E4282E /* LaunchScreen.storyboard */; };
 		3DA3072E2117FC7700E4282E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA307272117FC7600E4282E /* LoginViewController.xib */; };
@@ -23,7 +24,6 @@
 		3DA307312117FC7700E4282E /* ListChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3072A2117FC7600E4282E /* ListChatViewController.swift */; };
 		3DA307322117FC7700E4282E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3072B2117FC7600E4282E /* LoginViewController.swift */; };
 		3DA307332117FC7700E4282E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3072C2117FC7700E4282E /* ChatViewController.swift */; };
-		3DDF12C7213ED3EE00E15B36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF12C6213ED3EE00E15B36 /* Assets.xcassets */; };
 		48D4183C2466F7ED1F05B88C /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9138072F95E4D892B806C4 /* Pods_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +38,7 @@
 		3D728934214A9D2400B373A9 /* LoginQRController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginQRController.swift; sourceTree = "<group>"; };
 		3D728935214A9D2400B373A9 /* LoginQRController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginQRController.xib; sourceTree = "<group>"; };
 		3D7385FD21411CD8000BB592 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		3D78C5B02150DCBF004E033A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DA307122117FBCB00E4282E /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA307152117FBCB00E4282E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DA3071F2117FBCE00E4282E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,7 +49,6 @@
 		3DA3072A2117FC7600E4282E /* ListChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListChatViewController.swift; sourceTree = "<group>"; };
 		3DA3072B2117FC7600E4282E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3DA3072C2117FC7700E4282E /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		3DDF12C6213ED3EE00E15B36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = example/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		9A9138072F95E4D892B806C4 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -142,7 +142,7 @@
 				3DA307152117FBCB00E4282E /* AppDelegate.swift */,
 				3DA3071E2117FBCE00E4282E /* LaunchScreen.storyboard */,
 				3DA307212117FBCE00E4282E /* Info.plist */,
-				3DDF12C6213ED3EE00E15B36 /* Assets.xcassets */,
+				3D78C5B02150DCBF004E033A /* Assets.xcassets */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -221,9 +221,9 @@
 				3DA307202117FBCE00E4282E /* LaunchScreen.storyboard in Resources */,
 				3D034904213E5A110061900B /* CustomChatInput.xib in Resources */,
 				3DA307302117FC7700E4282E /* ListChatViewController.xib in Resources */,
-				3DDF12C7213ED3EE00E15B36 /* Assets.xcassets in Resources */,
 				3DA3072F2117FC7700E4282E /* ChatViewController.xib in Resources */,
 				3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */,
+				3D78C5B12150DCC0004E033A /* Assets.xcassets in Resources */,
 				3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,7 +456,10 @@
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e8b32bc4-7302-47b2-90bb-a4a0166a5fe2";
@@ -475,7 +478,10 @@
 				DEVELOPMENT_TEAM = QG8KA4P8TE;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiscusdev.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e8b32bc4-7302-47b2-90bb-a4a0166a5fe2";

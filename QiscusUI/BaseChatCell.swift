@@ -57,5 +57,4 @@ open class UIBaseChatCell: UITableViewCell, UIMessagePresenting {
         // MARK: configure long press on cell
         self.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
     }
-
 }

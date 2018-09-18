@@ -25,7 +25,7 @@ protocol UIChatViewDelegate {
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool, isMyComment: Bool)
-    func onGotComment(comment: CommentModel, isUpdate: CommentModel)
+    func onGotComment(comment: CommentModel, indexpath: IndexPath)
     func onUser(name: String, typing: Bool)
     func onUser(name: String, isOnline: Bool, message: String)
 }
@@ -76,9 +76,7 @@ class UIChatPresenter: UIChatUserInteraction {
     func loadComments(withID roomId: String) {
         // load local
         if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
-            self.comments.removeAll()
-            self.comments = self.groupingComments(comments: _comments)
-            debugPrint(self.comments)
+            self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
@@ -87,7 +85,6 @@ class UIChatPresenter: UIChatUserInteraction {
                 self.viewPresenter?.onLoadMessageFailed(message: _error.message)
                 return
             }
-            self.comments.removeAll()
             // convert model
             var tempComments = [CommentModel]()
             for i in response {
@@ -95,8 +92,7 @@ class UIChatPresenter: UIChatUserInteraction {
             }
             // MARK: TODO improve and grouping
             self.comments.removeAll()
-            self.comments = self.groupingComments(comments: tempComments)
-            debugPrint(self.comments)
+            self.comments = self.groupingComments(tempComments)
             self.viewPresenter?.onLoadMessageFinished()
         }
     }
@@ -117,7 +113,7 @@ class UIChatPresenter: UIChatUserInteraction {
                             return qComment 
                         })
                         
-                        self.comments.append(contentsOf: self.groupingComments(comments: tempComments))
+                        self.comments.append(contentsOf: self.groupingComments(tempComments))
                         self.viewPresenter?.onLoadMoreMesageFinished()
                     } else {
                         
@@ -138,8 +134,7 @@ class UIChatPresenter: UIChatUserInteraction {
         addNewCommentUI(comment)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: comment) { (_comment, error) in
             guard let c = _comment else { return }
-            self.viewPresenter?.onGotComment(comment: comment, isUpdate: c)
-            
+            self.didComment(comment: c, changeStatus: c.status)
         }
     }
     
@@ -152,7 +147,7 @@ class UIChatPresenter: UIChatUserInteraction {
         addNewCommentUI(message)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
             guard let c = comment else { return }
-            self.viewPresenter?.onGotComment(comment: message, isUpdate: c)
+            self.didComment(comment: c, changeStatus: c.status)
         }
     }
     
@@ -206,24 +201,16 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     /// Grouping by useremail and date(same day), example [[you,you],[me,me],[me]]
-    private func groupingComments(comments: [CommentModel]) -> [[CommentModel]]{
+    private func groupingComments(_ data: [CommentModel]) -> [[CommentModel]]{
         var retVal = [[CommentModel]]()
-        var group = [CommentModel]()
-        for comment in comments {
-            if !group.contains(where: { $0.uniqId == comment.uniqId}) {
-                // check last comment in group
-                if let last = group.last {
-                    // compare email with last group
-                    if last.userEmail == comment.userEmail {
-                        group.append(comment)
-                    }else {
-                        retVal.append(group)
-                        group.removeAll()
-                    }
-                }else {
-                    group.append(comment)
-                }
-            }
+        let groupedMessages = Dictionary(grouping: data) { (element) -> Date in
+            return element.date.reduceToMonthDayYear()
+        }
+
+        let sortedKeys = groupedMessages.keys.sorted(by: { $0.compare($1) == .orderedDescending })
+        sortedKeys.forEach { (key) in
+            let values = groupedMessages[key]
+            retVal.append(values ?? [])
         }
         return retVal
 //        var uidList = [CommentModel]()
@@ -231,7 +218,7 @@ class UIChatPresenter: UIChatUserInteraction {
 //        var group = [CommentModel]()
 //        var count = 0
 //
-//        for comment in comments {
+//        for comment in data {
 //
 //            if !uidList.contains(where: { $0.uniqId == comment.uniqId}) {
 //                // check last comment
@@ -264,13 +251,12 @@ class UIChatPresenter: UIChatUserInteraction {
 //        return retVal
     }
     
-    func getIndexPath(comment : CommentModel) -> IndexPath? {
-        let data = self.comments
+    func getIndexPath(comment : CommentModel, in data: [[CommentModel]]) -> IndexPath? {
         print("data \(data.count)")
         for (group,c) in data.enumerated() {
             print("data \(group), count \(c.count)")
             for (index,i) in c.enumerated() {
-                print("i.uniqueid \(i.uniqId), \(comment.uniqId)")
+                print("\(index ) \(i.uniqId), \(comment.uniqId)")
                 if i.uniqId == comment.uniqId {
                     print("found data \(index), count \(group)")
                     return IndexPath.init(row: index, section: group)
@@ -304,11 +290,9 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
                 // then update comment value and notice onChange()
                 print("comment change last \(comments.count), \(c.count)")
                 comments[group][index] = comment
-//                comments[group][index].onChange(comment)
-                self.viewPresenter?.onGotComment(comment: comments[group][index], isUpdate: comment)
+                self.viewPresenter?.onGotComment(comment: comment, indexpath: IndexPath(row: index, section: group))
             }
         }
-        
     }
     
     func onRoom(thisParticipant user: MemberModel, isTyping typing: Bool) {
@@ -329,5 +313,17 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
                 self.viewPresenter?.onUser(name: user.username, isOnline: status, message: message)
             }
         }
+    }
+}
+
+extension Date {
+    func reduceToMonthDayYear() -> Date {
+        let calendar = Calendar.current
+        let month = calendar.component(.month, from: self)
+        let day = calendar.component(.day, from: self)
+        let year = calendar.component(.year, from: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        return dateFormatter.date(from: "\(month)/\(day)/\(year)") ?? Date()
     }
 }

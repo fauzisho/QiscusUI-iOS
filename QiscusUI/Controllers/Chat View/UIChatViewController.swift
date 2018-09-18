@@ -19,6 +19,32 @@ protocol UIChatView {
 //    func allComments() -> [[CommentModel]]
 }
 
+class DateHeaderLabel: UILabel {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = .clear
+        textColor = .gray
+        textAlignment = .center
+        translatesAutoresizingMaskIntoConstraints = false // enables auto layout
+        font = UIFont.boldSystemFont(ofSize: 10)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        let originalContentSize = super.intrinsicContentSize
+        let height = originalContentSize.height + 12
+        layer.cornerRadius = height / 2
+        layer.masksToBounds = true
+        return CGSize(width: originalContentSize.width + 10, height: height)
+    }
+    
+}
+
 open class UIChatViewController: UIViewController, UIChatView {
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewChatInput: UIView!
@@ -32,7 +58,7 @@ open class UIChatViewController: UIViewController, UIChatView {
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
-    var tempSection = -1
+
     public var room : RoomModel? {
         set(newValue) {
             self.presenter.room = newValue
@@ -260,18 +286,9 @@ open class UIChatViewController: UIViewController, UIChatView {
 
 // MARK: UIChatDelegate
 extension UIChatViewController: UIChatViewDelegate {
-    func onGotComment(comment: CommentModel, isUpdate: CommentModel) {
-        // get index path
-        if let indexpath = self.presenter.getIndexPath(comment: isUpdate) {
-        let comments = self.presenter.comments
-            print("number of section \(comments.count)")
-        for (index,data) in comments.enumerated() {
-            print("number of row \(data.count), in section \(index)")
-        }
-        print("section \(indexpath.section), row \(indexpath.row)")
+    func onGotComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-            self.tableViewConversation.rectForRow(at: indexpath)
-        }
+        self.tableViewConversation.reloadRows(at: [indexpath], with: .automatic)
     }
     
     func onLoadMessageFailed(message: String) {
@@ -390,12 +407,9 @@ extension UIChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UIBaseChatCell
         // setup cell message = this message
         cell.comment = comment
-        cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
+//        cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
-        
-        // setup cell delegate, unknown
-        tempSection = indexPath.section
         // Load More
         let comments = self.presenter.comments
         if indexPath.section == comments.count - 1 && indexPath.row > comments[indexPath.section].count - 10 {
@@ -409,18 +423,28 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
+        return 20
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 30, y: 30, width: 200, height: 150))
-        label.textAlignment = NSTextAlignment.center
-//        self.presenter.getDate(section: section,labelView: label)
-        label.text = "00.00"
-        label.clipsToBounds = true
-        label.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-        self.view.addSubview(label)
-        return label
+        if let firstMessageInSection = self.presenter.comments[section].first {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let dateString = dateFormatter.string(from: firstMessageInSection.date)
+            
+            let label = DateHeaderLabel()
+            label.text = dateString
+            
+            let containerView = UIView()
+            containerView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            containerView.addSubview(label)
+            label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+            label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+            
+            return containerView
+            
+        }
+        return nil
     }
     
     // MARK: chat avatar setup
