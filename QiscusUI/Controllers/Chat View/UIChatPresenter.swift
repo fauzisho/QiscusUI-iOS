@@ -75,7 +75,6 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
-//        return
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
             guard let response = dataResponse else {
                 guard let _error = error else { return }
@@ -188,7 +187,8 @@ class UIChatPresenter: UIChatUserInteraction {
         }
         // choose uidelegate
         if isIncoming {
-            self.viewPresenter?.onGotNewComment(newSection: section, isMyComment: false)
+            guard let user = QiscusCore.getProfile() else { return }
+            self.viewPresenter?.onGotNewComment(newSection: section, isMyComment: user.email == message.userEmail)
         }else {
             self.viewPresenter?.onSendingComment(comment: message, newSection: section)
         }
@@ -208,52 +208,52 @@ class UIChatPresenter: UIChatUserInteraction {
     /// Grouping by useremail and date(same day), example [[you,you],[me,me],[me]]
     private func groupingComments(_ data: [CommentModel]) -> [[CommentModel]]{
         var retVal = [[CommentModel]]()
-        let groupedMessages = Dictionary(grouping: data) { (element) -> Date in
-            return element.date.reduceToMonthDayYear()
-        }
-
-        let sortedKeys = groupedMessages.keys.sorted(by: { $0.compare($1) == .orderedDescending })
-        sortedKeys.forEach { (key) in
-            let values = groupedMessages[key]
-            retVal.append(values ?? [])
-        }
-        return retVal
-//        var uidList = [CommentModel]()
-//        var prevComment:CommentModel?
-//        var group = [CommentModel]()
-//        var count = 0
+//        let groupedMessages = Dictionary(grouping: data) { (element) -> Date in
+//            return element.date.reduceToMonthDayYear()
+//        }
 //
-//        for comment in data {
-//
-//            if !uidList.contains(where: { $0.uniqId == comment.uniqId}) {
-//                // check last comment
-//                if let prev = prevComment {
-//                    // check difference time(in same day) and user group
-//                    if prev.timestamp == comment.timestamp && prev.userEmail == comment.userEmail {
-//                        uidList.append(comment)
-//                        group.append(comment)
-//                    }else{
-//                        retVal.append(group)
-//                        //                        checkPosition(ids: group)
-//                        group = [CommentModel]()
-//                        group.append(comment)
-//                        uidList.append(comment)
-//                    }
-//                }else{
-//                    // add new group
-//                    group.append(comment)
-//                    uidList.append(comment)
-//                }
-//                if count == comments.count - 1  {
-//                    retVal.append(group)
-//                    //                    checkPosition(ids: group)
-//                }else{
-//                    prevComment = comment
-//                }
-//            }
-//            count += 1
+//        let sortedKeys = groupedMessages.keys.sorted(by: { $0.compare($1) == .orderedDescending })
+//        sortedKeys.forEach { (key) in
+//            let values = groupedMessages[key]
+//            retVal.append(values ?? [])
 //        }
 //        return retVal
+        var uidList = [CommentModel]()
+        var prevComment:CommentModel?
+        var group = [CommentModel]()
+        var count = 0
+
+        for comment in data {
+
+            if !uidList.contains(where: { $0.uniqId == comment.uniqId}) {
+                // check last comment
+                if let prev = prevComment {
+                    // check difference time(in same day) and user group
+                    if prev.date.reduceToMonthDayYear() == comment.date.reduceToMonthDayYear() && prev.userEmail == comment.userEmail {
+                        uidList.append(comment)
+                        group.append(comment)
+                    }else{
+                        retVal.append(group)
+                        //                        checkPosition(ids: group)
+                        group = [CommentModel]()
+                        group.append(comment)
+                        uidList.append(comment)
+                    }
+                }else{
+                    // add new group
+                    group.append(comment)
+                    uidList.append(comment)
+                }
+                if count == comments.count - 1  {
+                    retVal.append(group)
+                    //                    checkPosition(ids: group)
+                }else{
+                    prevComment = comment
+                }
+            }
+            count += 1
+        }
+        return retVal
     }
     
     func getIndexPath(comment : CommentModel, in data: [[CommentModel]]) -> IndexPath? {
