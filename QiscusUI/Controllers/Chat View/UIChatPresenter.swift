@@ -73,6 +73,10 @@ class UIChatPresenter: UIChatUserInteraction {
         // load local
         if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
             self.comments = self.groupingComments(_comments)
+            print("section count \(comments.count), \(_comments.count)")
+            for c in comments {
+                print("comment count \(c.count)")
+            }
             self.viewPresenter?.onLoadMessageFinished()
         }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
@@ -208,69 +212,23 @@ class UIChatPresenter: UIChatUserInteraction {
     /// Grouping by useremail and date(same day), example [[you,you],[me,me],[me]]
     private func groupingComments(_ data: [CommentModel]) -> [[CommentModel]]{
         var retVal = [[CommentModel]]()
-//        let groupedMessages = Dictionary(grouping: data) { (element) -> Date in
-//            return element.date.reduceToMonthDayYear()
-//        }
-//
-//        let sortedKeys = groupedMessages.keys.sorted(by: { $0.compare($1) == .orderedDescending })
-//        sortedKeys.forEach { (key) in
-//            let values = groupedMessages[key]
-//            retVal.append(values ?? [])
-//        }
-//        return retVal
-        var uidList = [CommentModel]()
-        var prevComment:CommentModel?
-        var group = [CommentModel]()
-        var count = 0
+        let groupedMessages = Dictionary(grouping: data) { (element) -> Date in
+            return element.date.reduceToMonthDayYear()
+        }
 
-        for comment in data {
-
-            if !uidList.contains(where: { $0.uniqId == comment.uniqId}) {
-                // check last comment
-                if let prev = prevComment {
-                    // check difference time(in same day) and user group
-                    if prev.date.reduceToMonthDayYear() == comment.date.reduceToMonthDayYear() && prev.userEmail == comment.userEmail {
-                        uidList.append(comment)
-                        group.append(comment)
-                    }else{
-                        retVal.append(group)
-                        //                        checkPosition(ids: group)
-                        group = [CommentModel]()
-                        group.append(comment)
-                        uidList.append(comment)
-                    }
-                }else{
-                    // add new group
-                    group.append(comment)
-                    uidList.append(comment)
-                }
-                if count == comments.count - 1  {
-                    retVal.append(group)
-                    //                    checkPosition(ids: group)
-                }else{
-                    prevComment = comment
-                }
-            }
-            count += 1
+        let sortedKeys = groupedMessages.keys.sorted(by: { $0.compare($1) == .orderedDescending })
+        sortedKeys.forEach { (key) in
+            let values = groupedMessages[key]
+            retVal.append(values ?? [])
         }
         return retVal
     }
     
     func getIndexPath(comment : CommentModel, in data: [[CommentModel]]) -> IndexPath? {
-        print("data \(data.count)")
         for (group,c) in data.enumerated() {
-            print("data \(group), count \(c.count)")
-            for (index,i) in c.enumerated() {
-                print("\(index ) \(i.uniqId), \(comment.uniqId)")
-                if i.uniqId == comment.uniqId {
-                    print("found data \(index), count \(group)")
-                    return IndexPath.init(row: index, section: group)
-                }
+            if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
+                return IndexPath.init(row: index, section: group)
             }
-//            if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
-//                print("found data \(index), count \(c.count)")
-//                return IndexPath.init(row: index, section: group)
-//            }
         }
         return nil
     }
@@ -288,8 +246,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
             QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
         }
     }
-        
-    
+
     func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
         print("comment \(comment.message), status update \(status.rawValue)")
         // check comment already exist in view
