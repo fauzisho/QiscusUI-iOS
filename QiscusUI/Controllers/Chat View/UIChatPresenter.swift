@@ -248,11 +248,11 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
     }
 
     func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
-        print("comment \(comment.message), status update \(status.rawValue)")
         // check comment already exist in view
         for (group,c) in comments.enumerated() {
             if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
                 // then update comment value and notice onChange()
+                print("comment \(comment.message), status update \(status.rawValue)")
                 print("comment change last \(comments.count), \(c.count)")
                 comments[group][index] = comment
                 self.viewPresenter?.onGotComment(comment: comment, indexpath: IndexPath(row: index, section: group))

@@ -41,21 +41,15 @@ class UIChatListPresenter {
     private func loadFromLocal() {
         // get from local
         self.rooms = QiscusCore.database.room.all()
-        if self.rooms.count > 0 {
-            self.viewPresenter?.didFinishLoadChat(rooms: self.rooms)
-        }
+        self.viewPresenter?.didFinishLoadChat(rooms: self.rooms)
     }
     
     private func loadFromServer() {
         // check update from server
         QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, meta, error) in
             if let results = rooms {
-                // check 1st time load
-                if self.rooms.count == 0 && results.count > 0 {
-                    self.rooms = results
-                }
+                self.rooms = results
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
-                self.rooms = results // 2nd load rooms
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }
