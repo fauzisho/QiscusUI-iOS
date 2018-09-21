@@ -8,12 +8,16 @@
 import UIKit
 import QiscusCore
 
+// Blueprint public method
 protocol UIChatInputAction {
     func send(message : CommentModel)
+    func typing(_ value: Bool)
 }
 
+// internal function
 protocol UIChatInputDelegate {
     func send(message : CommentModel)
+    func typing(_ value: Bool)
 }
 
 open class UIChatInput: UIView {
@@ -73,12 +77,15 @@ open class UIChatInput: UIView {
             message.type    = "text"
             self._delegate?.send(message: message)
         }
-        
         self.tfInput.text = ""
     }
 }
 
 extension UIChatInput : UIChatInputAction {
+    public func typing(_ value: Bool) {
+        self._delegate?.typing(value)
+    }
+    
     public func send(message : CommentModel) {
         self._delegate?.send(message: message)
     }

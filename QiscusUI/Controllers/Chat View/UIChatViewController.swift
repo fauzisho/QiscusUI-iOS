@@ -478,16 +478,6 @@ extension UIChatViewController: UITableViewDataSource {
     }
 }
 
-extension UIChatViewController : UITextFieldDelegate {
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.presenter.isTyping(true)
-    }
-    
-    public func textFieldDidEndEditing(_ textField: UITextField) {
-        self.presenter.isTyping(false)
-    }
-}
-
 extension UIChatViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -499,6 +489,10 @@ extension UIChatViewController: UITableViewDelegate {
 }
 
 extension UIChatViewController : UIChatInputDelegate {
+    func typing(_ value: Bool) {
+        self.presenter.isTyping(value)
+    }
+    
     public func send(message: CommentModel) {
         self.presenter.sendMessage(withComment: message)
     }

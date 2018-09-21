@@ -22,6 +22,7 @@ class CustomChatInput: UIChatInput {
     override func commonInit(nib: UINib) {
         let nib = UINib(nibName: "CustomChatInput", bundle: Bundle.main)
         super.commonInit(nib: nib)
+        self.textField.delegate = self
     }
     
     @IBAction func clickSend(_ sender: Any) {
@@ -37,5 +38,15 @@ class CustomChatInput: UIChatInput {
     
     @IBAction func clickAttachment(_ sender: Any) {
         self.delegate?.sendAttachment()
+    }
+}
+
+extension CustomChatInput: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.typing(true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.typing(true)
     }
 }

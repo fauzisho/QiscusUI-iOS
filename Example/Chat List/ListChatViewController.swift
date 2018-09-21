@@ -39,10 +39,23 @@ class ListChatViewController: UIChatListViewController {
     }
     
     @objc func addChat() {
-        QiscusCore.shared.getRoom(withUser: "amsibsan") { (room, error) in
-            guard let room = room else {return}
-            self.chat(withRoom: room)
-        }
+        let alert = UIAlertController(title: "Create chat with", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Qiscus User or email"
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+            if let name = alert.textFields?.first?.text {
+                QiscusCore.shared.getRoom(withUser: name) { (room, error) in
+                    guard let room = room else {return}
+                    self.chat(withRoom: room)
+                }
+            }
+        }))
+        
+        self.present(alert, animated: true)
     }
     
     @objc func addGroup() {
