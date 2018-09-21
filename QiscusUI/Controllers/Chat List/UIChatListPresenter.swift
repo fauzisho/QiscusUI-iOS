@@ -71,13 +71,6 @@ extension UIChatListPresenter : UIChatDelegate {
         if !rooms.contains(where: { $0.id == room.id}) {
             loadFromServer()
         }
-        
-        // MARK: TODO receive new comment, need trotle
-        guard let user = QiscusCore.getProfile() else { return }
-        // no update if your comment
-        if user.email != comment.userEmail {
-            QiscusCore.shared.updateCommentReceive(roomId: room.id, lastCommentReceivedId: comment.id)
-        }
     }
     
     func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {

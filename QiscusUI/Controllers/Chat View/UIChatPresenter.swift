@@ -238,12 +238,9 @@ class UIChatPresenter: UIChatUserInteraction {
 // MARK: Core Delegate
 extension UIChatPresenter : QiscusCoreRoomDelegate {
     func gotNewComment(comment: CommentModel) {
-        guard let room = self.room else { return }
         // 2check comment already in ui?
         if (self.getIndexPath(comment: comment, in: self.comments) == nil) {
             self.addNewCommentUI(comment, isIncoming: true)
-            // MARK: TODO unread new comment, need trotle
-            QiscusCore.shared.updateCommentRead(roomId: room.id, lastCommentReadId: comment.id)
         }
     }
 
