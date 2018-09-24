@@ -47,6 +47,6 @@ extension CustomChatInput: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.typing(true)
+        self.typing(false)
     }
 }
