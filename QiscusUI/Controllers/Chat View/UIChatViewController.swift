@@ -10,13 +10,14 @@ import ContactsUI
 import SwiftyJSON
 import QiscusCore
 
-// Chat view blue print
+// Chat view blue print or open function
 protocol UIChatView {
     func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String)
     func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String
     func chatInputBar() -> UIChatInput?
     func chatViewController(viewController : UIChatViewController, didSelectMessage message: CommentModel)
-//    func allComments() -> [[CommentModel]]
+    func chatViewController(viewController : UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?)
+    func chatViewController(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
 }
 
 class DateHeaderLabel: UILabel {
@@ -280,7 +281,15 @@ open class UIChatViewController: UIViewController, UIChatView {
     }
     
     open func chatViewController(viewController: UIChatViewController, didSelectMessage message: CommentModel) {
-        //
+        // custom implementation
+    }
+    
+    open func chatViewController(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
+        // custom implementation
+    }
+    
+    open func chatViewController(viewController: UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool {
+        return false
     }
 }
 
@@ -484,6 +493,21 @@ extension UIChatViewController: UITableViewDelegate {
         // get mesage at indexpath
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
         self.chatViewController(viewController: self, didSelectMessage: comment)
+    }
+    
+    public func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    public func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        let comment = self.presenter.getMessage(atIndexPath: indexPath)
+        let response = self.chatViewController(viewController: self, canPerformAction: action, forRowAtmessage: comment, withSender: sender)
+        return response
+    }
+    
+    public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        let comment = self.presenter.getMessage(atIndexPath: indexPath)
+        self.chatViewController(viewController: self, performAction: action, forRowAt: comment, withSender: sender)
     }
     
 }

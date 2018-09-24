@@ -53,6 +53,16 @@ class ChatViewController: UIChatViewController {
         return inputBar
     }
 
+    override func chatViewController(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
+        if action == #selector(UIResponderStandardEditActions.copy(_:)) {
+            print("copy")
+        }
+    }
+    
+    override func chatViewController(viewController: UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool {
+        return true
+    }
+    
 }
 
 extension ChatViewController : CustomChatInputDelegate {
@@ -155,6 +165,7 @@ extension ChatViewController : CNContactPickerDelegate {
         message.message = "Send Contact"
         self.send(message: message)
     }
+    
 }
 
 // Image Picker
