@@ -267,7 +267,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
                 var message = ""
                 //let lessMinute = time.timeIntervalSinceNow.second
                 //if lessMinute <= 59 {
-                    message = "online"
+                message = "online"
                // }else {
                     //if lessMinute
                    // message = "Last seen .. ago"
