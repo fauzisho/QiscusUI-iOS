@@ -18,6 +18,9 @@ protocol UIChatView {
     func chatViewController(viewController : UIChatViewController, didSelectMessage message: CommentModel)
     func chatViewController(viewController : UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?)
     func chatViewController(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
+    func setTitle(_ value: String)
+    func setSubTitle(_ value: String)
+    func setAvatar(_ image: UIImage)
 }
 
 class DateHeaderLabel: UILabel {
@@ -272,6 +275,8 @@ open class UIChatViewController: UIViewController, UIChatView {
         return result
     }
     
+    
+    // MARK : Public open method
     open func indentifierFor(message: CommentModel, atUIChatViewController: UIChatViewController) -> String {
         return "TextCell"
     }
@@ -290,6 +295,18 @@ open class UIChatViewController: UIViewController, UIChatView {
     
     open func chatViewController(viewController: UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool {
         return false
+    }
+    
+    public func setAvatar(_ image: UIImage) {
+        self.roomAvatar.image = image
+    }
+    
+    public func setTitle(_ value: String) {
+        self.titleLabel.text = value
+    }
+    
+    public func setSubTitle(_ value: String) {
+        self.subtitleLabel.text = value
     }
 }
 

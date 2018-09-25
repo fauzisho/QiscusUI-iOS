@@ -72,11 +72,10 @@ class UIChatPresenter: UIChatUserInteraction {
     func loadComments(withID roomId: String) {
         // load local
         if let _comments = QiscusCore.database.comment.find(roomId: roomId) {
+            guard let lastComment = _comments.last else { return }
+            // read comment
+            QiscusCore.shared.updateCommentRead(roomId: roomId, lastCommentReadId: lastComment.id)
             self.comments = self.groupingComments(_comments)
-            print("section count \(comments.count), \(_comments.count)")
-            for c in comments {
-                print("comment count \(c.count)")
-            }
             self.viewPresenter?.onLoadMessageFinished()
         }
         QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
@@ -93,6 +92,7 @@ class UIChatPresenter: UIChatUserInteraction {
             // MARK: TODO improve and grouping
             self.comments.removeAll()
             self.comments = self.groupingComments(tempComments)
+            // MARK: TODO improve and compare with local data, reduce flicker effect
             self.viewPresenter?.onLoadMessageFinished()
         }
     }

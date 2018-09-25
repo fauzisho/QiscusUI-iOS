@@ -60,17 +60,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         QiscusCore.shared.sync { (comments, error) in
-            //
+            if let e = error {
+                print(e.message)
+            }
         }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-
+        QiscusCore.shared.sync { (comments, error) in
+            if let e = error {
+                print(e.message)
+            }
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         QiscusCore.shared.sync { (comments, error) in
-            //
+            if let e = error {
+                print(e.message)
+            }
         }
     }
 

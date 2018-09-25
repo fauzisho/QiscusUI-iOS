@@ -50,6 +50,7 @@ class UIChatListPresenter {
             if let results = rooms {
                 self.rooms = results
                 self.viewPresenter?.didFinishLoadChat(rooms: results)
+                self.loadFromLocal()
             }else {
                 self.viewPresenter?.setEmptyData(message: "")
             }
