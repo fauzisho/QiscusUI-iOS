@@ -90,6 +90,14 @@ open class UIChatViewController: UIViewController, UIChatView {
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         view.endEditing(true)
+        
+        // title value
+        guard let _room = self.room else { return }
+        if _room.type == .group {
+            self.subtitleLabel.text = getParticipant()
+        }else {
+            self.subtitleLabel.text = "last seen at "
+        }
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
