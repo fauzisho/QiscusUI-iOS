@@ -463,35 +463,6 @@ extension UIChatViewController: UITableViewDataSource {
         return nil
     }
     
-    // MARK: chat avatar setup
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: QiscusUIHelper.screenWidth(), height: 0))
-        view.backgroundColor = .clear
-        view.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-        
-        let viewAvatar = UIView(frame: CGRect(x: 5, y: -30, width: 30, height: 60))
-        let avatar = UIImageView(frame: CGRect(x: 5, y: 0, width: 30, height: 30))
-        avatar.clipsToBounds = true
-        avatar.layer.cornerRadius = avatar.frame.width/2
-        avatar.backgroundColor = .black
-        avatar.contentMode = .scaleAspectFill
-        
-        viewAvatar.addSubview(avatar)
-        
-        self.presenter.getAvatarImage(section: section, imageView: avatar)
-        
-        
-        view.addSubview(viewAvatar)
-        
-        if let firstComment = self.presenter.comments[section].first {
-            if firstComment.isMyComment() {
-                return nil
-            } else {
-                return view
-            }
-        }
-        return view
-    }
 }
 
 extension UIChatViewController: UITableViewDelegate {

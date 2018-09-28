@@ -28,6 +28,7 @@ open class UIChatListViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        self.presenter.loadChat()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UIChatListViewCell.nib, forCellReuseIdentifier: UIChatListViewCell.identifier)
@@ -79,9 +80,9 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 
     }
 
-    private func getIndexpath(byRoom data: RoomModel, inRooms rooms: [RoomModel]) -> IndexPath? {
+    private func getIndexpath(byRoom data: RoomModel) -> IndexPath? {
         // get current index
-        for (i,r) in rooms.enumerated() {
+        for (i,r) in self.rooms.enumerated() {
             if r.id == data.id {
                 return IndexPath(row: i, section: 0)
             }
@@ -92,8 +93,7 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 
 extension UIChatListViewController : UIChatListView {
     func didUpdate(user: MemberModel, isTyping typing: Bool, in room: RoomModel) {
-        let rooms = self.presenter.rooms
-        let indexPath = getIndexpath(byRoom: room, inRooms: rooms)
+        let indexPath = getIndexpath(byRoom: room)
         let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
         if let v = isVisible, let index = indexPath, v == true {
             self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
@@ -102,8 +102,7 @@ extension UIChatListViewController : UIChatListView {
     
     func updateRooms(data: RoomModel) {
         // improve only reload for new cell with room data
-        let rooms = self.presenter.rooms
-        let indexPath = getIndexpath(byRoom: data, inRooms: rooms)
+        let indexPath = getIndexpath(byRoom: data)
         let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
         if let v = isVisible, let index = indexPath, v == true {
             let newIndex = IndexPath(row: 0, section: 0)

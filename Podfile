@@ -2,8 +2,8 @@
 platform :ios, '10.0'
 
 def pod_release
-    pod 'QiscusCore', :git => 'https://bitbucket.org/qiscus/qiscus-chat-sdk-core.git'
-    pod 'QiscusRealtime', :git => 'https://bitbucket.org/qiscus/qiscusrealtimechat.git'
+    pod 'QiscusCore'
+    pod 'QiscusRealtime'
 end
 
 def pod_dev

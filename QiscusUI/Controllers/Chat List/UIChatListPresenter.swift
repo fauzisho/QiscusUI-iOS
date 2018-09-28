@@ -34,14 +34,18 @@ class UIChatListPresenter {
     }
     
     func loadChat() {
+        if self.rooms.isEmpty {
+            self.loadFromServer()
+        }
         self.loadFromLocal()
-        self.loadFromServer()
     }
     
-    private func loadFromLocal() {
+    private func loadFromLocal(refresh: Bool = true) {
         // get from local
         self.rooms = QiscusCore.database.room.all()
-        self.viewPresenter?.didFinishLoadChat(rooms: self.rooms)
+        if refresh {
+            self.viewPresenter?.didFinishLoadChat(rooms: self.rooms)
+        }
     }
     
     private func loadFromServer() {
@@ -67,11 +71,13 @@ extension UIChatListPresenter : UIChatDelegate {
         // show in app notification
         print("got new comment: \(comment.message)")
         self.viewPresenter?.updateRooms(data: room)
-
         // MARK: TODO check room already exist?
         if !rooms.contains(where: { $0.id == room.id}) {
             loadFromServer()
+        }else {
+            loadFromLocal(refresh: false)
         }
+        
     }
     
     func onRoom(_ room: RoomModel, didChangeComment comment: CommentModel, changeStatus status: CommentStatus) {

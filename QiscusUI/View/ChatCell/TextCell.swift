@@ -91,7 +91,7 @@ class TextCell: UIBaseChatCell {
             }
             
             lbNameTrailing.constant = 20
-            lbNameLeading.constant = 45
+//            lbNameLeading.constant = 45
             lbName.textAlignment = .left
             self.statusWidth.constant = 0
         }
