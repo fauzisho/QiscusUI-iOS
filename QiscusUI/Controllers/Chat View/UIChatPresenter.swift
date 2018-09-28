@@ -224,8 +224,8 @@ class UIChatPresenter: UIChatUserInteraction {
         return retVal
     }
     
-    func getIndexPath(comment : CommentModel, in data: [[CommentModel]]) -> IndexPath? {
-        for (group,c) in data.enumerated() {
+    func getIndexPath(comment : CommentModel) -> IndexPath? {
+        for (group,c) in self.comments.enumerated() {
             if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
                 return IndexPath.init(row: index, section: group)
             }
@@ -239,7 +239,7 @@ class UIChatPresenter: UIChatUserInteraction {
 extension UIChatPresenter : QiscusCoreRoomDelegate {
     func gotNewComment(comment: CommentModel) {
         // 2check comment already in ui?
-        if (self.getIndexPath(comment: comment, in: self.comments) == nil) {
+        if (self.getIndexPath(comment: comment) == nil) {
             self.addNewCommentUI(comment, isIncoming: true)
         }
     }

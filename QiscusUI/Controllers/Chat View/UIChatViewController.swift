@@ -11,13 +11,13 @@ import SwiftyJSON
 import QiscusCore
 
 // Chat view blue print or open function
-protocol UIChatView {
-    func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String)
-    func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String
-    func chatInputBar() -> UIChatInput?
-    func chatViewController(viewController : UIChatViewController, didSelectMessage message: CommentModel)
-    func chatViewController(viewController : UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?)
-    func chatViewController(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
+public protocol UIChatView {
+    func uiChat(input inViewController: UIChatViewController) -> UIChatInput?
+    func uiChat(viewController : UIChatViewController, didSelectMessage message: CommentModel)
+    func uiChat(viewController : UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?)
+    func uiChat(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
+    func uiChat(viewController : UIChatViewController, firstMessage message: CommentModel, viewForHeaderInSection section: Int) -> UIView?
+    func uiChat(viewController : UIChatViewController, cellForMessage message: CommentModel) -> UIBaseChatCell?
 }
 
 class DateHeaderLabel: UILabel {
@@ -46,7 +46,7 @@ class DateHeaderLabel: UILabel {
     
 }
 
-open class UIChatViewController: UIViewController, UIChatView {
+open class UIChatViewController: UIViewController {
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewChatInput: UIView!
     @IBOutlet weak var viewInput: NSLayoutConstraint!
@@ -59,6 +59,7 @@ open class UIChatViewController: UIViewController, UIChatView {
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
+    public var delegate : UIChatView? = nil
 
     public var room : RoomModel? {
         set(newValue) {
@@ -131,18 +132,14 @@ open class UIChatViewController: UIViewController, UIChatView {
         self.setupTableView()
         
         // setup chatInputBar
-        if let customInputBar = chatInputBar() {
+        if let customInputBar = self.delegate?.uiChat(input: self) {
             self.setupInputBar(customInputBar)
         }else {
             // use default
             self.setupInputBar(UIChatInput())
         }
     }
-    
-    open func chatInputBar() -> UIChatInput? {
-        return nil
-    }
-    
+
     private func setupInputBar(_ inputchatview: UIChatInput) {
         inputchatview.frame.size    = self.viewChatInput.frame.size
         inputchatview.frame.origin  = CGPoint.init(x: 0, y: 0)
@@ -169,18 +166,16 @@ open class UIChatViewController: UIViewController, UIChatView {
         self.titleLabel.textColor = UINavigationBar.appearance().tintColor
         
         self.subtitleLabel.frame = CGRect(x: 40, y: 25, width: titleWidth, height: 13)
-//        self.subtitleLabel.font.withSize(9.0)
         self.subtitleLabel.textColor = UIColor.gray
         
         self.roomAvatar.frame = CGRect(x: 0,y: 6,width: 32,height: 32)
         self.roomAvatar.layer.cornerRadius = 16
         self.roomAvatar.contentMode = .scaleAspectFill
         self.roomAvatar.backgroundColor = UIColor.white
-        //        let bgColor = QiscusColorConfiguration.sharedInstance.avatarBackgroundColor
+
         self.roomAvatar.frame = CGRect(x: 0,y: 6,width: 32,height: 32)
         self.roomAvatar.layer.cornerRadius = 16
         self.roomAvatar.clipsToBounds = true
-        //        self.roomAvatar.backgroundColor = bgColor[0]
         
         self.titleView.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 44)
         self.titleView.addSubview(self.titleLabel)
@@ -238,13 +233,9 @@ open class UIChatViewController: UIViewController, UIChatView {
         let info: NSDictionary = (notification as NSNotification).userInfo! as NSDictionary
         
         let animateDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! Double
-        //        let goToRow = self.lastVisibleRow
         self.constraintViewInputBottom.constant = 0
         UIView.animate(withDuration: animateDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
-            //            if goToRow != nil {
-            //                self.collectionView.scrollToItem(at: goToRow!, at: .bottom, animated: false)
-            //            }
         }, completion: nil)
     }
     
@@ -256,12 +247,8 @@ open class UIChatViewController: UIViewController, UIChatView {
         let animateDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! Double
         
         self.constraintViewInputBottom.constant = 0 - keyboardHeight
-        //        let goToRow = self.lastVisibleRow
         UIView.animate(withDuration: animateDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
-            //            if goToRow != nil {
-            //                self.collectionView.scrollToItem(at: goToRow!, at: .bottom, animated: true)
-            //            }
         }, completion: nil)
     }
     
@@ -277,26 +264,17 @@ open class UIChatViewController: UIViewController, UIChatView {
         return result
     }
     
+    public func reusableCell(withIdentifier identifier: String, for comment: CommentModel) -> UIBaseChatCell {
+        if let indexPath = self.presenter.getIndexPath(comment: comment) {
+            return self.tableViewConversation.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UIBaseChatCell
+        }else {
+            return self.tableViewConversation.dequeueReusableCell(withIdentifier: "TextCell") as! UIBaseChatCell
+        }
+    }
     
     // MARK : Public open method
-    open func indentifierFor(message: CommentModel, atUIChatViewController: UIChatViewController) -> String {
-        return "TextCell"
-    }
-    
     public func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String) {
         self.tableViewConversation.register(nib, forCellReuseIdentifier: reuseIdentifier)
-    }
-    
-    open func chatViewController(viewController: UIChatViewController, didSelectMessage message: CommentModel) {
-        // custom implementation
-    }
-    
-    open func chatViewController(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
-        // custom implementation
-    }
-    
-    open func chatViewController(viewController: UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool {
-        return false
     }
 }
 
@@ -417,15 +395,16 @@ extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // get mesage at indexpath
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        // get cell identifier at indexpath
-        let identifier = indentifierFor(message: comment, atUIChatViewController: self)
-        // generate cell by index path
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UIBaseChatCell
-        // setup cell message = this message
+        var cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! UIBaseChatCell
+        
+        // Checking Custom Cell
+        if let _custom = self.delegate?.uiChat(viewController: self, cellForMessage: comment) {
+            cell = _custom
+        }
         cell.comment = comment
-//        cell.firstInSection = indexPath.row == self.presenter.getComments()[indexPath.section].count - 1
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.main.scale
+        
         // Load More
         let comments = self.presenter.comments
         if indexPath.section == comments.count - 1 && indexPath.row > comments[indexPath.section].count - 10 {
@@ -470,7 +449,7 @@ extension UIChatViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         // get mesage at indexpath
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        self.chatViewController(viewController: self, didSelectMessage: comment)
+        self.delegate?.uiChat(viewController: self, didSelectMessage: comment)
     }
     
     public func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
@@ -479,13 +458,16 @@ extension UIChatViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        let response = self.chatViewController(viewController: self, canPerformAction: action, forRowAtmessage: comment, withSender: sender)
-        return response
+        if let response = self.delegate?.uiChat(viewController: self, canPerformAction: action, forRowAtmessage: comment, withSender: sender) {
+            return response
+        }else {
+            return false
+        }
     }
     
     public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        self.chatViewController(viewController: self, performAction: action, forRowAt: comment, withSender: sender)
+        self.delegate?.uiChat(viewController: self, performAction: action, forRowAt: comment, withSender: sender)
     }
     
 }

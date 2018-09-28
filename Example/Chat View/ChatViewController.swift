@@ -17,9 +17,13 @@ class ChatViewController: UIChatViewController {
     let imageCache = NSCache<NSString, UIImage>()
     
     override func viewDidLoad() {
+        self.delegate = self
+        // Please set delegate before super view didload
         super.viewDidLoad()
+        
         picker.delegate = self
-        registerCell()
+        self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
+        
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
         QiscusCore.shared.getRoom(withID: roomid) { (roomData, error) in
@@ -32,35 +36,39 @@ class ChatViewController: UIChatViewController {
         }
     }
     
-    // MARK: How to implement custom view cell by comment type
-    func registerCell() {
-        self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
-    }
-    
-    override func indentifierFor(message: CommentModel, atUIChatViewController : UIChatViewController) -> String {
-        if message.type == "file_attachment" {
-            return "image"
-        }else {
-            return super.indentifierFor(message: message, atUIChatViewController: atUIChatViewController)
-        }
-    }
-    
-    // MARK: How to implement custom input chat
-    // register custom input
-    override func chatInputBar() -> UIChatInput? {
-        let inputBar = CustomChatInput()
-        inputBar.delegate = self
-        return inputBar
-    }
+}
 
-    override func chatViewController(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
+extension ChatViewController : UIChatView {
+    func uiChat(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
         if action == #selector(UIResponderStandardEditActions.copy(_:)) {
             print("copy")
         }
     }
     
-    override func chatViewController(viewController: UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool {
+    func uiChat(viewController: UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool {
         return true
+    }
+    
+    func uiChat(viewController: UIChatViewController, cellForMessage message: CommentModel) -> UIBaseChatCell? {
+        if message.type == "file_attachment" {
+            return self.reusableCell(withIdentifier: "image", for: message) as! ImageViewCell
+        }else {
+            return nil
+        }
+    }
+    
+    func uiChat(viewController: UIChatViewController, didSelectMessage message: CommentModel) {
+        //
+    }
+    
+    func uiChat(viewController: UIChatViewController, firstMessage message: CommentModel, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func uiChat(input InViewController: UIChatViewController) -> UIChatInput? {
+        let inputBar = CustomChatInput()
+        inputBar.delegate = self
+        return inputBar
     }
     
 }
