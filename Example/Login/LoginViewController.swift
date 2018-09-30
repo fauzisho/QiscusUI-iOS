@@ -44,17 +44,15 @@ class LoginViewController: UIViewController {
                     let local = UserDefaults.standard
                     local.set("sampleapp-65ghcsaysse", forKey: "AppID")
                     QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
-                    QiscusCore.login(userID: name, userKey: key) { (result, error) in
-                        if result != nil {
-                            self.navigationController?.pushViewController(ListChatViewController(), animated: true)
-                        }else {
-                            print("error \(String(describing: error))")
-                            let alert = UIAlertController(title: "Failed to Login?", message: String(describing: error), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
-                            
-                            self.present(alert, animated: true)
-                        }
-                    }
+                    QiscusCore.login(userID: name, userKey: key, onSuccess: { (user) in
+                        self.navigationController?.pushViewController(ListChatViewController(), animated: true)
+                    }, onError: { (error) in
+                        print("error \(String(describing: error))")
+                        let alert = UIAlertController(title: "Failed to Login?", message: String(describing: error), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
+                        
+                        self.present(alert, animated: true)
+                    })
                 }
             }
         }))

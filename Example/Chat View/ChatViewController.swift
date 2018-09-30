@@ -18,7 +18,7 @@ class ChatViewController: UIChatViewController {
     
     override func viewDidLoad() {
         self.delegate = self
-        // Please set delegate before super view didload
+        // Set delegate before super
         super.viewDidLoad()
         
         picker.delegate = self

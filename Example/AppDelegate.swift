@@ -59,26 +59,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        QiscusCore.shared.sync { (comments, error) in
-            if let e = error {
-                print(e.message)
-            }
+        QiscusCore.shared.sync(onSuccess: { (comments) in
+            //
+        }) { (error) in
+             print(error.message)
         }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        QiscusCore.shared.sync { (comments, error) in
-            if let e = error {
-                print(e.message)
-            }
+        QiscusCore.shared.sync(onSuccess: { (comments) in
+            //
+        }) { (error) in
+            print(error.message)
         }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        QiscusCore.shared.sync { (comments, error) in
-            if let e = error {
-                print(e.message)
-            }
+        QiscusCore.shared.sync(onSuccess: { (comments) in
+            //
+        }) { (error) in
+            print(error.message)
         }
     }
 

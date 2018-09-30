@@ -119,16 +119,13 @@ class LoginQRController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         QiscusCore.setup(WithAppID: appId)
         let local = UserDefaults.standard
         local.set(appId, forKey: "AppID")
-        QiscusCore.login(withIdentityToken: identityToken) { (user, error) in
-            if user != nil {
-                self.navigationController?.pushViewController(ListChatViewController(), animated: true)
-            }else {
-                print("error \(String(describing: error))")
-                let alert = UIAlertController(title: "Failed to Login?", message: String(describing: error?.message), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
-                
-                self.present(alert, animated: true)
-            }
+        QiscusCore.login(withIdentityToken: identityToken, onSuccess: { (user) in
+            self.navigationController?.pushViewController(ListChatViewController(), animated: true)
+        }) { (error) in
+            print("error \(String(describing: error))")
+            let alert = UIAlertController(title: "Failed to Login?", message: String(describing: error.message), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
         }
     }
     
