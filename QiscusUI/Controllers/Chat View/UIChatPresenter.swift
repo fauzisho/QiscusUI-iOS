@@ -78,15 +78,10 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
-        QiscusCore.shared.loadComments(roomID: roomId) { (dataResponse, error) in
-            guard let response = dataResponse else {
-                guard let _error = error else { return }
-                self.viewPresenter?.onLoadMessageFailed(message: _error.message)
-                return
-            }
+        QiscusCore.shared.loadComments(roomID: roomId, onSuccess: { (comments) in
             // convert model
             var tempComments = [CommentModel]()
-            for i in response {
+            for i in comments {
                 tempComments.append(i)
             }
             // MARK: TODO improve and grouping
@@ -94,32 +89,31 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(tempComments)
             // MARK: TODO improve and compare with local data, reduce flicker effect
             self.viewPresenter?.onLoadMessageFinished()
+        }) { (error) in
+            self.viewPresenter?.onLoadMessageFailed(message: error.message)
         }
     }
     
     func loadMore() {
-        return
+        return // buggy
         if loadMoreAvailable {
             if let lastGroup = self.comments.last, let lastComment = lastGroup.last {
                 if lastComment.id.isEmpty {
                     return
                 }
-                
-                QiscusCore.shared.loadMore(roomID: (self.room?.id)!, lastCommentID: Int(lastComment.id)!, completion: { (commentsRsponse, error) in
-                    if let comments = commentsRsponse {
-                        if comments.count == 0 {
-                            self.loadMoreAvailable = false
-                        }
-                        let tempComments = comments.map({ (qComment) -> CommentModel in
-                            return qComment 
-                        })
-                        
-                        self.comments.append(contentsOf: self.groupingComments(tempComments))
-                        self.viewPresenter?.onLoadMoreMesageFinished()
-                    } else {
-                        
+                QiscusCore.shared.loadMore(roomID: (self.room?.id)!, lastCommentID: Int(lastComment.id)!, limit: 10, onSuccess: { (comments) in
+                    if comments.count == 0 {
+                        self.loadMoreAvailable = false
                     }
-                })
+                    let tempComments = comments.map({ (qComment) -> CommentModel in
+                        return qComment
+                    })
+                    
+                    self.comments.append(contentsOf: self.groupingComments(tempComments))
+                    self.viewPresenter?.onLoadMoreMesageFinished()
+                }) { (error) in
+                    //
+                }
             }
         }
     }
@@ -132,9 +126,10 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendMessage(withComment comment: CommentModel) {
         addNewCommentUI(comment, isIncoming: false)
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: comment) { (_comment, error) in
-            guard let c = _comment else { return }
-            self.didComment(comment: c, changeStatus: c.status)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment, onSuccess: { (comment) in
+            self.didComment(comment: comment, changeStatus: comment.status)
+        }) { (error) in
+            //
         }
     }
     
@@ -145,25 +140,10 @@ class UIChatPresenter: UIChatUserInteraction {
         message.message = text
         message.type    = "text"
         addNewCommentUI(message, isIncoming: false)
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
-            guard let c = comment else { return }
-            self.didComment(comment: c, changeStatus: c.status)
-        }
-    }
-    
-    func sendMessageLoc() {
-        // create object comment
-        // MARK: TODO improve object generator
-        let message = CommentModel()
-        message.message = "location"
-        message.type    = "custom"
-        message.payload = [
-            "type" : "data",
-            "content" : "",
-        ]
-        addNewCommentUI(message, isIncoming: false)
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!,comment: message) { (comment, error) in
-            print("failed \(String(describing: error?.message))")
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message, onSuccess: { (comment) in
+            self.didComment(comment: comment, changeStatus: comment.status)
+        }) { (error) in
+            //
         }
     }
     
