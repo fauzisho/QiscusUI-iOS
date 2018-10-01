@@ -20,6 +20,9 @@ class ChatViewController: UIChatViewController {
         self.delegate = self
         // Set delegate before super
         super.viewDidLoad()
+        // right button
+        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addMember))
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
         picker.delegate = self
         self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
@@ -31,6 +34,30 @@ class ChatViewController: UIChatViewController {
         }) { (error) in
             print("error load room \(String(describing: error.message))")
         }
+    }
+    
+    @objc func addMember() {
+        let alert = UIAlertController(title: "Invite Member", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Qiscus User or email"
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            if let name = alert.textFields?.first?.text {
+                guard let _room = self.room  else { return }
+                QiscusCore.shared.addParticipant(userEmails: [name], roomId: _room.id, onSuccess: { (member) in
+                    //
+                }, onError: { (error) in
+                    //
+                })
+                
+            }
+        }))
+        
+        self.present(alert, animated: true)
+
     }
     
 }

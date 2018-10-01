@@ -88,6 +88,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate : UIChatDelegate {
+    func onRoom(update room: RoomModel) {
+        //
+    }
+    
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
         print("got new comment: \(comment.message)")
     }

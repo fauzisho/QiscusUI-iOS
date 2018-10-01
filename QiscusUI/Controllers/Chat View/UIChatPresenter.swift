@@ -217,6 +217,10 @@ class UIChatPresenter: UIChatUserInteraction {
 
 // MARK: Core Delegate
 extension UIChatPresenter : QiscusCoreRoomDelegate {
+    func onRoom(update room: RoomModel) {
+        // 
+    }
+    
     func gotNewComment(comment: CommentModel) {
         // 2check comment already in ui?
         if (self.getIndexPath(comment: comment) == nil) {

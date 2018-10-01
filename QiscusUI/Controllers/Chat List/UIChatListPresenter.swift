@@ -61,6 +61,10 @@ class UIChatListPresenter {
 }
 
 extension UIChatListPresenter : UIChatDelegate {
+    func onRoom(update room: RoomModel) {
+        //
+    }
+    
     func onChange(user: MemberModel, isOnline online: Bool, at time: Date) {
         //
     }
