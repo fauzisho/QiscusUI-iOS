@@ -50,14 +50,12 @@ class UIChatListPresenter {
     
     private func loadFromServer() {
         // check update from server
-        QiscusCore.shared.getAllRoom(limit: 50, page: 1) { (rooms, meta, error) in
-            if let results = rooms {
-                self.rooms = results
-                self.viewPresenter?.didFinishLoadChat(rooms: results)
-                self.loadFromLocal()
-            }else {
-                self.viewPresenter?.setEmptyData(message: "")
-            }
+        QiscusCore.shared.getAllRoom(limit: 50, page: 1, onSuccess: { (results, meta) in
+            self.rooms = results
+            self.viewPresenter?.didFinishLoadChat(rooms: results)
+            self.loadFromLocal()
+        }) { (error) in
+            self.viewPresenter?.setEmptyData(message: "")
         }
     }
 }

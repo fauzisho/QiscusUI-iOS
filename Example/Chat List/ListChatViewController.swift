@@ -46,12 +46,12 @@ class ListChatViewController: UIChatListViewController {
         })
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            
             if let name = alert.textFields?.first?.text {
-                QiscusCore.shared.getRoom(withUser: name) { (room, error) in
-                    guard let room = room else {return}
-                    self.chat(withRoom: room)
-                }
+                QiscusCore.shared.getRoom(withUser: name, onSuccess: { (results) in
+                    self.chat(withRoom: results)
+                }, onError: { (error) in
+                    //
+                })
             }
         }))
         
@@ -61,9 +61,10 @@ class ListChatViewController: UIChatListViewController {
     @objc func addGroup() {
         let names = ["Semarang", "jogja", "jakarta", "bogor", "palembang"]
         let randomName = names[Int(arc4random_uniform(UInt32(names.count)))]
-        QiscusCore.shared.createGroup(withName: randomName, participants: ["amsibsam", "amsibsan", "hijuju", "qwerty"], avatarUrl: nil) { (room, error) in
-            guard let room = room else {return}
+        QiscusCore.shared.createGroup(withName: randomName, participants: ["amsibsam", "amsibsan", "hijuju", "qwerty"], avatarUrl: nil, onSuccess: { (room) in
             self.chat(withRoom: room)
+        }) { (error) in
+            //
         }
     }
     
