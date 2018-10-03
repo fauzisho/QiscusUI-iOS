@@ -17,7 +17,7 @@ class ChatViewController: UIChatViewController {
     let imageCache = NSCache<NSString, UIImage>()
     
     override func viewDidLoad() {
-        self.delegate = self
+        self.chatDelegate = self
         // Set delegate before super
         super.viewDidLoad()
         // right button

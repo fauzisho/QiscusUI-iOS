@@ -59,7 +59,7 @@ open class UIChatViewController: UIViewController {
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
-    public var delegate : UIChatView? = nil
+    public var chatDelegate : UIChatView? = nil
 
     public var room : RoomModel? {
         set(newValue) {
@@ -132,7 +132,7 @@ open class UIChatViewController: UIViewController {
         self.setupTableView()
         
         // setup chatInputBar
-        if let customInputBar = self.delegate?.uiChat(input: self) {
+        if let customInputBar = self.chatDelegate?.uiChat(input: self) {
             self.setupInputBar(customInputBar)
         }else {
             // use default
@@ -398,7 +398,7 @@ extension UIChatViewController: UITableViewDataSource {
         var cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! UIBaseChatCell
         
         // Checking Custom Cell
-        if let _custom = self.delegate?.uiChat(viewController: self, cellForMessage: comment) {
+        if let _custom = self.chatDelegate?.uiChat(viewController: self, cellForMessage: comment) {
             cell = _custom
         }
         cell.comment = comment
@@ -449,7 +449,7 @@ extension UIChatViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         // get mesage at indexpath
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        self.delegate?.uiChat(viewController: self, didSelectMessage: comment)
+        self.chatDelegate?.uiChat(viewController: self, didSelectMessage: comment)
     }
     
     public func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
@@ -458,7 +458,7 @@ extension UIChatViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        if let response = self.delegate?.uiChat(viewController: self, canPerformAction: action, forRowAtmessage: comment, withSender: sender) {
+        if let response = self.chatDelegate?.uiChat(viewController: self, canPerformAction: action, forRowAtmessage: comment, withSender: sender) {
             return response
         }else {
             return false
@@ -467,7 +467,7 @@ extension UIChatViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
         let comment = self.presenter.getMessage(atIndexPath: indexPath)
-        self.delegate?.uiChat(viewController: self, performAction: action, forRowAt: comment, withSender: sender)
+        self.chatDelegate?.uiChat(viewController: self, performAction: action, forRowAt: comment, withSender: sender)
     }
     
 }
