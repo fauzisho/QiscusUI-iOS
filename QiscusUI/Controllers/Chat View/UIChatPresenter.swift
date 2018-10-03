@@ -45,6 +45,7 @@ class UIChatPresenter: UIChatUserInteraction {
         viewPresenter = view
         if let room = self.room {
             room.delegate = self
+            self.loadRoom()
             self.loadComments(withID: room.id)
             viewPresenter?.onLoadRoomFinished(roomName: room.name, roomAvatarURL: room.avatarUrl)
             if let p = room.participants {
@@ -65,6 +66,29 @@ class UIChatPresenter: UIChatUserInteraction {
         return comment
     }
     
+    /// Update room
+    func loadRoom() {
+        guard let _room = self.room else { return }
+        QiscusCore.shared.getRoom(withID: _room.id, onSuccess: { (room,comments) in
+            if comments.isEmpty {
+                self.viewPresenter?.onLoadMessageFailed(message: "no message")
+                return
+            }
+            // convert model
+            var tempComments = [CommentModel]()
+            for i in comments {
+                tempComments.append(i)
+            }
+            // MARK: TODO improve and grouping
+            self.comments.removeAll()
+            self.comments = self.groupingComments(tempComments)
+            // MARK: TODO improve and compare with local data, reduce flicker effect
+            self.viewPresenter?.onLoadMessageFinished()
+        }) { (error) in
+            //
+        }
+    }
+    
     func loadRoom(withId roomId: String) {
         //
     }
@@ -78,20 +102,20 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
-        QiscusCore.shared.loadComments(roomID: roomId, onSuccess: { (comments) in
-            // convert model
-            var tempComments = [CommentModel]()
-            for i in comments {
-                tempComments.append(i)
-            }
-            // MARK: TODO improve and grouping
-            self.comments.removeAll()
-            self.comments = self.groupingComments(tempComments)
-            // MARK: TODO improve and compare with local data, reduce flicker effect
-            self.viewPresenter?.onLoadMessageFinished()
-        }) { (error) in
-            self.viewPresenter?.onLoadMessageFailed(message: error.message)
-        }
+//        QiscusCore.shared.loadComments(roomID: roomId, onSuccess: { (comments) in
+//            // convert model
+//            var tempComments = [CommentModel]()
+//            for i in comments {
+//                tempComments.append(i)
+//            }
+//            // MARK: TODO improve and grouping
+//            self.comments.removeAll()
+//            self.comments = self.groupingComments(tempComments)
+//            // MARK: TODO improve and compare with local data, reduce flicker effect
+//            self.viewPresenter?.onLoadMessageFinished()
+//        }) { (error) in
+//            self.viewPresenter?.onLoadMessageFailed(message: error.message)
+//        }
     }
     
     func loadMore() {

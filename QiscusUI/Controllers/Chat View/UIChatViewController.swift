@@ -97,7 +97,7 @@ open class UIChatViewController: UIViewController {
         if _room.type == .group {
             self.subtitleLabel.text = getParticipant()
         }else {
-            self.subtitleLabel.text = "last seen at "
+            self.subtitleLabel.text = ""
         }
     }
     
@@ -307,7 +307,9 @@ extension UIChatViewController: UIChatViewDelegate {
                 if room.type == .group {
                     self.subtitleLabel.text = getParticipant()
                 }else {
-                    self.subtitleLabel.text = "" // or last seen at
+                    let user = QiscusCore.getProfile()
+                    guard let opponent = self.presenter.participants.filter({ $0.email == user?.email ?? ""}).first else { return }
+                    self.subtitleLabel.text = "last seen at \(opponent.lastCommentReadId)" // or last seen at
                 }
             }
         }

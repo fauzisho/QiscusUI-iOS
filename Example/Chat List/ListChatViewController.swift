@@ -47,7 +47,7 @@ class ListChatViewController: UIChatListViewController {
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             if let name = alert.textFields?.first?.text {
-                QiscusCore.shared.getRoom(withUser: name, onSuccess: { (results) in
+                QiscusCore.shared.getRoom(withUser: name, onSuccess: { (results, _) in
                     self.chat(withRoom: results)
                 }, onError: { (error) in
                     //

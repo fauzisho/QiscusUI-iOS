@@ -29,7 +29,7 @@ class ChatViewController: UIChatViewController {
         
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
-        QiscusCore.shared.getRoom(withID: roomid, onSuccess: { (result) in
+        QiscusCore.shared.getRoom(withID: roomid, onSuccess: { (result,_) in
             self.room = result
         }) { (error) in
             print("error load room \(String(describing: error.message))")
