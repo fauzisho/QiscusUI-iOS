@@ -53,7 +53,7 @@ class UIChatListPresenter {
         QiscusCore.shared.getAllRoom(limit: 50, page: 1, onSuccess: { (results, meta) in
             self.rooms = results
             self.viewPresenter?.didFinishLoadChat(rooms: results)
-            self.loadFromLocal()
+            self.loadFromLocal() // load from local without refresh, improve tableview move
         }) { (error) in
             self.viewPresenter?.setEmptyData(message: "")
         }
