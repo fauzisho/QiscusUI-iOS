@@ -74,16 +74,15 @@ class UIChatPresenter: UIChatUserInteraction {
     func loadRoom() {
         guard let _room = self.room else { return }
         QiscusCore.shared.getRoom(withID: _room.id, onSuccess: { (room,comments) in
-//            if comments.isEmpty {
-//                self.viewPresenter?.onLoadMessageFailed(message: "no message")
-//                return
-//            }
-//            return
-//            // MARK: TODO improve and grouping
-//            self.comments.removeAll()
-//            self.comments = self.groupingComments(comments)
-//            // MARK : TODO improve and compare with local data, reduce flicker effect
-//            self.viewPresenter?.onLoadMessageFinished()
+            if comments.isEmpty {
+                self.viewPresenter?.onLoadMessageFailed(message: "no message")
+                return
+            }
+            // MARK: TODO improve and grouping
+            self.comments.removeAll()
+            self.comments = self.groupingComments(comments)
+            // MARK : TODO improve and compare with local data, reduce flicker effect
+            self.viewPresenter?.onLoadMessageFinished()
         }) { (error) in
             self.viewPresenter?.onLoadMessageFailed(message: error.message)
         }
