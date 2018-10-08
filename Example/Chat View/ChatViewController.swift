@@ -13,7 +13,7 @@ import ContactsUI
 
 class ChatViewController: UIChatViewController {
     var roomID : String?
-    let picker = UIImagePickerController()
+    var picker : UIImagePickerController?
     let imageCache = NSCache<NSString, UIImage>()
     
     override func viewDidLoad() {
@@ -23,8 +23,6 @@ class ChatViewController: UIChatViewController {
         // right button
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addMember))
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        
-        picker.delegate = self
         self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
         
         // alternative load ui then set room data, but you need to handle loading
@@ -135,13 +133,17 @@ extension ChatViewController : CustomChatInputDelegate {
     
     private func getCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-        picker.allowsEditing = false
-        picker.sourceType = .camera
-        picker.cameraCaptureMode = .photo
-        picker.modalPresentationStyle = .popover
-        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        present(picker, animated: true, completion: nil)
-//        picker.popoverPresentationController?.barButtonItem = sender
+        if picker == nil {
+            picker = UIImagePickerController()
+        }
+        picker?.delegate = self
+        picker?.allowsEditing = false
+        picker?.sourceType = .camera
+        picker?.cameraCaptureMode = .photo
+        picker?.modalPresentationStyle = .popover
+        picker?.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        guard let _picker = picker else { return }
+        present(_picker, animated: true, completion: nil)
         }else {
             print("no camera")
         }
