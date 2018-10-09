@@ -56,7 +56,7 @@ class TextCell: UIBaseChatCell {
             
             switch data.status {
             case .pending:
-                let pendingIcon = QiscusUI.image(named: "ic_pending")?.withRenderingMode(.alwaysTemplate)
+                let pendingIcon = QiscusUI.image(named: "ic_info_time")?.withRenderingMode(.alwaysTemplate)
                 self.ivStatus.tintColor = UIColor.lightGray
                 self.ivStatus.image = pendingIcon
             case .sending:
@@ -80,7 +80,7 @@ class TextCell: UIBaseChatCell {
                 self.ivStatus.tintColor = UIColor.lightGray
                 self.ivStatus.image = pendingIcon
             case .failed:
-                let pendingIcon = QiscusUI.image(named: "ic_pending")?.withRenderingMode(.alwaysTemplate)
+                let pendingIcon = QiscusUI.image(named: "ic_warning")?.withRenderingMode(.alwaysTemplate)
                 self.ivStatus.tintColor = UIColor.lightGray
                 self.ivStatus.image = pendingIcon
             }

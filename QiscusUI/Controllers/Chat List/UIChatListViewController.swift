@@ -101,14 +101,15 @@ extension UIChatListViewController : UIChatListView {
     }
     
     func updateRooms(data: RoomModel) {
+        self.tableView.reloadData()
         // improve only reload for new cell with room data
-        let indexPath = getIndexpath(byRoom: data)
-        let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
-        if let v = isVisible, let index = indexPath, v == true {
-            let newIndex = IndexPath(row: 0, section: 0)
-            self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
-            self.tableView.moveRow(at: index, to: newIndex)
-        }
+//        let indexPath = getIndexpath(byRoom: data)
+//        let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
+//        if let v = isVisible, let index = indexPath, v == true {
+//            let newIndex = IndexPath(row: 0, section: 0)
+//            self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
+//            self.tableView.moveRow(at: index, to: newIndex)
+//        }
     }
     
     func didFinishLoadChat(rooms: [RoomModel]) {
