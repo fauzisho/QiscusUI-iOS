@@ -263,7 +263,7 @@ open class UIChatViewController: UIViewController {
         }
         return result
     }
-    
+
     public func reusableCell(withIdentifier identifier: String, for comment: CommentModel) -> UIBaseChatCell {
         if let indexPath = self.presenter.getIndexPath(comment: comment) {
             return self.tableViewConversation.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UIBaseChatCell
@@ -275,6 +275,17 @@ open class UIChatViewController: UIViewController {
     // MARK : Public open method
     public func registerClass(nib: UINib?, forMessageCellWithReuseIdentifier reuseIdentifier: String) {
         self.tableViewConversation.register(nib, forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    
+    public func setBackground(with image: UIImage) {
+        let imageView = UIImageView(image: image)
+        self.tableViewConversation.isOpaque = false
+        self.tableViewConversation.backgroundView = imageView
+    }
+    
+    public func setBackground(with color: UIColor) {
+        self.tableViewConversation.backgroundColor = color
     }
 }
 
