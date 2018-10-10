@@ -23,15 +23,24 @@ class ChatViewController: UIChatViewController {
         // right button
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addMember))
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
+        
+        // customize chat list
+        customizeChatList()
         
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
-        QiscusCore.shared.getRoom(withID: roomid, onSuccess: { (result,_) in
-            self.room = result
+        QiscusCore.shared.getRoom(withID: roomid, onSuccess: { [weak self] (result,_) in
+            if let chatVc = self {
+                chatVc.room = result
+            }
         }) { (error) in
             print("error load room \(String(describing: error.message))")
         }
+    }
+    
+    func customizeChatList() {
+        self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
+        self.setBackground(with: UIImage(named: "bg_chat")!)
     }
     
     @objc func addMember() {
