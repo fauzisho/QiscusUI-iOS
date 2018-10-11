@@ -49,8 +49,8 @@ class DateHeaderLabel: UILabel {
 open class UIChatViewController: UIViewController {
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewChatInput: UIView!
+    @IBOutlet weak var viewInput: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
-    @IBOutlet weak var constraintViewInputHeight: NSLayoutConstraint!
     public var titleLabel = UILabel()
     public var subtitleLabel = UILabel()
     private var subtitleText:String = ""
@@ -144,10 +144,6 @@ open class UIChatViewController: UIViewController {
         inputchatview.frame.size    = self.viewChatInput.frame.size
         inputchatview.frame.origin  = CGPoint.init(x: 0, y: 0)
         inputchatview.delegate = self
-        
-        inputchatview.onHeightChange = { [weak self] height in
-            self?.constraintViewInputHeight.constant = height
-        }
         self.viewChatInput.addSubview(inputchatview)
     }
     
