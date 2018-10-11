@@ -22,9 +22,10 @@ protocol UIChatInputDelegate {
 
 open class UIChatInput: UIView {
 
+    @IBOutlet weak var tvInput: UITextView?
     @IBOutlet weak var btnAttachment: UIButton!
     @IBOutlet weak var btnSend: UIButton!
-    @IBOutlet weak var tfInput: UITextField!
+
     var delegate : UIChatInputDelegate? {
         set {
             self._delegate = newValue
@@ -35,6 +36,13 @@ open class UIChatInput: UIView {
     }
     private var _delegate       : UIChatInputDelegate? = nil
     var contentsView            : UIView!
+    
+    var onHeightChange: (CGFloat) -> Void = { _ in }
+    open override var frame: CGRect {
+        didSet {
+            onHeightChange(frame.height)
+        }
+    }
 
     // If someone is to initialize a UIChatInput in code
     public override init(frame: CGRect) {
@@ -67,17 +75,53 @@ open class UIChatInput: UIView {
         contentsView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         self.autoresizingMask  = (UIViewAutoresizing.flexibleWidth)
+        if let input = self.tvInput {
+            input.delegate = self
+        }
     }
     
     @IBAction private func clickUISendButton(_ sender: Any) {
-        guard let text = self.tfInput.text else {return}
+        guard let text = self.tvInput?.text else {return}
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             let message = CommentModel()
             message.message = text
             message.type    = "text"
             self._delegate?.send(message: message)
         }
-        self.tfInput.text = ""
+        self.tvInput?.text = ""
+    }
+    
+    private func calculateHeight() -> CGRect {
+        if let inputView = tvInput {
+            var tvInputFrame = inputView.frame
+            tvInputFrame.size.height = inputView.contentSize.height + 2
+            
+            var inputContainerFrame = self.frame
+            inputContainerFrame.size.height = inputView.contentSize.height + 10
+            return inputContainerFrame
+        }
+        
+        return CGRect()
+    }
+}
+
+extension UIChatInput : UITextViewDelegate {
+    open func textViewDidChange(_ textView: UITextView) {
+        let fontHeight = textView.font?.lineHeight
+        let line = textView.contentSize.height / fontHeight!
+        
+        if line < 4 {
+            self.frame = self.calculateHeight()
+            self.layoutIfNeeded()
+        }
+    }
+    
+    open func textViewDidBeginEditing(_ textView: UITextView) {
+        self._delegate?.typing(true)
+    }
+    
+    open func textViewDidEndEditing(_ textView: UITextView) {
+        self._delegate?.typing(false)
     }
 }
 
