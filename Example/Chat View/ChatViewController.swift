@@ -73,6 +73,32 @@ extension ChatViewController : UIChatView {
     func uiChat(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
         if action == #selector(UIResponderStandardEditActions.copy(_:)) {
             print("copy")
+        }else if action ==  #selector(UIResponderStandardEditActions.cut(_:)) {
+            let optionMenu = UIAlertController()
+            let deleteAction = UIAlertAction(title: "Delete everyone", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                QiscusCore.shared.deleteMessage(uniqueIDs: [message.uniqId], type: .forEveryone, onSuccess: { (comment) in
+                    //
+                }, onError: { (error) in
+                    //
+                })
+            })
+            let saveAction = UIAlertAction(title: "Delete for me", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                QiscusCore.shared.deleteMessage(uniqueIDs: [message.uniqId], type: .forMe, onSuccess: { (comment) in
+                    //
+                }, onError: { (error) in
+                    //
+                })
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+                (alert: UIAlertAction!) -> Void in
+                print("Cancelled")
+            })
+            optionMenu.addAction(deleteAction)
+            optionMenu.addAction(saveAction)
+            optionMenu.addAction(cancelAction)
+            self.present(optionMenu, animated: true, completion: nil)
         }
     }
     

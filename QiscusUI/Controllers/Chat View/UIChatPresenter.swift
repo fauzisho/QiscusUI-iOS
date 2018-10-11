@@ -234,6 +234,8 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
     }
 
     func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
+        // MARK : TODO handle comment isDeleted or status deleted
+        
         // check comment already exist in view
         for (group,c) in comments.enumerated() {
             if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
