@@ -38,6 +38,7 @@ class CustomChatInput: UIChatInput {
     
     @IBAction func clickAttachment(_ sender: Any) {
         self.delegate?.sendAttachment()
+        self.setHeight(self.frame.height)
     }
 }
 

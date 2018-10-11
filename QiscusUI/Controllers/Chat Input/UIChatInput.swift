@@ -12,6 +12,7 @@ import QiscusCore
 protocol UIChatInputAction {
     func send(message : CommentModel)
     func typing(_ value: Bool)
+    func setHeight(_ value: CGFloat)
 }
 
 // internal function
@@ -21,7 +22,7 @@ protocol UIChatInputDelegate {
 }
 
 open class UIChatInput: UIView {
-
+    
     @IBOutlet weak var btnAttachment: UIButton!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var tfInput: UITextField!
@@ -35,6 +36,7 @@ open class UIChatInput: UIView {
     }
     private var _delegate       : UIChatInputDelegate? = nil
     var contentsView            : UIView!
+    var onHeightChange: (CGFloat) -> Void = { _ in }
 
     // If someone is to initialize a UIChatInput in code
     public override init(frame: CGRect) {
@@ -82,6 +84,10 @@ open class UIChatInput: UIView {
 }
 
 extension UIChatInput : UIChatInputAction {
+    public func setHeight(_ value: CGFloat) {
+        onHeightChange(value)
+    }
+    
     public func typing(_ value: Bool) {
         self._delegate?.typing(value)
     }
