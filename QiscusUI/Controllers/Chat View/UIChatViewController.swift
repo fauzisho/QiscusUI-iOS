@@ -49,8 +49,8 @@ class DateHeaderLabel: UILabel {
 open class UIChatViewController: UIViewController {
     @IBOutlet weak var tableViewConversation: UITableView!
     @IBOutlet weak var viewChatInput: UIView!
-    @IBOutlet weak var viewInput: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
+    @IBOutlet weak var constraintViewInputHeight: NSLayoutConstraint!
     public var titleLabel = UILabel()
     public var subtitleLabel = UILabel()
     private var subtitleText:String = ""
@@ -60,7 +60,7 @@ open class UIChatViewController: UIViewController {
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
     public var chatDelegate : UIChatView? = nil
-
+    
     public var room : RoomModel? {
         set(newValue) {
             self.presenter.room = newValue
@@ -118,13 +118,13 @@ open class UIChatViewController: UIViewController {
     // MARK: TODO need optimize, prevent call api twice
     func refreshUI() {
         if self.isViewLoaded {
-             self.presenter.attachView(view: self)
-             self.setupUI()
+            self.presenter.attachView(view: self)
+            self.setupUI()
         }
     }
     
     // MARK: View Event Listener
-
+    
     private func setupUI() {
         // config navBar
         self.setupNavigationTitle()
@@ -139,11 +139,15 @@ open class UIChatViewController: UIViewController {
             self.setupInputBar(UIChatInput())
         }
     }
-
+    
     private func setupInputBar(_ inputchatview: UIChatInput) {
         inputchatview.frame.size    = self.viewChatInput.frame.size
         inputchatview.frame.origin  = CGPoint.init(x: 0, y: 0)
         inputchatview.delegate = self
+        
+        inputchatview.onHeightChange = { [weak self] height in
+            self?.constraintViewInputHeight.constant = height
+        }
         self.viewChatInput.addSubview(inputchatview)
     }
     
@@ -172,7 +176,7 @@ open class UIChatViewController: UIViewController {
         self.roomAvatar.layer.cornerRadius = 16
         self.roomAvatar.contentMode = .scaleAspectFill
         self.roomAvatar.backgroundColor = UIColor.white
-
+        
         self.roomAvatar.frame = CGRect(x: 0,y: 6,width: 32,height: 32)
         self.roomAvatar.layer.cornerRadius = 16
         self.roomAvatar.clipsToBounds = true
@@ -220,7 +224,7 @@ open class UIChatViewController: UIViewController {
         self.tableViewConversation.allowsSelection = false
         
         self.tableViewConversation.register(UINib(nibName: "TextCell", bundle: QiscusUI.bundle), forCellReuseIdentifier: "TextCell")
-
+        
     }
     
     @objc func goBack() {
@@ -263,7 +267,7 @@ open class UIChatViewController: UIViewController {
         }
         return result
     }
-
+    
     public func reusableCell(withIdentifier identifier: String, for comment: CommentModel) -> UIBaseChatCell {
         if let indexPath = self.presenter.getIndexPath(comment: comment) {
             return self.tableViewConversation.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UIBaseChatCell
