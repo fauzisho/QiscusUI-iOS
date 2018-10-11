@@ -35,8 +35,9 @@ open class UIChatInput: UIView {
         }
     }
     private var _delegate       : UIChatInputDelegate? = nil
+    private var inputToBeCalculated: UITextView?
+    private var inputViewMaxLines: CGFloat = 4
     var contentsView            : UIView!
-    
     var onHeightChange: (CGFloat) -> Void = { _ in }
     open override var frame: CGRect {
         didSet {
@@ -80,6 +81,12 @@ open class UIChatInput: UIView {
         }
     }
     
+    // set maxLines based on external UITextView (sorry my shortcut to create documentation doesn't work, i don't know why)
+    open func setInputViewMaxLines(with lines: CGFloat, basedOn view: UITextView) {
+        self.inputViewMaxLines = lines
+        self.inputToBeCalculated = view
+    }
+    
     @IBAction private func clickUISendButton(_ sender: Any) {
         guard let text = self.tvInput?.text else {return}
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -92,16 +99,27 @@ open class UIChatInput: UIView {
     }
     
     private func calculateHeight() -> CGRect {
-        if let inputView = tvInput {
-            var tvInputFrame = inputView.frame
-            tvInputFrame.size.height = inputView.contentSize.height + 2
-            
-            var inputContainerFrame = self.frame
-            inputContainerFrame.size.height = inputView.contentSize.height + 10
-            return inputContainerFrame
+        
+        if let customInputView = self.inputToBeCalculated {
+            // do calculation based on custom view by client app
+            return self.getInputHeight(inputView: customInputView)
+        } else {
+            // do calculation based default input view
+            if let inputView = tvInput {
+                return self.getInputHeight(inputView: inputView)
+            }
         }
         
         return CGRect()
+    }
+    
+    private func getInputHeight(inputView: UITextView) -> CGRect {
+        var tvInputFrame = inputView.frame
+        tvInputFrame.size.height = inputView.contentSize.height + 2
+        
+        var inputContainerFrame = self.frame
+        inputContainerFrame.size.height = inputView.contentSize.height + 10
+        return inputContainerFrame
     }
 }
 
@@ -110,7 +128,7 @@ extension UIChatInput : UITextViewDelegate {
         let fontHeight = textView.font?.lineHeight
         let line = textView.contentSize.height / fontHeight!
         
-        if line < 4 {
+        if line < inputViewMaxLines {
             self.frame = self.calculateHeight()
             self.layoutIfNeeded()
         }

@@ -23,6 +23,7 @@ class CustomChatInput: UIChatInput {
         let nib = UINib(nibName: "CustomChatInput", bundle: Bundle.main)
         super.commonInit(nib: nib)
         self.tvInput.delegate = self
+        self.setInputViewMaxLines(with: 10, basedOn: tvInput)
     }
     
     @IBAction func clickSend(_ sender: Any) {
@@ -50,24 +51,26 @@ class CustomChatInput: UIChatInput {
     }
     
     /**
+     * for advance size customization
      * UIChatInput are also implement UITextViewDelegate if you are using UITextView as your input view no need to conforming UITextViewDelegate on this custom class
      * if you want custom behavior or need another UITextViewDelegate function simply just write the UITextViewDelegate function or override the function if its also implemented in UIChatInput like the (textViewDidEndEditing, textViewDidBeginEditing, textViewDidChange)
      **/
-    override func textViewDidEndEditing(_ textView: UITextView) {
-        self.typing(false)
-    }
-    
-    override func textViewDidBeginEditing(_ textView: UITextView) {
-        self.typing(true)
-    }
-    
-    override func textViewDidChange(_ textView: UITextView) {
-        let fontHeight = textView.font?.lineHeight
-        let line = textView.contentSize.height / fontHeight!
-        
-        if line < 4 {
-            self.frame = self.calculateHeight()
-            self.layoutIfNeeded()
-        }
-    }
+//    override func textViewDidEndEditing(_ textView: UITextView) {
+//        self.typing(false)
+//    }
+//
+//    override func textViewDidBeginEditing(_ textView: UITextView) {
+//        self.typing(true)
+//    }
+//
+//
+//    override func textViewDidChange(_ textView: UITextView) {
+//        let fontHeight = textView.font?.lineHeight
+//        let line = textView.contentSize.height / fontHeight!
+//
+//        if line < 4 {
+//            self.frame = self.calculateHeight()
+//            self.layoutIfNeeded()
+//        }
+//    }
 }
