@@ -40,6 +40,8 @@ class ChatViewController: UIChatViewController {
     
     func customizeChatList() {
         self.registerClass(nib: UINib(nibName: "ImageViewCell", bundle: nil), forMessageCellWithReuseIdentifier: "image")
+        self.registerClass(nib: UINib(nibName: "TextLeftCell", bundle: nil), forMessageCellWithReuseIdentifier: "TextLeftCell")
+        self.registerClass(nib: UINib(nibName: "TextRightCell", bundle: nil), forMessageCellWithReuseIdentifier: "TextRightCell")
         self.setBackground(with: UIImage(named: "bg_chat")!)
     }
     
@@ -109,6 +111,12 @@ extension ChatViewController : UIChatView {
     func uiChat(viewController: UIChatViewController, cellForMessage message: CommentModel) -> UIBaseChatCell? {
         if message.type == "file_attachment" {
             return self.reusableCell(withIdentifier: "image", for: message) as! ImageViewCell
+        }else if message.type == "text" {
+            if message.isMyComment() {
+                return self.reusableCell(withIdentifier: "TextRightCell", for: message) as! TextRightCell
+            }else {
+                return self.reusableCell(withIdentifier: "TextLeftCell", for: message) as! TextLeftCell
+            }
         }else {
             return nil
         }
