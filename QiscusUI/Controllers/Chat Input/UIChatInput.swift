@@ -19,6 +19,7 @@ protocol UIChatInputAction {
 protocol UIChatInputDelegate {
     func send(message : CommentModel)
     func typing(_ value: Bool)
+    func onHeightChanged(height: CGFloat)
 }
 
 open class UIChatInput: UIView {
@@ -36,7 +37,6 @@ open class UIChatInput: UIView {
     }
     private var _delegate       : UIChatInputDelegate? = nil
     var contentsView            : UIView!
-    var onHeightChange: (CGFloat) -> Void = { _ in }
 
     // If someone is to initialize a UIChatInput in code
     public override init(frame: CGRect) {
@@ -85,7 +85,7 @@ open class UIChatInput: UIView {
 
 extension UIChatInput : UIChatInputAction {
     public func setHeight(_ value: CGFloat) {
-        onHeightChange(value)
+        self._delegate?.onHeightChanged(height: value)
     }
     
     public func typing(_ value: Bool) {

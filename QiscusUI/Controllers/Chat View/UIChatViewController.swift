@@ -145,9 +145,6 @@ open class UIChatViewController: UIViewController {
         inputchatview.frame.origin  = CGPoint.init(x: 0, y: 0)
         inputchatview.delegate = self
         
-        inputchatview.onHeightChange = { [weak self] height in
-            self?.constraintViewInputHeight.constant = height
-        }
         self.viewChatInput.addSubview(inputchatview)
     }
     
@@ -487,6 +484,10 @@ extension UIChatViewController: UITableViewDelegate {
 }
 
 extension UIChatViewController : UIChatInputDelegate {
+    func onHeightChanged(height: CGFloat) {
+        self.constraintViewInputHeight.constant = height
+    }
+    
     func typing(_ value: Bool) {
         self.presenter.isTyping(value)
     }
