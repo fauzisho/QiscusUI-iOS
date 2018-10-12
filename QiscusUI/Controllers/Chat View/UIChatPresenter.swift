@@ -36,6 +36,8 @@ class UIChatPresenter: UIChatUserInteraction {
     var room: RoomModel? 
     var loadMoreAvailable: Bool = true
     var participants : [MemberModel] = [MemberModel]()
+    var loadMoreDispatchGroup: DispatchGroup = DispatchGroup()
+    var lastIdToLoad: String = ""
     
     init() {
         self.comments = [[CommentModel]]()
@@ -73,18 +75,20 @@ class UIChatPresenter: UIChatUserInteraction {
     /// Update room
     func loadRoom() {
         guard let _room = self.room else { return }
-        QiscusCore.shared.getRoom(withID: _room.id, onSuccess: { (room,comments) in
+        QiscusCore.shared.getRoom(withID: _room.id, onSuccess: { [weak self] (room,comments) in
+            guard let instance = self else { return }
             if comments.isEmpty {
-                self.viewPresenter?.onLoadMessageFailed(message: "no message")
+                instance.viewPresenter?.onLoadMessageFailed(message: "no message")
                 return
             }
             // MARK: TODO improve and grouping
-            self.comments.removeAll()
-            self.comments = self.groupingComments(comments)
+            instance.comments.removeAll()
+            instance.comments = instance.groupingComments(comments)
             // MARK : TODO improve and compare with local data, reduce flicker effect
-            self.viewPresenter?.onLoadMessageFinished()
-        }) { (error) in
-            self.viewPresenter?.onLoadMessageFailed(message: error.message)
+            instance.viewPresenter?.onLoadMessageFinished()
+        }) { [weak self] (error) in
+            guard let instance = self else { return }
+            instance.viewPresenter?.onLoadMessageFailed(message: error.message)
         }
     }
     
@@ -97,29 +101,81 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments = self.groupingComments(_comments)
             self.viewPresenter?.onLoadMessageFinished()
         }
-
+        
     }
     
     func loadMore() {
-        return // buggy
         if loadMoreAvailable {
-            if let lastGroup = self.comments.last, let lastComment = lastGroup.last {
-                if lastComment.id.isEmpty {
+            // initiate loadmore operation on background thread
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                // since this is async we need to use weak rather than owned because we cant guarantee that self instance still exist, so we will use guard to avoid force unwraping optional value
+                guard let instance = self else { return }
+                
+                // initiate loadmore dispatch group (as a queue to make it synchronous)
+                instance.loadMoreDispatchGroup.enter()
+                
+                // avoiding on force unwrap optional value
+                guard let lastGroup = instance.comments.last else { return }
+                guard let lastComment = lastGroup.last else { return }
+                guard let roomId = instance.room?.id else { return }
+                guard let lastCommentId = Int(lastComment.id) else { return }
+                
+                // make sure that last comment's id isn't empty or load more for current id is still in process to prevent duplicate message
+                if lastComment.id.isEmpty || instance.lastIdToLoad == lastComment.id {
                     return
                 }
-                QiscusCore.shared.loadMore(roomID: (self.room?.id)!, lastCommentID: Int(lastComment.id)!, limit: 10, onSuccess: { (comments) in
-                    if comments.count == 0 {
-                        self.loadMoreAvailable = false
-                    }
-                    let tempComments = comments.map({ (qComment) -> CommentModel in
-                        return qComment
-                    })
+                
+                // update lastIdToLoad value
+                instance.lastIdToLoad = lastComment.id
+                QiscusCore.shared.loadMore(roomID: roomId, lastCommentID: lastCommentId, limit: 10, onSuccess: { (comments) in
                     
-                    self.comments.append(contentsOf: self.groupingComments(tempComments))
-                    self.viewPresenter?.onLoadMoreMesageFinished()
-                }) { (error) in
-                    //
+                    // notify the dispatch group that the current process is complete and able to continue to the next load more process
+                    instance.loadMoreDispatchGroup.leave()
+                    
+                    // if the loadmore from core return empty comment than it means that there are no comments left to be loaded anymore
+                    if comments.count == 0 {
+                        instance.loadMoreAvailable = false
+                    }
+                    
+                    // we group the loaded comments by date(same day) and sender [[you, you][me, me][you]]
+                    var groupedLoadedComment = instance.groupingComments(comments)
+                    
+                    // check if the first comment in the first section from the load more result has the same date then add merge first section from loaded comments with last section from existing comments
+                    if lastComment.date.reduceToMonthDayYear() == groupedLoadedComment.first?.first?.date.reduceToMonthDayYear() {
+                        // last section of existing comments
+                        guard var lastGroup = instance.comments.last else { return }
+                        
+                        // first section of loaded comments
+                        guard let firstGroupInLoadedComment = groupedLoadedComment.first else { return }
+                        
+                        // merge both of them
+                        lastGroup.append(contentsOf: firstGroupInLoadedComment)
+                        
+                        // remove last section from existing comments
+                        instance.comments.removeLast()
+                        
+                        // replace with merged comment (first section loaded comments and last section existing comment)
+                        instance.comments.append(lastGroup)
+                        
+                        // remove section that has ben merged (first section) from the loaded comments
+                        groupedLoadedComment.removeFirst()
+                    }
+                    
+                    // finaly append the loaded comment from load more to existing comments
+                    instance.comments.append(contentsOf: groupedLoadedComment)
+                    
+                    DispatchQueue.main.async {
+                        // notify the ui that loadmore has completed
+                        instance.viewPresenter?.onLoadMoreMesageFinished()
+                    }
+                }) { [weak self] (error) in
+                    if let instance = self {
+                        instance.loadMoreDispatchGroup.leave()
+                    }
                 }
+                
+                
+                instance.loadMoreDispatchGroup.wait()
             }
         }
     }
@@ -132,8 +188,8 @@ class UIChatPresenter: UIChatUserInteraction {
     
     func sendMessage(withComment comment: CommentModel) {
         addNewCommentUI(comment, isIncoming: false)
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment, onSuccess: { (comment) in
-            self.didComment(comment: comment, changeStatus: comment.status)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment, onSuccess: { [weak self] (comment) in
+            self?.didComment(comment: comment, changeStatus: comment.status)
         }) { (error) in
             //
         }
@@ -146,8 +202,8 @@ class UIChatPresenter: UIChatUserInteraction {
         message.message = text
         message.type    = "text"
         addNewCommentUI(message, isIncoming: false)
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message, onSuccess: { (comment) in
-            self.didComment(comment: comment, changeStatus: comment.status)
+        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: message, onSuccess: { [weak self] (comment) in
+            self?.didComment(comment: comment, changeStatus: comment.status)
         }) { (error) in
             //
         }
@@ -159,7 +215,7 @@ class UIChatPresenter: UIChatUserInteraction {
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
                 let lastComment = self.comments[0][0]
-                if lastComment.userEmail == message.userEmail {
+                if lastComment.date.reduceToMonthDayYear() == message.date.reduceToMonthDayYear() {
                     self.comments[0].insert(message, at: 0)
                     section = false
                 } else {
@@ -175,6 +231,7 @@ class UIChatPresenter: UIChatUserInteraction {
             self.comments.insert([message], at: 0)
             section = true
         }
+        
         // choose uidelegate
         if isIncoming {
             guard let user = QiscusCore.getProfile() else { return }
@@ -200,7 +257,7 @@ class UIChatPresenter: UIChatUserInteraction {
         let groupedMessages = Dictionary(grouping: data) { (element) -> Date in
             return element.date.reduceToMonthDayYear()
         }
-
+        
         let sortedKeys = groupedMessages.keys.sorted(by: { $0.compare($1) == .orderedDescending })
         sortedKeys.forEach { (key) in
             let values = groupedMessages[key]
@@ -232,7 +289,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
             self.addNewCommentUI(comment, isIncoming: true)
         }
     }
-
+    
     func didComment(comment: CommentModel, changeStatus status: CommentStatus) {
         // MARK : TODO handle comment isDeleted or status deleted
         
@@ -259,9 +316,9 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
                 //let lessMinute = time.timeIntervalSinceNow.second
                 //if lessMinute <= 59 {
                 message = "online"
-               // }else {
-                    //if lessMinute
-                   // message = "Last seen .. ago"
+                // }else {
+                //if lessMinute
+                // message = "Last seen .. ago"
                 //}
                 self.viewPresenter?.onUser(name: user.username, isOnline: status, message: message)
             }

@@ -394,7 +394,6 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        print("number of section \(self.presenter.comments.count)")
         return self.presenter.comments.count
     }
     
