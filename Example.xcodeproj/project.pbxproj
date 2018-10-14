@@ -11,7 +11,11 @@
 		3D034904213E5A110061900B /* CustomChatInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D034903213E5A110061900B /* CustomChatInput.xib */; };
 		3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2721378C4000867E10 /* ImageViewCell.swift */; };
 		3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06AE2821378C4000867E10 /* ImageViewCell.xib */; };
-		3D06AE2E2137D08900867E10 /* CommentPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2D2137D08900867E10 /* CommentPayload.swift */; };
+		3D06AE2E2137D08900867E10 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2D2137D08900867E10 /* CommentModel.swift */; };
+		3D341FFC21705E3E0040B0C2 /* TextLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D341FF821705E3B0040B0C2 /* TextLeftCell.swift */; };
+		3D341FFD21705E3E0040B0C2 /* TextLeftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D341FF921705E3C0040B0C2 /* TextLeftCell.xib */; };
+		3D341FFE21705E3E0040B0C2 /* TextRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D341FFA21705E3D0040B0C2 /* TextRightCell.swift */; };
+		3D341FFF21705E3E0040B0C2 /* TextRightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D341FFB21705E3D0040B0C2 /* TextRightCell.xib */; };
 		3D728936214A9D2500B373A9 /* LoginQRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D728934214A9D2400B373A9 /* LoginQRController.swift */; };
 		3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D728935214A9D2400B373A9 /* LoginQRController.xib */; };
 		3D7385FE21411CD8000BB592 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7385FD21411CD8000BB592 /* ImageCache.swift */; };
@@ -34,7 +38,11 @@
 		3D034903213E5A110061900B /* CustomChatInput.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomChatInput.xib; sourceTree = "<group>"; };
 		3D06AE2721378C4000867E10 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		3D06AE2821378C4000867E10 /* ImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewCell.xib; sourceTree = "<group>"; };
-		3D06AE2D2137D08900867E10 /* CommentPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPayload.swift; sourceTree = "<group>"; };
+		3D06AE2D2137D08900867E10 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		3D341FF821705E3B0040B0C2 /* TextLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLeftCell.swift; sourceTree = "<group>"; };
+		3D341FF921705E3C0040B0C2 /* TextLeftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextLeftCell.xib; sourceTree = "<group>"; };
+		3D341FFA21705E3D0040B0C2 /* TextRightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRightCell.swift; sourceTree = "<group>"; };
+		3D341FFB21705E3D0040B0C2 /* TextRightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextRightCell.xib; sourceTree = "<group>"; };
 		3D728934214A9D2400B373A9 /* LoginQRController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginQRController.swift; sourceTree = "<group>"; };
 		3D728935214A9D2400B373A9 /* LoginQRController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginQRController.xib; sourceTree = "<group>"; };
 		3D7385FD21411CD8000BB592 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -96,13 +104,25 @@
 		3D034900213E55590061900B /* Chat View */ = {
 			isa = PBXGroup;
 			children = (
-				3D06AE2721378C4000867E10 /* ImageViewCell.swift */,
-				3D06AE2821378C4000867E10 /* ImageViewCell.xib */,
+				3D341FF721705AD20040B0C2 /* Cell */,
 				3DA3072C2117FC7700E4282E /* ChatViewController.swift */,
 				3DA307282117FC7600E4282E /* ChatViewController.xib */,
 				3D7385FD21411CD8000BB592 /* ImageCache.swift */,
 			);
 			path = "Chat View";
+			sourceTree = "<group>";
+		};
+		3D341FF721705AD20040B0C2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D341FF821705E3B0040B0C2 /* TextLeftCell.swift */,
+				3D341FF921705E3C0040B0C2 /* TextLeftCell.xib */,
+				3D341FFA21705E3D0040B0C2 /* TextRightCell.swift */,
+				3D341FFB21705E3D0040B0C2 /* TextRightCell.xib */,
+				3D06AE2721378C4000867E10 /* ImageViewCell.swift */,
+				3D06AE2821378C4000867E10 /* ImageViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		3D9D1CFA545B05149D3D3CC8 /* Frameworks */ = {
@@ -134,7 +154,7 @@
 		3DA307142117FBCB00E4282E /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				3D06AE2D2137D08900867E10 /* CommentPayload.swift */,
+				3D06AE2D2137D08900867E10 /* CommentModel.swift */,
 				3D034900213E55590061900B /* Chat View */,
 				3D0348FF213E554C0061900B /* Chat List */,
 				3D0348FE213E553C0061900B /* Login */,
@@ -220,8 +240,10 @@
 			files = (
 				3DA3072E2117FC7700E4282E /* LoginViewController.xib in Resources */,
 				3DA307202117FBCE00E4282E /* LaunchScreen.storyboard in Resources */,
+				3D341FFD21705E3E0040B0C2 /* TextLeftCell.xib in Resources */,
 				3D034904213E5A110061900B /* CustomChatInput.xib in Resources */,
 				3DA307302117FC7700E4282E /* ListChatViewController.xib in Resources */,
+				3D341FFF21705E3E0040B0C2 /* TextRightCell.xib in Resources */,
 				3DA3072F2117FC7700E4282E /* ChatViewController.xib in Resources */,
 				3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */,
 				3D78C5B12150DCC0004E033A /* Assets.xcassets in Resources */,
@@ -296,10 +318,12 @@
 				3DA307322117FC7700E4282E /* LoginViewController.swift in Sources */,
 				3DA307312117FC7700E4282E /* ListChatViewController.swift in Sources */,
 				3D728936214A9D2500B373A9 /* LoginQRController.swift in Sources */,
+				3D341FFC21705E3E0040B0C2 /* TextLeftCell.swift in Sources */,
 				3D7385FE21411CD8000BB592 /* ImageCache.swift in Sources */,
 				3DA307332117FC7700E4282E /* ChatViewController.swift in Sources */,
 				3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */,
-				3D06AE2E2137D08900867E10 /* CommentPayload.swift in Sources */,
+				3D341FFE21705E3E0040B0C2 /* TextRightCell.swift in Sources */,
+				3D06AE2E2137D08900867E10 /* CommentModel.swift in Sources */,
 				3DA307162117FBCB00E4282E /* AppDelegate.swift in Sources */,
 				3D034902213E5A050061900B /* CustomChatInput.swift in Sources */,
 			);

@@ -25,11 +25,11 @@ class DateHeaderLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .clear
-        textColor = .gray
+        backgroundColor = #colorLiteral(red: 0.3555911001, green: 0.7599821354, blue: 1, alpha: 0.5159193065)
+        textColor = .darkGray
         textAlignment = .center
         translatesAutoresizingMaskIntoConstraints = false // enables auto layout
-        font = UIFont.boldSystemFont(ofSize: 10)
+        font = UIFont.boldSystemFont(ofSize: 9.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +41,7 @@ class DateHeaderLabel: UILabel {
         let height = originalContentSize.height + 12
         layer.cornerRadius = height / 2
         layer.masksToBounds = true
-        return CGSize(width: originalContentSize.width + 10, height: height)
+        return CGSize(width: originalContentSize.width + 15, height: height)
     }
     
 }
@@ -435,7 +435,7 @@ extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let firstMessageInSection = self.presenter.comments[section].first {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
+            dateFormatter.dateFormat = "E, d MMM"
             let dateString = dateFormatter.string(from: firstMessageInSection.date)
             
             let label = DateHeaderLabel()
