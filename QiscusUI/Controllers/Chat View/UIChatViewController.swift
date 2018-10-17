@@ -281,8 +281,10 @@ open class UIChatViewController: UIViewController {
     
     public func setBackground(with image: UIImage) {
         let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.transform = imageView.transform.rotated(by: CGFloat(M_PI))
         self.tableViewConversation.isOpaque = false
-        self.tableViewConversation.backgroundView = imageView
+        self.tableViewConversation.backgroundView =   imageView
     }
     
     public func setBackground(with color: UIColor) {
