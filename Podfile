@@ -2,8 +2,7 @@
 platform :ios, '10.0'
 
 def pod_release
-    pod 'QiscusCore'
-    pod 'QiscusRealtime'
+    pod 'QiscusCore', '0.1.2'
 end
 
 def pod_test
