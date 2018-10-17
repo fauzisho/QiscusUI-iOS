@@ -6,6 +6,11 @@ def pod_release
     pod 'QiscusRealtime'
 end
 
+def pod_test
+    pod 'QiscusCore', :path => '../QiscusCore/Cocoapods'
+    pod 'QiscusRealtime', :path => '../QiscusRealtime/Cocoapods'
+end
+
 def pod_dev
     pod 'QiscusCore', :path => '../QiscusCore'
     pod 'QiscusRealtime', :path => '../QiscusRealtime'
@@ -16,5 +21,6 @@ target 'Example' do
   use_frameworks!
   pod 'QiscusUI', :path => '.'
 #  pod_release
-  pod_dev
+#  pod_dev
+pod_test
 end
