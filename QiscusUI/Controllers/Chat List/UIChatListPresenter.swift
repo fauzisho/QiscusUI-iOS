@@ -40,6 +40,10 @@ class UIChatListPresenter {
         self.loadFromLocal()
     }
     
+    func reLoadChat() {
+       self.loadFromServer()
+    }
+    
     private func loadFromLocal(refresh: Bool = true) {
         // get from local
         self.rooms = QiscusCore.database.room.all()
