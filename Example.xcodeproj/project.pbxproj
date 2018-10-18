@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		119A67A62174A6DD00680BEB /* CustomChatInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A67A52174A6DD00680BEB /* CustomChatInputButton.swift */; };
+		119A67AA2174A8AE00680BEB /* CustomChatInputButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 119A67A92174A8AE00680BEB /* CustomChatInputButton.xib */; };
 		3D034902213E5A050061900B /* CustomChatInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D034901213E5A050061900B /* CustomChatInput.swift */; };
 		3D034904213E5A110061900B /* CustomChatInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D034903213E5A110061900B /* CustomChatInput.xib */; };
 		3D06AE2921378C4000867E10 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06AE2721378C4000867E10 /* ImageViewCell.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		119A67A52174A6DD00680BEB /* CustomChatInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatInputButton.swift; sourceTree = "<group>"; };
+		119A67A92174A8AE00680BEB /* CustomChatInputButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomChatInputButton.xib; sourceTree = "<group>"; };
 		1BDB6F925F7D7EAFCF71DD1F /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		221597F99FD1F5FC4BC93182 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		3D034901213E5A050061900B /* CustomChatInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatInput.swift; sourceTree = "<group>"; };
@@ -77,6 +81,8 @@
 			children = (
 				3D034901213E5A050061900B /* CustomChatInput.swift */,
 				3D034903213E5A110061900B /* CustomChatInput.xib */,
+				119A67A52174A6DD00680BEB /* CustomChatInputButton.swift */,
+				119A67A92174A8AE00680BEB /* CustomChatInputButton.xib */,
 			);
 			path = "Chat Input";
 			sourceTree = "<group>";
@@ -243,6 +249,7 @@
 				3D341FFD21705E3E0040B0C2 /* TextLeftCell.xib in Resources */,
 				3D034904213E5A110061900B /* CustomChatInput.xib in Resources */,
 				3DA307302117FC7700E4282E /* ListChatViewController.xib in Resources */,
+				119A67AA2174A8AE00680BEB /* CustomChatInputButton.xib in Resources */,
 				3D341FFF21705E3E0040B0C2 /* TextRightCell.xib in Resources */,
 				3DA3072F2117FC7700E4282E /* ChatViewController.xib in Resources */,
 				3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */,
@@ -316,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DA307322117FC7700E4282E /* LoginViewController.swift in Sources */,
+				119A67A62174A6DD00680BEB /* CustomChatInputButton.swift in Sources */,
 				3DA307312117FC7700E4282E /* ListChatViewController.swift in Sources */,
 				3D728936214A9D2500B373A9 /* LoginQRController.swift in Sources */,
 				3D341FFC21705E3E0040B0C2 /* TextLeftCell.swift in Sources */,
