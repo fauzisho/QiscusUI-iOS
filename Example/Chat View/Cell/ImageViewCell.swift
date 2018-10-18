@@ -37,7 +37,6 @@ class ImageViewCell: UIBaseChatCell {
         // get image
         self.labelName.text = message.username
         self.labelTime.text = self.hour(date: message.date)
-        print("payload: \(message.payload)")
         guard let payload = message.payload else { return }
         let caption = payload["caption"] as? String
         

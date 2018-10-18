@@ -289,8 +289,10 @@ open class UIChatViewController: UIViewController {
     
     public func setBackground(with image: UIImage) {
         let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.transform = imageView.transform.rotated(by: CGFloat(M_PI))
         self.tableViewConversation.isOpaque = false
-        self.tableViewConversation.backgroundView = imageView
+        self.tableViewConversation.backgroundView =   imageView
     }
     
     public func setBackground(with color: UIColor) {
@@ -302,7 +304,10 @@ open class UIChatViewController: UIViewController {
 extension UIChatViewController: UIChatViewDelegate {
     func onGotComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-        self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
+        let isVisible = self.tableViewConversation.indexPathsForVisibleRows?.contains{$0 == indexpath}
+        if let v = isVisible, v == true  {
+            self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
+        }
     }
     
     func onLoadMessageFailed(message: String) {
