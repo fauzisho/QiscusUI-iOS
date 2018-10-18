@@ -13,6 +13,7 @@ open class UIChatListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
+    private let refreshControl = UIRefreshControl()
     public var rooms : [RoomModel] {
         get {
             return presenter.rooms
@@ -32,6 +33,14 @@ open class UIChatListViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UIChatListViewCell.nib, forCellReuseIdentifier: UIChatListViewCell.identifier)
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        
+        refreshControl.addTarget(self, action: #selector(reloadData(_:)), for: .valueChanged)
     }
 
     override open func didReceiveMemoryWarning() {
@@ -48,6 +57,10 @@ open class UIChatListViewController: UIViewController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.presenter.detachView()
+    }
+    
+    @objc private func reloadData(_ sender: Any) {
+        self.presenter.reLoadChat()
     }
     
 }
@@ -114,6 +127,7 @@ extension UIChatListViewController : UIChatListView {
     
     func didFinishLoadChat(rooms: [RoomModel]) {
         // 1st time load data
+        self.refreshControl.endRefreshing()
         self.tableView.reloadData()
     }
     
@@ -127,5 +141,6 @@ extension UIChatListViewController : UIChatListView {
     
     func setEmptyData(message: String) {
         //
+        self.refreshControl.endRefreshing()
     }
 }
