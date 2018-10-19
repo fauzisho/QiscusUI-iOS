@@ -89,11 +89,17 @@ class ListChatViewController: UIChatListViewController {
             target.inputType = .buttons
             self.navigationController?.pushViewController(target, animated: true)
         })
-        let cancelAction = UIAlertAction(title: "Cancel and use default", style: .cancel, handler: {
+        let attachment = UIAlertAction(title: "Input and Attachment", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            target.inputType = .attachment
+            self.navigationController?.pushViewController(target, animated: true)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             self.navigationController?.pushViewController(target, animated: true)
         })
         optionMenu.addAction(buttons)
+        optionMenu.addAction(attachment)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }

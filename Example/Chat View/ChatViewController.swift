@@ -12,7 +12,8 @@ import QiscusCore
 import ContactsUI
 
 enum ChatInputType {
-    case normal
+    case none
+    case attachment
     case buttons
 }
 
@@ -22,7 +23,7 @@ class ChatViewController: UIChatViewController {
     let imageCache = NSCache<NSString, UIImage>()
     
     // Demo custom input
-    var inputType : ChatInputType = .normal
+    var inputType : ChatInputType = .none
     
     override func viewDidLoad() {
         self.chatDelegate = self
@@ -145,10 +146,11 @@ extension ChatViewController : UIChatView {
         case .buttons:
             // Input chat button
             inputBar = CustomChatInputButton()
-        default:
+        case .attachment:
             let _input = CustomChatInput()
             _input.delegate = self
             inputBar = _input
+        default:
             break
         }
         inputBar?.setHeight(50)
