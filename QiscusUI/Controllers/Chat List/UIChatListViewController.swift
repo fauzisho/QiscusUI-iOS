@@ -9,11 +9,18 @@
 import UIKit
 import QiscusCore
 
+public protocol UIChatListViewDelegate {
+    func uiChatList(viewController : UIChatListViewController, cellForRoom room: RoomModel) -> String?
+}
+
 open class UIChatListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
     private let refreshControl = UIRefreshControl()
+    
+    public var delegate: UIChatListViewDelegate?
+    
     public var rooms : [RoomModel] {
         get {
             return presenter.rooms
@@ -32,7 +39,8 @@ open class UIChatListViewController: UIViewController {
         self.presenter.loadChat()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.register(UIChatListViewCell.nib, forCellReuseIdentifier: UIChatListViewCell.identifier)
+        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        self.registerCell(nib: UIChatListViewCell.nib, forCellWithReuseIdentifier: UIChatListViewCell.identifier)
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
@@ -63,6 +71,14 @@ open class UIChatListViewController: UIViewController {
         self.presenter.reLoadChat()
     }
     
+    // MARK: public open method
+    public func registerCell(nib: UINib?, forCellWithReuseIdentifier reuseIdentifier: String) {
+        self.tableView.register(nib, forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    public func registerCell(cellClass: AnyClass?, forCellWithReuseIdentifier reuseIdentifier: String) {
+        self.tableView.register(cellClass, forCellReuseIdentifier: reuseIdentifier)
+    }
 }
 
 extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource {
@@ -76,8 +92,13 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UIChatListViewCell.identifier, for: indexPath) as! UIChatListViewCell
         let data = self.rooms[indexPath.row]
+        var cell = tableView.dequeueReusableCell(withIdentifier: UIChatListViewCell.identifier, for: indexPath) as! BaseChatListCell
+        
+        if let customCellIdentifier = delegate?.uiChatList(viewController: self, cellForRoom: data) {
+            cell = tableView.dequeueReusableCell(withIdentifier: customCellIdentifier, for: indexPath) as! BaseChatListCell
+        }
+        
         cell.data = data
         
         return cell

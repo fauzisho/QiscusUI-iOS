@@ -10,7 +10,7 @@ import UIKit
 import QiscusCore
 import AlamofireImage
 
-class UIChatListViewCell: UITableViewCell {
+class UIChatListViewCell: BaseChatListCell {
 
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: QiscusUI.bundle)
@@ -28,13 +28,6 @@ class UIChatListViewCell: UITableViewCell {
     @IBOutlet weak var labelDate: UILabel!
     
     @IBOutlet weak var labelBadge: UILabel!
-    var data : RoomModel? {
-        didSet {
-            if data != nil {
-                self.setupUI()
-            }
-        }
-    }
     
     var lastMessageCreateAt:String{
         get{
@@ -79,7 +72,7 @@ class UIChatListViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    private func setupUI() {
+    override func setupUI() {
         if let data = data {
             self.labelName.text = data.name
             self.labelDate.text = lastMessageCreateAt
