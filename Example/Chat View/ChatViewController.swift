@@ -11,10 +11,18 @@ import QiscusUI
 import QiscusCore
 import ContactsUI
 
+enum ChatInputType {
+    case normal
+    case buttons
+}
+
 class ChatViewController: UIChatViewController {
     var roomID : String?
     var picker : UIImagePickerController?
     let imageCache = NSCache<NSString, UIImage>()
+    
+    // Demo custom input
+    var inputType : ChatInputType = .normal
     
     override func viewDidLoad() {
         self.chatDelegate = self
@@ -131,10 +139,19 @@ extension ChatViewController : UIChatView {
     }
     
     func uiChat(input InViewController: UIChatViewController) -> UIChatInput? {
-        let inputBar = CustomChatInputButton()
-//        inputBar.delegate = self
-        inputBar.setHeight(100)
+        var inputBar : UIChatInput? = nil
         
+        switch self.inputType {
+        case .buttons:
+            // Input chat button
+            inputBar = CustomChatInputButton()
+        default:
+            let _input = CustomChatInput()
+            _input.delegate = self
+            inputBar = _input
+            break
+        }
+        inputBar?.setHeight(50)
         return inputBar
     }
     

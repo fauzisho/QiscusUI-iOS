@@ -81,7 +81,21 @@ class ListChatViewController: UIChatListViewController {
         // alternative load ui then set room data, but you need to handle loading. only know room id
 //        target.roomID = room.id
         target.room = room
-        self.navigationController?.pushViewController(target, animated: true)
+        
+        // Demo custom input
+        let optionMenu = UIAlertController()
+        let buttons = UIAlertAction(title: "Input Buttons", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            target.inputType = .buttons
+            self.navigationController?.pushViewController(target, animated: true)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel and use default", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.navigationController?.pushViewController(target, animated: true)
+        })
+        optionMenu.addAction(buttons)
+        optionMenu.addAction(cancelAction)
+        self.present(optionMenu, animated: true, completion: nil)
     }
 }
 

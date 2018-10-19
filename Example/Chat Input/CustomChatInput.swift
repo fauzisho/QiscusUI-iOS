@@ -34,7 +34,6 @@ class CustomChatInput: UIChatInput {
             self.send(message: comment)
         }
         
-        self.setHeight(100)
         self.textField.text = ""
     }
 
