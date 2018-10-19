@@ -14,11 +14,14 @@ class ListChatViewController: UIChatListViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         self.title = "Chat List"
         // Do any additional setup after loading the view.
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addChat))
         let play = UIBarButtonItem(title: "Group", style: .plain, target: self, action: #selector(addGroup))
         
+        self.registerCell(cellClass: CustomChatListCell.self, forCellWithReuseIdentifier: "customCellIdentifier")
+        self.registerCell(nib: UINib(nibName: "CustomChatListCell2", bundle: nil), forCellWithReuseIdentifier: "customCellIdentifier2")
         navigationItem.rightBarButtonItems = [add, play]
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
     }
@@ -79,5 +82,15 @@ class ListChatViewController: UIChatListViewController {
 //        target.roomID = room.id
         target.room = room
         self.navigationController?.pushViewController(target, animated: true)
+    }
+}
+
+extension ListChatViewController: UIChatListViewDelegate {
+    func uiChatList(viewController: UIChatListViewController, cellForRoom room: RoomModel) -> String? {
+        if room.name.lowercased() == "semarang" {
+            return "customCellIdentifier2"
+        }
+        
+        return nil
     }
 }

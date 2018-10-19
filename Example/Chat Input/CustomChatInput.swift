@@ -24,7 +24,7 @@ class CustomChatInput: UIChatInput {
         super.commonInit(nib: nib)
         self.textField.delegate = self
     }
-    
+
     @IBAction func clickSend(_ sender: Any) {
         guard let text = self.textField.text else {return}
         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -33,9 +33,11 @@ class CustomChatInput: UIChatInput {
             comment.message = text
             self.send(message: comment)
         }
+        
+        self.setHeight(100)
         self.textField.text = ""
     }
-    
+
     @IBAction func clickAttachment(_ sender: Any) {
         self.delegate?.sendAttachment()
     }

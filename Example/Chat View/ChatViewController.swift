@@ -131,8 +131,10 @@ extension ChatViewController : UIChatView {
     }
     
     func uiChat(input InViewController: UIChatViewController) -> UIChatInput? {
-        let inputBar = CustomChatInput()
-        inputBar.delegate = self
+        let inputBar = CustomChatInputButton()
+//        inputBar.delegate = self
+        inputBar.setHeight(100)
+        
         return inputBar
     }
     

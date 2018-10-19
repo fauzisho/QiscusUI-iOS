@@ -143,9 +143,17 @@ open class UIChatViewController: UIViewController {
     private func setupInputBar(_ inputchatview: UIChatInput) {
         inputchatview.frame.size    = self.viewChatInput.frame.size
         inputchatview.frame.origin  = CGPoint.init(x: 0, y: 0)
+        inputchatview.translatesAutoresizingMaskIntoConstraints = false
         inputchatview.delegate = self
         
         self.viewChatInput.addSubview(inputchatview)
+        
+        NSLayoutConstraint.activate([
+            inputchatview.topAnchor.constraint(equalTo: self.viewChatInput.topAnchor, constant: 0),
+            inputchatview.leftAnchor.constraint(equalTo: self.viewChatInput.leftAnchor, constant: 0),
+            inputchatview.rightAnchor.constraint(equalTo: self.viewChatInput.rightAnchor, constant: 0),
+            inputchatview.bottomAnchor.constraint(equalTo: self.viewChatInput.bottomAnchor, constant: 0)
+            ])
     }
     
     private func setupNavigationTitle(){
@@ -281,8 +289,10 @@ open class UIChatViewController: UIViewController {
     
     public func setBackground(with image: UIImage) {
         let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.transform = imageView.transform.rotated(by: CGFloat(M_PI))
         self.tableViewConversation.isOpaque = false
-        self.tableViewConversation.backgroundView = imageView
+        self.tableViewConversation.backgroundView =   imageView
     }
     
     public func setBackground(with color: UIColor) {
