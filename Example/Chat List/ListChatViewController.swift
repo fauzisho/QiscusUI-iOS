@@ -21,7 +21,7 @@ class ListChatViewController: UIChatListViewController {
         let play = UIBarButtonItem(title: "Group", style: .plain, target: self, action: #selector(addGroup))
         
         self.registerCell(cellClass: CustomChatListCell.self, forCellWithReuseIdentifier: "customCellIdentifier")
-        self.registerCell(nib: UINib(nibName: "CustomChatListCell2", bundle: nil), forCellWithReuseIdentifier: "customCellIdentifier2")
+        self.registerCell(nib: UINib(nibName: "CustomChatListCell", bundle: nil), forCellWithReuseIdentifier: "customCellIdentifier")
         navigationItem.rightBarButtonItems = [add, play]
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
     }
@@ -87,8 +87,8 @@ class ListChatViewController: UIChatListViewController {
 
 extension ListChatViewController: UIChatListViewDelegate {
     func uiChatList(viewController: UIChatListViewController, cellForRoom room: RoomModel) -> String? {
-        if room.name.lowercased() == "semarang" {
-            return "customCellIdentifier2"
+        if room.unreadCount > 5 {
+            return "customCellIdentifier"
         }
         
         return nil
