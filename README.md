@@ -10,7 +10,10 @@
 
 - [x] Default Chat View
 - [x] Default Chat List
-- [x] Custom Chat List Cell
+- [ ] Custom Chat List Cell
+- [X] Custom Chat View Cell
+- [x] Customize Input Chat
+- [x] Customize Navigation Bar
 - [x] [Complete Documentation](https://qiscus.com)
 
 ## Component Libraries
