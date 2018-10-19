@@ -20,6 +20,6 @@ target 'Example' do
   use_frameworks!
   pod 'QiscusUI', :path => '.'
 #  pod_release
-#  pod_dev
-pod_test
+  pod_dev
+#pod_test
 end
