@@ -298,6 +298,12 @@ open class UIChatViewController: UIViewController {
     public func setBackground(with color: UIColor) {
         self.tableViewConversation.backgroundColor = color
     }
+    
+    public func scrollToComment(comment: CommentModel) {
+        if let indexPath = self.presenter.getIndexPath(comment: comment) {
+            self.tableViewConversation.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
 }
 
 // MARK: UIChatDelegate
