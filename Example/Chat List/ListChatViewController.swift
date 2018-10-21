@@ -106,9 +106,9 @@ class ListChatViewController: UIChatListViewController {
 }
 
 extension ListChatViewController: UIChatListViewDelegate {
-    func uiChatList(viewController: UIChatListViewController, cellForRoom room: RoomModel) -> String? {
+    func uiChatList(viewController: UIChatListViewController, cellForRoom room: RoomModel) -> BaseChatListCell? {
         if room.unreadCount > 5 {
-            return "customCellIdentifier"
+            return self.reusableCell(withIdentifier: "customCellIdentifier")
         }
         
         return nil
