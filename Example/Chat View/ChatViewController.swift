@@ -182,6 +182,10 @@ extension ChatViewController : CustomChatInputDelegate {
             (alert: UIAlertAction!) -> Void in
             self.getCoupon()
         })
+        let roomEventAction = UIAlertAction(title: "Room Event", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.roomEvent()
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
@@ -191,6 +195,7 @@ extension ChatViewController : CustomChatInputDelegate {
         optionMenu.addAction(docAction)
         optionMenu.addAction(contactAction)
         optionMenu.addAction(couponAction)
+        optionMenu.addAction(roomEventAction)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
@@ -236,6 +241,20 @@ extension ChatViewController : CustomChatInputDelegate {
         ]
         message.message = "Send Coupon"
         self.send(message: message)
+    }
+    
+    func roomEvent() {
+        guard let id = self.room?.id else { return }
+        if QiscusCore.shared.subscribeEvent(roomID: id) {
+            print("success subscribe")
+        }
+        // dummy send event
+        let payload = [
+            "type" : "unknown"
+        ]
+        if QiscusCore.shared.publishEvent(roomID: id, payload: payload) {
+            print("success end event")
+        }
     }
 }
 
