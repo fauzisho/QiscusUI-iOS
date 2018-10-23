@@ -10,7 +10,7 @@ import UIKit
 import QiscusCore
 
 public protocol UIChatListViewDelegate {
-    func uiChatList(viewController : UIChatListViewController, cellForRoom room: RoomModel) -> String?
+    func uiChatList(viewController : UIChatListViewController, cellForRoom room: RoomModel) -> BaseChatListCell?
 }
 
 open class UIChatListViewController: UIViewController {
@@ -20,6 +20,8 @@ open class UIChatListViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     
     public var delegate: UIChatListViewDelegate?
+    
+    private var currentIndexPath: IndexPath?
     
     public var rooms : [RoomModel] {
         get {
@@ -79,6 +81,14 @@ open class UIChatListViewController: UIViewController {
     public func registerCell(cellClass: AnyClass?, forCellWithReuseIdentifier reuseIdentifier: String) {
         self.tableView.register(cellClass, forCellReuseIdentifier: reuseIdentifier)
     }
+    
+    public func reusableCell(withIdentifier identifier: String) -> BaseChatListCell? {
+        if let indexPath = self.currentIndexPath {
+            return self.tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? BaseChatListCell
+        }
+        
+        return nil
+    }
 }
 
 extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource {
@@ -95,8 +105,8 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
         let data = self.rooms[indexPath.row]
         var cell = tableView.dequeueReusableCell(withIdentifier: UIChatListViewCell.identifier, for: indexPath) as! BaseChatListCell
         
-        if let customCellIdentifier = delegate?.uiChatList(viewController: self, cellForRoom: data) {
-            cell = tableView.dequeueReusableCell(withIdentifier: customCellIdentifier, for: indexPath) as! BaseChatListCell
+        if let customCell = delegate?.uiChatList(viewController: self, cellForRoom: data) {
+            cell = customCell
         }
         
         cell.data = data

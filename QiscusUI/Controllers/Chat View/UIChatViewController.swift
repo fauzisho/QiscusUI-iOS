@@ -171,25 +171,44 @@ open class UIChatViewController: UIViewController {
         let containerWidth = QiscusUIHelper.screenWidth() - 49
         let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
         
-        self.titleLabel.frame = CGRect(x: 40, y: 7, width: titleWidth, height: 17)
         self.titleLabel.textColor = UINavigationBar.appearance().tintColor
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.subtitleLabel.frame = CGRect(x: 40, y: 25, width: titleWidth, height: 13)
         self.subtitleLabel.textColor = UIColor.gray
+        self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.roomAvatar.frame = CGRect(x: 0,y: 6,width: 32,height: 32)
         self.roomAvatar.layer.cornerRadius = 16
         self.roomAvatar.contentMode = .scaleAspectFill
         self.roomAvatar.backgroundColor = UIColor.white
-        
-        self.roomAvatar.frame = CGRect(x: 0,y: 6,width: 32,height: 32)
-        self.roomAvatar.layer.cornerRadius = 16
         self.roomAvatar.clipsToBounds = true
+        self.roomAvatar.translatesAutoresizingMaskIntoConstraints = false
         
         self.titleView.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 44)
         self.titleView.addSubview(self.titleLabel)
         self.titleView.addSubview(self.subtitleLabel)
         self.titleView.addSubview(self.roomAvatar)
+        
+        // MARK: setup title and subtitle constraint
+        NSLayoutConstraint.activate([
+            // MARK: roomAvatar constraint
+            roomAvatar.heightAnchor.constraint(equalToConstant: 32),
+            roomAvatar.widthAnchor.constraint(equalToConstant: 32),
+            roomAvatar.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: 0),
+            roomAvatar.leftAnchor.constraint(equalTo: titleView.leftAnchor, constant: 0),
+            
+            // MARK: titleLabel constraint
+            titleLabel.heightAnchor.constraint(equalToConstant: 17),
+            titleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(equalTo: roomAvatar.topAnchor, constant: 0),
+            titleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
+            
+            // MARK: subtitleLabel constraint
+            subtitleLabel.heightAnchor.constraint(equalToConstant: 17),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
+            subtitleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
+            subtitleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0)
+            ])
+        
         
         let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -297,6 +316,12 @@ open class UIChatViewController: UIViewController {
     
     public func setBackground(with color: UIColor) {
         self.tableViewConversation.backgroundColor = color
+    }
+    
+    public func scrollToComment(comment: CommentModel) {
+        if let indexPath = self.presenter.getIndexPath(comment: comment) {
+            self.tableViewConversation.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
 }
 
