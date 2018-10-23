@@ -41,7 +41,7 @@ open class UIChatListViewController: UIViewController {
         self.presenter.loadChat()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension
+//        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension
         self.registerCell(nib: UIChatListViewCell.nib, forCellWithReuseIdentifier: UIChatListViewCell.identifier)
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -124,6 +124,14 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 
     }
 
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     private func getIndexpath(byRoom data: RoomModel) -> IndexPath? {
         // get current index
         for (i,r) in self.rooms.enumerated() {
