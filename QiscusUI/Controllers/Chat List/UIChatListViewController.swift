@@ -110,7 +110,6 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
         }
         
         cell.data = data
-        
         return cell
     }
     
