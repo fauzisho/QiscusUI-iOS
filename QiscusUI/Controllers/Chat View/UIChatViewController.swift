@@ -176,7 +176,7 @@ open class UIChatViewController: UIViewController {
         }
         
         let containerWidth = QiscusUIHelper.screenWidth() - 49
-        let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
+//        let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
         
         self.titleLabel.textColor = UINavigationBar.appearance().tintColor
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -191,6 +191,7 @@ open class UIChatViewController: UIViewController {
         self.roomAvatar.translatesAutoresizingMaskIntoConstraints = false
         
         self.titleView.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 44)
+        self.titleView.backgroundColor = UIColor.red
         self.titleView.addSubview(self.titleLabel)
         self.titleView.addSubview(self.subtitleLabel)
         self.titleView.addSubview(self.roomAvatar)
@@ -221,6 +222,8 @@ open class UIChatViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
         
+        let customTitle = ChatTitleView()
+        customTitle.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 5)
         self.navigationItem.titleView = titleView
     }
     
