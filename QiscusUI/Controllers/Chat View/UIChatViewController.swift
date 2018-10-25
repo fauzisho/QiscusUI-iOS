@@ -25,7 +25,7 @@ class DateHeaderLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = #colorLiteral(red: 0.3555911001, green: 0.7599821354, blue: 1, alpha: 0.5159193065)
+        backgroundColor = #colorLiteral(red: 0.3555911001, green: 0.7599821354, blue: 1, alpha: 0.7924068921)
         textColor = .darkGray
         textAlignment = .center
         translatesAutoresizingMaskIntoConstraints = false // enables auto layout
@@ -97,7 +97,14 @@ open class UIChatViewController: UIViewController {
         if _room.type == .group {
             self.subtitleLabel.text = getParticipant()
         }else {
-            self.subtitleLabel.text = ""
+            self.subtitleLabel.text = "_"
+            // MARK : TODO provide last seen
+//            guard let user = QiscusCore.getProfile() else { return }
+//            self.presenter.participants.forEach { (member) in
+//                if member.email != user.email {
+//                    self.subtitleLabel.text = "last seen at \(member.lastCommentReadId)"
+//                }
+//            }
         }
     }
     
