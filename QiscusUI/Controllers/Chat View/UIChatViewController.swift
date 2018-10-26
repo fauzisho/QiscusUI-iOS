@@ -18,6 +18,7 @@ public protocol UIChatView {
     func uiChat(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
     func uiChat(viewController : UIChatViewController, firstMessage message: CommentModel, viewForHeaderInSection section: Int) -> UIView?
     func uiChat(viewController : UIChatViewController, cellForMessage message: CommentModel) -> UIBaseChatCell?
+//    self.tableViewConversation.dequeueReusableCell(withIdentifier: "TextCell") as! UIBaseChatCell
 }
 
 class DateHeaderLabel: UILabel {

@@ -106,11 +106,10 @@ class ListChatViewController: UIChatListViewController {
 }
 
 extension ListChatViewController: UIChatListViewDelegate {
-    func UIChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell? {
-//        if room.unreadCount > 5 {
+    func uiChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell? {
+        if room.unreadCount > 5 {
             return tableView.dequeueReusableCell(withIdentifier: "customCellIdentifier", for: indexpath) as? BaseChatListCell
-//        }
-//        return nil
+        }
+        return nil
     }
-
 }

@@ -10,7 +10,7 @@ import UIKit
 import QiscusCore
 
 public protocol UIChatListViewDelegate {
-    func UIChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell?
+    func uiChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell?
 }
 
 open class UIChatListViewController: UIViewController {
@@ -18,10 +18,7 @@ open class UIChatListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
     private let refreshControl = UIRefreshControl()
-    
     public var delegate: UIChatListViewDelegate? = nil
-    
-    private var currentIndexPath: IndexPath?
     
     public var rooms : [RoomModel] {
         get {
@@ -101,7 +98,7 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
         let data = self.rooms[indexPath.row]
         var cell = tableView.dequeueReusableCell(withIdentifier: UIChatListViewCell.identifier, for: indexPath) as! BaseChatListCell
         
-        if let customCell = delegate?.UIChatList(tableView: tableView, cellForRoom: data, atIndexPath: indexPath) {
+        if let customCell = delegate?.uiChatList(tableView: tableView, cellForRoom: data, atIndexPath: indexPath) {
             cell = customCell
         }
         
