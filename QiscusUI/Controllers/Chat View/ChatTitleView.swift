@@ -7,8 +7,12 @@
 
 import UIKit
 
-class ChatTitleView: UIView {
+public class ChatTitleView: UIView {
     var contentsView            : UIView!
+    // ui component
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var labelSubtitle: UILabel!
+    @IBOutlet weak var imageViewAvatar: UIImageView!
     
     // If someone is to initialize a UIChatInput in code
     public override init(frame: CGRect) {
@@ -41,14 +45,17 @@ class ChatTitleView: UIView {
         contentsView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         self.autoresizingMask  = (UIViewAutoresizing.flexibleWidth)
+        self.customUI()
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    public func customUI() {
+        // default ui
+        self.imageViewAvatar.layer.cornerRadius = self.imageViewAvatar.frame.height/2
     }
-    */
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        self.imageViewAvatar.layer.cornerRadius = self.imageViewAvatar.frame.height/2
+    }
     
 }

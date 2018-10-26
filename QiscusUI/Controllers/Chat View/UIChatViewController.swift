@@ -98,7 +98,7 @@ open class UIChatViewController: UIViewController {
         if _room.type == .group {
             self.subtitleLabel.text = getParticipant()
         }else {
-            self.subtitleLabel.text = "_"
+            self.subtitleLabel.text = ""
             // MARK : TODO provide last seen
 //            guard let user = QiscusCore.getProfile() else { return }
 //            self.presenter.participants.forEach { (member) in
@@ -193,37 +193,51 @@ open class UIChatViewController: UIViewController {
         
         self.titleView.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 44)
         self.titleView.backgroundColor = UIColor.red
-//        self.titleView.addSubview(self.titleLabel)
-//        self.titleView.addSubview(self.subtitleLabel)
-//        self.titleView.addSubview(self.roomAvatar)
-//
-//        // MARK: setup title and subtitle constraint
-//        NSLayoutConstraint.activate([
-//            // MARK: roomAvatar constraint
-//            roomAvatar.heightAnchor.constraint(equalToConstant: 32),
-//            roomAvatar.widthAnchor.constraint(equalToConstant: 32),
-//            roomAvatar.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: 0),
-//            roomAvatar.leftAnchor.constraint(equalTo: titleView.leftAnchor, constant: 0),
-//
-//            // MARK: titleLabel constraint
-//            titleLabel.heightAnchor.constraint(equalToConstant: 17),
-//            titleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
-//            titleLabel.topAnchor.constraint(equalTo: roomAvatar.topAnchor, constant: 0),
-//            titleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
-//
-//            // MARK: subtitleLabel constraint
-//            subtitleLabel.heightAnchor.constraint(equalToConstant: 17),
-//            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
-//            subtitleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
-//            subtitleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0)
-//            ])
+        self.titleView.addSubview(self.titleLabel)
+        self.titleView.addSubview(self.subtitleLabel)
+        self.titleView.addSubview(self.roomAvatar)
+
+        // patch center potition when title/subtitle text is short
+        let border = UILabel()
+        border.textColor = UIColor.clear
+        border.translatesAutoresizingMaskIntoConstraints = false
+        border.text = ".........................................................................."
+        self.titleView.addSubview(border)
+        
+        // MARK: setup title and subtitle constraint
+        NSLayoutConstraint.activate([
+            // MARK: roomAvatar constraint
+            roomAvatar.heightAnchor.constraint(equalToConstant: 32),
+            roomAvatar.widthAnchor.constraint(equalToConstant: 32),
+            roomAvatar.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: 0),
+            roomAvatar.leftAnchor.constraint(equalTo: titleView.leftAnchor, constant: 0),
+
+            // MARK: titleLabel constraint
+            titleLabel.heightAnchor.constraint(equalToConstant: 17),
+            titleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(equalTo: roomAvatar.topAnchor, constant: 0),
+            titleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
+
+            // MARK: subtitleLabel constraint
+            subtitleLabel.heightAnchor.constraint(equalToConstant: 17),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
+            subtitleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
+            subtitleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
+            
+            // MARK: border constraint
+            border.heightAnchor.constraint(equalToConstant: 17),
+            border.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 0),
+            border.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
+            border.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0)
+            
+            ])
         
         
-//        let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
-//        self.navigationItem.setHidesBackButton(true, animated: false)
-//        self.navigationItem.leftBarButtonItems = [backButton]
+        let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.leftBarButtonItems = [backButton]
         
-        let customTitle = ChatTitleView()
+//        let customTitle = ChatTitleView()
 //        self.titleView.addSubview(customTitle)
 //        customTitle.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 5)
         self.navigationItem.titleView = titleView
