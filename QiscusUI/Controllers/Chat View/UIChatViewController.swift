@@ -192,7 +192,6 @@ open class UIChatViewController: UIViewController {
         self.roomAvatar.translatesAutoresizingMaskIntoConstraints = false
         
         self.titleView.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 44)
-        self.titleView.backgroundColor = UIColor.red
         self.titleView.addSubview(self.titleLabel)
         self.titleView.addSubview(self.subtitleLabel)
         self.titleView.addSubview(self.roomAvatar)
