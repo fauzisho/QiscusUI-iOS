@@ -11,10 +11,19 @@ import QiscusUI
 import QiscusCore
 import ContactsUI
 
+enum ChatInputType {
+    case none
+    case attachment
+    case buttons
+}
+
 class ChatViewController: UIChatViewController {
     var roomID : String?
     var picker : UIImagePickerController?
     let imageCache = NSCache<NSString, UIImage>()
+    
+    // Demo custom input
+    var inputType : ChatInputType = .none
     
     override func viewDidLoad() {
         self.chatDelegate = self
@@ -26,6 +35,12 @@ class ChatViewController: UIChatViewController {
         
         // customize chat list
         customizeChatList()
+        
+        // MARK : Sample Room Event
+        guard let id = self.room?.id else { return }
+        QiscusCore.shared.subscribeEvent(roomID: id) { (event) in
+            print("room event : \(event.sender) \n data : \(event.data)")
+        }
         
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
@@ -131,8 +146,20 @@ extension ChatViewController : UIChatView {
     }
     
     func uiChat(input InViewController: UIChatViewController) -> UIChatInput? {
-        let inputBar = CustomChatInput()
-        inputBar.delegate = self
+        var inputBar : UIChatInput? = nil
+        
+        switch self.inputType {
+        case .buttons:
+            // Input chat button
+            inputBar = CustomChatInputButton()
+        case .attachment:
+            let _input = CustomChatInput()
+            _input.delegate = self
+            inputBar = _input
+        default:
+            break
+        }
+        inputBar?.setHeight(50)
         return inputBar
     }
     
@@ -161,6 +188,10 @@ extension ChatViewController : CustomChatInputDelegate {
             (alert: UIAlertAction!) -> Void in
             self.getCoupon()
         })
+        let roomEventAction = UIAlertAction(title: "Room Event", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.roomEvent()
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
@@ -170,6 +201,7 @@ extension ChatViewController : CustomChatInputDelegate {
         optionMenu.addAction(docAction)
         optionMenu.addAction(contactAction)
         optionMenu.addAction(couponAction)
+        optionMenu.addAction(roomEventAction)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
@@ -215,6 +247,21 @@ extension ChatViewController : CustomChatInputDelegate {
         ]
         message.message = "Send Coupon"
         self.send(message: message)
+        
+        // Mock unsubscribe event
+        guard let id = self.room?.id else { return }
+        QiscusCore.shared.unsubscribeEvent(roomID: id)
+    }
+    
+    func roomEvent() {
+        guard let id = self.room?.id else { return }
+        // dummy send event
+        let payload = [
+            "type" : "unknown"
+        ]
+        if QiscusCore.shared.publishEvent(roomID: id, payload: payload) {
+            print("success end event")
+        }
     }
 }
 

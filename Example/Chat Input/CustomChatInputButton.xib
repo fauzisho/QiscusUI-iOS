@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomChatInputButton" customModule="Example" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonAnswer" destination="j6r-Pi-rDK" id="Q50-cm-0OO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tol-qL-6jb">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6r-Pi-rDK">
+                    <rect key="frame" x="15" y="5" width="345" height="34"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Answer">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAttachment:" destination="-1" eventType="touchUpInside" id="6od-Ma-YRT"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSx-rO-pI0">
+                    <rect key="frame" x="15" y="65" width="172.5" height="34"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Answer A">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAnswerA:" destination="-1" eventType="touchUpInside" id="prF-hp-Tmf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlK-fZ-xNO">
+                    <rect key="frame" x="187.5" y="65" width="172.5" height="34"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Answer C">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAnswerC:" destination="-1" eventType="touchUpInside" id="eXN-yB-T1P"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7C-vy-gob">
+                    <rect key="frame" x="15" y="131" width="172.5" height="34"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Answer B">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAnswerB:" destination="-1" eventType="touchUpInside" id="ErD-Gl-J24"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTE-aa-qgX">
+                    <rect key="frame" x="187.5" y="131" width="172.5" height="34"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Answer D">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAnswerD:" destination="-1" eventType="touchUpInside" id="Obg-8w-qbQ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="PlK-fZ-xNO" firstAttribute="trailing" secondItem="j6r-Pi-rDK" secondAttribute="trailing" id="3UY-uI-OBi"/>
+                <constraint firstItem="O7C-vy-gob" firstAttribute="centerX" secondItem="XSx-rO-pI0" secondAttribute="centerX" id="5YL-Md-aB3"/>
+                <constraint firstItem="pTE-aa-qgX" firstAttribute="width" secondItem="XSx-rO-pI0" secondAttribute="width" id="8Qz-zs-nel"/>
+                <constraint firstItem="j6r-Pi-rDK" firstAttribute="top" secondItem="EPy-ue-nmy" secondAttribute="top" constant="5" id="CsX-9F-DYh"/>
+                <constraint firstItem="j6r-Pi-rDK" firstAttribute="leading" secondItem="EPy-ue-nmy" secondAttribute="leading" constant="15" id="Ge2-NL-jGZ"/>
+                <constraint firstItem="PlK-fZ-xNO" firstAttribute="width" secondItem="XSx-rO-pI0" secondAttribute="width" id="LsR-NI-rBN"/>
+                <constraint firstItem="PlK-fZ-xNO" firstAttribute="height" secondItem="XSx-rO-pI0" secondAttribute="height" id="MSC-6S-iZw"/>
+                <constraint firstItem="O7C-vy-gob" firstAttribute="top" secondItem="XSx-rO-pI0" secondAttribute="bottom" constant="32" id="Tq7-S3-bA6"/>
+                <constraint firstItem="pTE-aa-qgX" firstAttribute="height" secondItem="XSx-rO-pI0" secondAttribute="height" id="VfF-x0-zWK"/>
+                <constraint firstItem="pTE-aa-qgX" firstAttribute="trailing" secondItem="j6r-Pi-rDK" secondAttribute="trailing" id="WqO-4s-YpM"/>
+                <constraint firstItem="O7C-vy-gob" firstAttribute="height" secondItem="XSx-rO-pI0" secondAttribute="height" id="ari-bm-74l"/>
+                <constraint firstItem="XSx-rO-pI0" firstAttribute="top" secondItem="j6r-Pi-rDK" secondAttribute="bottom" constant="26" id="cyF-Th-zda"/>
+                <constraint firstItem="PlK-fZ-xNO" firstAttribute="top" secondItem="j6r-Pi-rDK" secondAttribute="bottom" constant="26" id="dIq-6e-biZ"/>
+                <constraint firstItem="XSx-rO-pI0" firstAttribute="height" secondItem="j6r-Pi-rDK" secondAttribute="height" id="f7A-Uc-t1P"/>
+                <constraint firstItem="XSx-rO-pI0" firstAttribute="leading" secondItem="j6r-Pi-rDK" secondAttribute="leading" id="gft-q0-Eoc"/>
+                <constraint firstItem="O7C-vy-gob" firstAttribute="width" secondItem="XSx-rO-pI0" secondAttribute="width" id="kIh-3a-OMG"/>
+                <constraint firstItem="pTE-aa-qgX" firstAttribute="top" secondItem="O7C-vy-gob" secondAttribute="top" id="rJ1-iF-Fzk"/>
+                <constraint firstItem="EPy-ue-nmy" firstAttribute="trailing" secondItem="j6r-Pi-rDK" secondAttribute="trailing" constant="15" id="xKA-qb-iwA"/>
+                <constraint firstItem="XSx-rO-pI0" firstAttribute="width" secondItem="j6r-Pi-rDK" secondAttribute="width" multiplier="0.5" id="y7u-1f-oMq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="EPy-ue-nmy"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidths">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="topBorderWidth">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="219.5" y="-351.5"/>
+        </view>
+    </objects>
+</document>

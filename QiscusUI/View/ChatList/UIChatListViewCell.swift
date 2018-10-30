@@ -10,7 +10,7 @@ import UIKit
 import QiscusCore
 import AlamofireImage
 
-class UIChatListViewCell: UITableViewCell {
+class UIChatListViewCell: BaseChatListCell {
 
     static var nib:UINib {
         return UINib(nibName: identifier, bundle: QiscusUI.bundle)
@@ -19,6 +19,7 @@ class UIChatListViewCell: UITableViewCell {
     static var identifier: String {
         return String(describing: self)
     }
+    @IBOutlet weak var badgeWitdh: NSLayoutConstraint!
     
     @IBOutlet weak var viewBadge: UIView!
     @IBOutlet weak var imageViewPinRoom: UIImageView!
@@ -28,13 +29,6 @@ class UIChatListViewCell: UITableViewCell {
     @IBOutlet weak var labelDate: UILabel!
     
     @IBOutlet weak var labelBadge: UILabel!
-    var data : RoomModel? {
-        didSet {
-            if data != nil {
-                self.setupUI()
-            }
-        }
-    }
     
     var lastMessageCreateAt:String{
         get{
@@ -69,19 +63,22 @@ class UIChatListViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        imageViewRoom.layer.cornerRadius = imageViewRoom.frame.height/2
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        labelLastMessage.sizeToFit()
+        imageViewRoom.layer.cornerRadius = imageViewRoom.frame.width/2
+        self.viewBadge.layer.cornerRadius = self.viewBadge.frame.width/2
+        self.layoutIfNeeded()
     }
     
-    private func setupUI() {
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    override func setupUI() {
+        
         if let data = data {
-            self.labelName.text = data.name
+            if !data.name.isEmpty {
+                self.labelName.text = data.name
+            }else { self.labelName.text = "Room" }
             self.labelDate.text = lastMessageCreateAt
 
             if let avatar = data.avatarUrl {
@@ -102,21 +99,23 @@ class UIChatListViewCell: UITableViewCell {
                 message = lastComment.message
             }
             if(data.type != .single){
-                self.labelLastMessage.text  =  "\(lastComment.username): \(message)"
+                self.labelLastMessage.text  =  "\(lastComment.username) :\n\(message)"
             }else{
-                self.labelLastMessage.text  = message
+                self.labelLastMessage.text  = message // single
             }
         }
     }
     
     public func hiddenBadge(){
         self.viewBadge.isHidden     = true
+        self.badgeWitdh.constant    = 0
         self.labelBadge.isHidden    = true
     }
     
     public func showBadge(){
         self.viewBadge.isHidden     = false
         self.labelBadge.isHidden    = false
+        self.badgeWitdh.constant    = 25
     }
     
 }
