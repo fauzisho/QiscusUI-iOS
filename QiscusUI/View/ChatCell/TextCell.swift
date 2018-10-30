@@ -77,10 +77,14 @@ class TextCell: UIBaseChatCell {
                 self.ivStatus.image = pendingIcon
             case .deleted:
                 let pendingIcon = QiscusUI.image(named: "ic_deleted")?.withRenderingMode(.alwaysTemplate)
-                self.ivStatus.tintColor = UIColor.lightGray
+                self.ivStatus.tintColor = UIColor.darkGray
                 self.ivStatus.image = pendingIcon
             case .failed:
                 let pendingIcon = QiscusUI.image(named: "ic_warning")?.withRenderingMode(.alwaysTemplate)
+                self.ivStatus.tintColor = UIColor.lightGray
+                self.ivStatus.image = pendingIcon
+            case .deleting:
+                let pendingIcon = QiscusUI.image(named: "ic_deleted")?.withRenderingMode(.alwaysTemplate)
                 self.ivStatus.tintColor = UIColor.lightGray
                 self.ivStatus.image = pendingIcon
             }

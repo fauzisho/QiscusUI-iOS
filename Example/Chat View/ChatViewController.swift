@@ -36,6 +36,12 @@ class ChatViewController: UIChatViewController {
         // customize chat list
         customizeChatList()
         
+        // MARK : Sample Room Event
+        guard let id = self.room?.id else { return }
+        QiscusCore.shared.subscribeEvent(roomID: id) { (event) in
+            print("room event : \(event.sender) \n data : \(event.data)")
+        }
+        
         // alternative load ui then set room data, but you need to handle loading
         guard let roomid = roomID else { return }
         QiscusCore.shared.getRoom(withID: roomid, onSuccess: { [weak self] (result,_) in
@@ -241,13 +247,14 @@ extension ChatViewController : CustomChatInputDelegate {
         ]
         message.message = "Send Coupon"
         self.send(message: message)
+        
+        // Mock unsubscribe event
+        guard let id = self.room?.id else { return }
+        QiscusCore.shared.unsubscribeEvent(roomID: id)
     }
     
     func roomEvent() {
         guard let id = self.room?.id else { return }
-        if QiscusCore.shared.subscribeEvent(roomID: id) {
-            print("success subscribe")
-        }
         // dummy send event
         let payload = [
             "type" : "unknown"
