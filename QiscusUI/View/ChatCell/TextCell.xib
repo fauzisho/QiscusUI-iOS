@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5hh-dE-BIu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="150.5"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Iu0-VT-qD4">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="249" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iu0-VT-qD4">
                                 <rect key="frame" x="247" y="21" width="65" height="124.5"/>
                                 <color key="backgroundColor" red="0.82533193010000006" green="0.82533193010000006" blue="0.82533193010000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -40,7 +40,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-ol-nUK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-ol-nUK">
                                 <rect key="frame" x="248.5" y="132.5" width="42" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="orN-M3-PNV"/>
@@ -49,7 +49,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ok4-GL-9Bo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ok4-GL-9Bo">
                                 <rect key="frame" x="255" y="26" width="50" height="104.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="rin-5v-5OI"/>
@@ -59,7 +59,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_read" translatesAutoresizingMaskIntoConstraints="NO" id="kXa-fN-YR5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="ic_read" translatesAutoresizingMaskIntoConstraints="NO" id="kXa-fN-YR5">
                                 <rect key="frame" x="293.5" y="130.5" width="14" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="14" id="KRh-0i-Zde"/>
@@ -76,19 +76,12 @@
                             <constraint firstItem="p3w-fh-zvu" firstAttribute="leading" secondItem="5hh-dE-BIu" secondAttribute="leading" constant="10" id="XHu-Uz-CnO"/>
                             <constraint firstItem="Iu0-VT-qD4" firstAttribute="centerX" secondItem="ok4-GL-9Bo" secondAttribute="centerX" id="YLH-WR-oAj"/>
                             <constraint firstItem="kXa-fN-YR5" firstAttribute="trailing" secondItem="Iu0-VT-qD4" secondAttribute="trailing" constant="-5" id="cRU-S4-KC4"/>
-                            <constraint firstItem="ok4-GL-9Bo" firstAttribute="leading" secondItem="p3w-fh-zvu" secondAttribute="leading" constant="5" id="frE-sW-8ke"/>
                             <constraint firstItem="kXa-fN-YR5" firstAttribute="leading" secondItem="bEE-ol-nUK" secondAttribute="trailing" constant="3" id="gcX-4h-nVd"/>
                             <constraint firstItem="ok4-GL-9Bo" firstAttribute="top" secondItem="p3w-fh-zvu" secondAttribute="bottom" constant="5" id="hpr-vH-Gr6"/>
                             <constraint firstAttribute="bottom" secondItem="ok4-GL-9Bo" secondAttribute="bottom" constant="20" id="ldo-eN-D3e"/>
                             <constraint firstItem="bEE-ol-nUK" firstAttribute="top" secondItem="ok4-GL-9Bo" secondAttribute="bottom" constant="2" id="qDz-s1-vmR"/>
                             <constraint firstItem="Iu0-VT-qD4" firstAttribute="centerY" secondItem="ok4-GL-9Bo" secondAttribute="centerY" constant="5" id="tmD-ra-a5Q"/>
-                            <constraint firstItem="ok4-GL-9Bo" firstAttribute="trailing" secondItem="p3w-fh-zvu" secondAttribute="trailing" constant="-5" id="u13-hJ-Fka"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="frE-sW-8ke"/>
-                            </mask>
-                        </variation>
                     </view>
                 </subviews>
                 <constraints>
@@ -108,8 +101,6 @@
                 <outlet property="lbNameLeading" destination="XHu-Uz-CnO" id="GNQ-hY-iEF"/>
                 <outlet property="lbNameTrailing" destination="MsT-bJ-mTs" id="SAe-mX-Bt1"/>
                 <outlet property="lbTime" destination="bEE-ol-nUK" id="mGe-Bx-DyB"/>
-                <outlet property="leftConstraint" destination="frE-sW-8ke" id="cAX-s2-zBd"/>
-                <outlet property="rightConstraint" destination="u13-hJ-Fka" id="Scn-Sn-FtB"/>
                 <outlet property="statusWidth" destination="cEv-Mj-mIS" id="goE-Yd-XVD"/>
                 <outlet property="tvContent" destination="ok4-GL-9Bo" id="gK0-PE-Gyn"/>
                 <outlet property="viewContainer" destination="5hh-dE-BIu" id="tf5-jY-4h0"/>

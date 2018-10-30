@@ -354,8 +354,7 @@ open class UIChatViewController: UIViewController {
 extension UIChatViewController: UIChatViewDelegate {
     func onGotComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-        let isVisible = self.tableViewConversation.indexPathsForVisibleRows?.contains{$0 == indexpath}
-        if let v = isVisible, v == true  {
+        if let tableView = self.tableViewConversation.cellForRow(at: indexpath){
             self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
         }
     }

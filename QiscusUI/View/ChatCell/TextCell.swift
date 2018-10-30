@@ -19,11 +19,14 @@ class TextCell: UIBaseChatCell {
     @IBOutlet weak var lbNameLeading: NSLayoutConstraint!
     @IBOutlet weak var lbNameTrailing: NSLayoutConstraint!
     @IBOutlet weak var statusWidth: NSLayoutConstraint!
-    @IBOutlet weak var rightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var leftConstraint: NSLayoutConstraint!
+    private var rightConstraint: NSLayoutConstraint!
+    private var leftConstraint: NSLayoutConstraint!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        rightConstraint = self.ivBaloonLeft.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
+        leftConstraint = self.ivBaloonLeft.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8)
     }
     
     override func present(message: CommentModel) {
@@ -46,7 +49,6 @@ class TextCell: UIBaseChatCell {
         if data.isMyComment() {
             DispatchQueue.main.async {
                 self.rightConstraint.isActive = true
-                self.leftConstraint.isActive = false
             }
             
             lbNameTrailing.constant = 5
@@ -91,7 +93,6 @@ class TextCell: UIBaseChatCell {
         } else {
             DispatchQueue.main.async {
                 self.leftConstraint.isActive = true
-                self.rightConstraint.isActive = false
             }
             
             lbNameTrailing.constant = 20
@@ -109,5 +110,10 @@ class TextCell: UIBaseChatCell {
         }
         
         self.layoutIfNeeded()
+    }
+    
+    override func prepareForReuse() {
+        rightConstraint.isActive = false
+        leftConstraint.isActive = false
     }
 }
