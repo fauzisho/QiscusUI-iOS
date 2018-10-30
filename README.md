@@ -10,7 +10,7 @@
 
 - [x] Default Chat View
 - [x] Default Chat List
-- [ ] Custom Chat List Cell
+- [x] Custom Chat List Cell
 - [X] Custom Chat View Cell
 - [x] Customize Input Chat
 - [x] Customize Navigation Bar
