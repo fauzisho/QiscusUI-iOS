@@ -2,7 +2,7 @@
 platform :ios, '10.0'
 
 def pod_release
-    pod 'QiscusCore', '0.1.2'
+    pod 'QiscusCore', '0.1.3'
 end
 
 def pod_test
@@ -19,7 +19,7 @@ target 'Example' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'QiscusUI', :path => '.'
-#  pod_release
-#  pod_dev
-pod_test
+  pod_release
+# pod_dev
+# pod_test
 end
