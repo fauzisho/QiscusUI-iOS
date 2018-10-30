@@ -42,9 +42,14 @@ class LoginViewController: UIViewController {
             if let name = alert.textFields?.first?.text {
                 if let key = alert.textFields?.last?.text {
                     let local = UserDefaults.standard
-                    local.set("sampleapp-65ghcsaysse", forKey: "AppID")
+//                    let avatar = URL(string: "https://www.w3schools.com/w3images/avatar2.png")
+//                    let extras = [
+//                        "access" : "admin",
+//                        "name"   : name
+//                    ]
+                    local.set("sampleapp-65ghcsaysse", forKey: "AppID") // overide app id, alternative login with QRCore
                     QiscusCore.setup(WithAppID: "sampleapp-65ghcsaysse")
-                    QiscusCore.login(userID: name, userKey: key, onSuccess: { (user) in
+                    QiscusCore.loginOrRegister(userID: name, userKey: key, onSuccess: { (user) in
                         self.navigationController?.pushViewController(ListChatViewController(), animated: true)
                     }, onError: { (error) in
                         print("error \(String(describing: error))")

@@ -10,7 +10,7 @@ import UIKit
 import QiscusCore
 
 public protocol UIChatListViewDelegate {
-    func uiChatList(viewController : UIChatListViewController, cellForRoom room: RoomModel) -> BaseChatListCell?
+    func uiChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell?
 }
 
 open class UIChatListViewController: UIViewController {
@@ -18,10 +18,7 @@ open class UIChatListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let presenter : UIChatListPresenter = UIChatListPresenter()
     private let refreshControl = UIRefreshControl()
-    
-    public var delegate: UIChatListViewDelegate?
-    
-    private var currentIndexPath: IndexPath?
+    public var delegate: UIChatListViewDelegate? = nil
     
     public var rooms : [RoomModel] {
         get {
@@ -82,12 +79,8 @@ open class UIChatListViewController: UIViewController {
         self.tableView.register(cellClass, forCellReuseIdentifier: reuseIdentifier)
     }
     
-    public func reusableCell(withIdentifier identifier: String) -> BaseChatListCell? {
-        if let indexPath = self.currentIndexPath {
-            return self.tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? BaseChatListCell
-        }
-        
-        return nil
+    public func reusableCell(withIdentifier identifier: String, for indexpath: IndexPath) -> BaseChatListCell? {
+        return self.tableView.dequeueReusableCell(withIdentifier: identifier, for: indexpath) as? BaseChatListCell
     }
 }
 
@@ -105,7 +98,7 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
         let data = self.rooms[indexPath.row]
         var cell = tableView.dequeueReusableCell(withIdentifier: UIChatListViewCell.identifier, for: indexPath) as! BaseChatListCell
         
-        if let customCell = delegate?.uiChatList(viewController: self, cellForRoom: data) {
+        if let customCell = delegate?.uiChatList(tableView: tableView, cellForRoom: data, atIndexPath: indexPath) {
             cell = customCell
         }
         

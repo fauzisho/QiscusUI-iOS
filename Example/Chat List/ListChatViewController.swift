@@ -13,8 +13,8 @@ import QiscusCore
 class ListChatViewController: UIChatListViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.delegate = self
+        super.viewDidLoad()
         self.title = "Chat List"
         // Do any additional setup after loading the view.
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addChat))
@@ -106,11 +106,10 @@ class ListChatViewController: UIChatListViewController {
 }
 
 extension ListChatViewController: UIChatListViewDelegate {
-    func uiChatList(viewController: UIChatListViewController, cellForRoom room: RoomModel) -> BaseChatListCell? {
+    func uiChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell? {
         if room.unreadCount > 5 {
-            return self.reusableCell(withIdentifier: "customCellIdentifier")
+            return tableView.dequeueReusableCell(withIdentifier: "customCellIdentifier", for: indexpath) as? BaseChatListCell
         }
-        
         return nil
     }
 }

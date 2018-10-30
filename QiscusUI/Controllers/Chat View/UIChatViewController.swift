@@ -18,6 +18,7 @@ public protocol UIChatView {
     func uiChat(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
     func uiChat(viewController : UIChatViewController, firstMessage message: CommentModel, viewForHeaderInSection section: Int) -> UIView?
     func uiChat(viewController : UIChatViewController, cellForMessage message: CommentModel) -> UIBaseChatCell?
+//    self.tableViewConversation.dequeueReusableCell(withIdentifier: "TextCell") as! UIBaseChatCell
 }
 
 class DateHeaderLabel: UILabel {
@@ -25,7 +26,7 @@ class DateHeaderLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = #colorLiteral(red: 0.3555911001, green: 0.7599821354, blue: 1, alpha: 0.5159193065)
+        backgroundColor = #colorLiteral(red: 0.3555911001, green: 0.7599821354, blue: 1, alpha: 0.7924068921)
         textColor = .darkGray
         textAlignment = .center
         translatesAutoresizingMaskIntoConstraints = false // enables auto layout
@@ -98,6 +99,13 @@ open class UIChatViewController: UIViewController {
             self.subtitleLabel.text = getParticipant()
         }else {
             self.subtitleLabel.text = ""
+            // MARK : TODO provide last seen
+//            guard let user = QiscusCore.getProfile() else { return }
+//            self.presenter.participants.forEach { (member) in
+//                if member.email != user.email {
+//                    self.subtitleLabel.text = "last seen at \(member.lastCommentReadId)"
+//                }
+//            }
         }
     }
     
@@ -169,7 +177,7 @@ open class UIChatViewController: UIViewController {
         }
         
         let containerWidth = QiscusUIHelper.screenWidth() - 49
-        let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
+//        let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
         
         self.titleLabel.textColor = UINavigationBar.appearance().tintColor
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -187,6 +195,13 @@ open class UIChatViewController: UIViewController {
         self.titleView.addSubview(self.titleLabel)
         self.titleView.addSubview(self.subtitleLabel)
         self.titleView.addSubview(self.roomAvatar)
+
+        // patch center potition when title/subtitle text is short
+        let border = UILabel()
+        border.textColor = UIColor.clear
+        border.translatesAutoresizingMaskIntoConstraints = false
+        border.text = ".........................................................................."
+        self.titleView.addSubview(border)
         
         // MARK: setup title and subtitle constraint
         NSLayoutConstraint.activate([
@@ -195,18 +210,25 @@ open class UIChatViewController: UIViewController {
             roomAvatar.widthAnchor.constraint(equalToConstant: 32),
             roomAvatar.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: 0),
             roomAvatar.leftAnchor.constraint(equalTo: titleView.leftAnchor, constant: 0),
-            
+
             // MARK: titleLabel constraint
             titleLabel.heightAnchor.constraint(equalToConstant: 17),
             titleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
             titleLabel.topAnchor.constraint(equalTo: roomAvatar.topAnchor, constant: 0),
             titleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
-            
+
             // MARK: subtitleLabel constraint
             subtitleLabel.heightAnchor.constraint(equalToConstant: 17),
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
             subtitleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
-            subtitleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0)
+            subtitleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
+            
+            // MARK: border constraint
+            border.heightAnchor.constraint(equalToConstant: 17),
+            border.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 0),
+            border.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
+            border.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0)
+            
             ])
         
         
@@ -214,6 +236,9 @@ open class UIChatViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
         
+//        let customTitle = ChatTitleView()
+//        self.titleView.addSubview(customTitle)
+//        customTitle.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 5)
         self.navigationItem.titleView = titleView
     }
     
@@ -329,8 +354,7 @@ open class UIChatViewController: UIViewController {
 extension UIChatViewController: UIChatViewDelegate {
     func onGotComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-        let isVisible = self.tableViewConversation.indexPathsForVisibleRows?.contains{$0 == indexpath}
-        if let v = isVisible, v == true  {
+        if let tableView = self.tableViewConversation.cellForRow(at: indexpath){
             self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
         }
     }

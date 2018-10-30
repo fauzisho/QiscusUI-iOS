@@ -62,6 +62,15 @@ class UIChatListPresenter {
             self.viewPresenter?.setEmptyData(message: "")
         }
     }
+    
+//    func getIndexPath(comment : CommentModel) -> IndexPath? {
+//        for (group,c) in self.comments.enumerated() {
+//            if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
+//                return IndexPath.init(row: index, section: group)
+//            }
+//        }
+//        return nil
+//    }
 }
 
 extension UIChatListPresenter : UIChatDelegate {
