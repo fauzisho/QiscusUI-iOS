@@ -24,7 +24,7 @@ protocol UIChatViewDelegate {
     func onLoadMoreMesageFinished()
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
-    func onGotNewComment(newSection: Bool, isMyComment: Bool)
+    func onGotNewComment(newSection: Bool)
     func onGotComment(comment: CommentModel, indexpath: IndexPath)
     func onUser(name: String, typing: Bool)
     func onUser(name: String, isOnline: Bool, message: String)
@@ -234,8 +234,7 @@ class UIChatPresenter: UIChatUserInteraction {
         
         // choose uidelegate
         if isIncoming {
-            guard let user = QiscusCore.getProfile() else { return }
-            self.viewPresenter?.onGotNewComment(newSection: section, isMyComment: user.email == message.userEmail)
+            self.viewPresenter?.onGotNewComment(newSection: section)
         }else {
             self.viewPresenter?.onSendingComment(comment: message, newSection: section)
         }

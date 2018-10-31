@@ -420,22 +420,18 @@ extension UIChatViewController: UIChatViewDelegate {
         
     }
     
-    func onGotNewComment(newSection: Bool, isMyComment: Bool) {
+    func onGotNewComment(newSection: Bool) {
         if Thread.isMainThread {
             if newSection {
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
-                if isMyComment {
-                    self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
-                }
+                self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 self.tableViewConversation.endUpdates()
             } else {
                 let indexPath = IndexPath(row: 0, section: 0)
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertRows(at: [indexPath], with: .right)
-                if isMyComment {
-                    self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
-                }
+                self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 self.tableViewConversation.endUpdates()
             }
         }
