@@ -352,9 +352,9 @@ open class UIChatViewController: UIViewController {
 
 // MARK: UIChatDelegate
 extension UIChatViewController: UIChatViewDelegate {
-    func onGotComment(comment: CommentModel, indexpath: IndexPath) {
+    func onUpdateComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-        if let tableView = self.tableViewConversation.cellForRow(at: indexpath){
+        if self.tableViewConversation.cellForRow(at: indexpath) != nil{
             self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
         }
     }
