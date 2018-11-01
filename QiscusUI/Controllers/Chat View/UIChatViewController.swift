@@ -550,7 +550,11 @@ extension UIChatViewController : UIChatInputDelegate {
         self.presenter.isTyping(value)
     }
     
-    public func send(message: CommentModel) {
-        self.presenter.sendMessage(withComment: message)
+    public func send(message: CommentModel,onSuccess: @escaping (CommentModel) -> Void, onError: @escaping (String) -> Void) {
+        self.presenter.sendMessage(withComment: message, onSuccess: { (comment) in
+            onSuccess(comment)
+        }) { (error) in
+            onError(error)
+        }
     }
 }

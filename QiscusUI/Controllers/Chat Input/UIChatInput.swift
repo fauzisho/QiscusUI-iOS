@@ -17,7 +17,7 @@ protocol UIChatInputAction {
 
 // internal function
 protocol UIChatInputDelegate {
-    func send(message : CommentModel)
+    func send(message : CommentModel,onSuccess: @escaping (CommentModel) -> Void, onError: @escaping (String) -> Void)
     func typing(_ value: Bool)
     func onHeightChanged(height: CGFloat)
 }
@@ -77,7 +77,11 @@ open class UIChatInput: UIView {
             let message = CommentModel()
             message.message = text
             message.type    = "text"
-            self._delegate?.send(message: message)
+            self._delegate?.send(message: message, onSuccess: { (comment) in
+                //success
+            }, onError: { (error) in
+                //error
+            })
         }
         self.tfInput.text = ""
     }
@@ -93,6 +97,10 @@ extension UIChatInput : UIChatInputAction {
     }
     
     public func send(message : CommentModel) {
-        self._delegate?.send(message: message)
+        self._delegate?.send(message: message, onSuccess: { (comment) in
+            //success
+        }, onError: { (error) in
+            //error
+        })
     }
 }

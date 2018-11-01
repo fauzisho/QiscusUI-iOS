@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		046AA4BD218A9CFF0020963D /* ChatUploaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046AA4BB218A9CFF0020963D /* ChatUploaderVC.swift */; };
+		046AA4BE218A9CFF0020963D /* ChatUploaderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046AA4BC218A9CFF0020963D /* ChatUploaderVC.xib */; };
 		1159E8CA2179556B00DEB371 /* CustomChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159E8C82179556B00DEB371 /* CustomChatListCell.swift */; };
 		1159E8CB2179556B00DEB371 /* CustomChatListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1159E8C92179556B00DEB371 /* CustomChatListCell.xib */; };
 		119A67A62174A6DD00680BEB /* CustomChatInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A67A52174A6DD00680BEB /* CustomChatInputButton.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		046AA4BB218A9CFF0020963D /* ChatUploaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUploaderVC.swift; sourceTree = "<group>"; };
+		046AA4BC218A9CFF0020963D /* ChatUploaderVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatUploaderVC.xib; sourceTree = "<group>"; };
 		1159E8C82179556B00DEB371 /* CustomChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatListCell.swift; sourceTree = "<group>"; };
 		1159E8C92179556B00DEB371 /* CustomChatListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomChatListCell.xib; sourceTree = "<group>"; };
 		119A67A52174A6DD00680BEB /* CustomChatInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatInputButton.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 				3DA3072C2117FC7700E4282E /* ChatViewController.swift */,
 				3DA307282117FC7600E4282E /* ChatViewController.xib */,
 				3D7385FD21411CD8000BB592 /* ImageCache.swift */,
+				046AA4BB218A9CFF0020963D /* ChatUploaderVC.swift */,
+				046AA4BC218A9CFF0020963D /* ChatUploaderVC.xib */,
 			);
 			path = "Chat View";
 			sourceTree = "<group>";
@@ -267,6 +273,7 @@
 				119A67AA2174A8AE00680BEB /* CustomChatInputButton.xib in Resources */,
 				3D341FFF21705E3E0040B0C2 /* TextRightCell.xib in Resources */,
 				3DA3072F2117FC7700E4282E /* ChatViewController.xib in Resources */,
+				046AA4BE218A9CFF0020963D /* ChatUploaderVC.xib in Resources */,
 				3D728937214A9D2500B373A9 /* LoginQRController.xib in Resources */,
 				3D78C5B12150DCC0004E033A /* Assets.xcassets in Resources */,
 				3D06AE2A21378C4000867E10 /* ImageViewCell.xib in Resources */,
@@ -337,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046AA4BD218A9CFF0020963D /* ChatUploaderVC.swift in Sources */,
 				3DA307322117FC7700E4282E /* LoginViewController.swift in Sources */,
 				119A67A62174A6DD00680BEB /* CustomChatInputButton.swift in Sources */,
 				3DA307312117FC7700E4282E /* ListChatViewController.swift in Sources */,

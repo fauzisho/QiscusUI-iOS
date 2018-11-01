@@ -246,7 +246,11 @@ extension ChatViewController : CustomChatInputDelegate {
             ]
         ]
         message.message = "Send Coupon"
-        self.send(message: message)
+        self.send(message: message, onSuccess: { (comment) in
+            //success
+        }) { (error) in
+            //error
+        }
         
         // Mock unsubscribe event
         guard let id = self.room?.id else { return }
@@ -287,7 +291,11 @@ extension ChatViewController : CNContactPickerDelegate {
             "type"  : "phone"
         ]
         message.message = "Send Contact"
-        self.send(message: message)
+        self.send(message: message, onSuccess: { (comment) in
+            //success
+        }) { (error) in
+            //error
+        }
     }
     
 }
@@ -302,23 +310,12 @@ extension ChatViewController : UIImagePickerControllerDelegate, UINavigationCont
         // send image
         let data = UIImageJPEGRepresentation(chosenImage, 0.5)!
         let timestamp = "\(NSDate().timeIntervalSince1970 * 1000).jpg"
-        QiscusCore.shared.upload(data: data, filename: timestamp, onSuccess: { (file) in
-            // send image, with qiscus comment type "file_attachment" payload must valid
-            let message = CommentModel()
-            message.type = "file_attachment"
-            message.payload = [
-                "url"       : file.url.absoluteString,
-                "file_name" : file.name,
-                "size"      : file.size,
-                "caption"   : ""
-            ]
-            message.message = "Send Attachment"
-            self.send(message: message)
-        }, onError: { (error) in
-            //
-        }) { (progress) in
-            print("upload progress: \(progress)")
-        }
+        
+        let uploader = ChatUploaderVC()
+        uploader.chatView = self
+        uploader.data = data
+        uploader.fileName = timestamp
+        self.navigationController?.pushViewController(uploader, animated: true)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

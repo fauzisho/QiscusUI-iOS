@@ -186,12 +186,13 @@ class UIChatPresenter: UIChatUserInteraction {
         }
     }
     
-    func sendMessage(withComment comment: CommentModel) {
+    func sendMessage(withComment comment: CommentModel, onSuccess: @escaping (CommentModel) -> Void, onError: @escaping (String) -> Void) {
         addNewCommentUI(comment, isIncoming: false)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment, onSuccess: { [weak self] (comment) in
             self?.didComment(comment: comment, changeStatus: comment.status)
+            onSuccess(comment)
         }) { (error) in
-            //
+            onError(error.message)
         }
     }
     
