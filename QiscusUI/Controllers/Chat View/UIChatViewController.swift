@@ -176,7 +176,7 @@ open class UIChatViewController: UIViewController {
         let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
-        
+        chatTitleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: (self.navigationController?.navigationBar.frame.height)!)
         self.navigationItem.titleView = chatTitleView
     }
     
