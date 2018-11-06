@@ -25,7 +25,7 @@ protocol UIChatViewDelegate {
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool)
-    func onGotComment(comment: CommentModel, indexpath: IndexPath)
+    func onUpdateComment(comment: CommentModel, indexpath: IndexPath)
     func onUser(name: String, typing: Bool)
     func onUser(name: String, isOnline: Bool, message: String)
 }
@@ -186,12 +186,13 @@ class UIChatPresenter: UIChatUserInteraction {
         }
     }
     
-    func sendMessage(withComment comment: CommentModel) {
+    func sendMessage(withComment comment: CommentModel, onSuccess: @escaping (CommentModel) -> Void, onError: @escaping (String) -> Void) {
         addNewCommentUI(comment, isIncoming: false)
         QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment, onSuccess: { [weak self] (comment) in
             self?.didComment(comment: comment, changeStatus: comment.status)
+            onSuccess(comment)
         }) { (error) in
-            //
+            onError(error.message)
         }
     }
     
@@ -299,7 +300,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
                 print("comment \(comment.message), status update \(status.rawValue)")
                 print("comment change last \(comments.count), \(c.count)")
                 comments[group][index] = comment
-                self.viewPresenter?.onGotComment(comment: comment, indexpath: IndexPath(row: index, section: group))
+                self.viewPresenter?.onUpdateComment(comment: comment, indexpath: IndexPath(row: index, section: group))
             }
         }
     }

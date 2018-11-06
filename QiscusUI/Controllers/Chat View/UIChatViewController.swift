@@ -352,9 +352,9 @@ open class UIChatViewController: UIViewController {
 
 // MARK: UIChatDelegate
 extension UIChatViewController: UIChatViewDelegate {
-    func onGotComment(comment: CommentModel, indexpath: IndexPath) {
+    func onUpdateComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
-        if let tableView = self.tableViewConversation.cellForRow(at: indexpath){
+        if self.tableViewConversation.cellForRow(at: indexpath) != nil{
             self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
         }
     }
@@ -550,7 +550,11 @@ extension UIChatViewController : UIChatInputDelegate {
         self.presenter.isTyping(value)
     }
     
-    public func send(message: CommentModel) {
-        self.presenter.sendMessage(withComment: message)
+    public func send(message: CommentModel,onSuccess: @escaping (CommentModel) -> Void, onError: @escaping (String) -> Void) {
+        self.presenter.sendMessage(withComment: message, onSuccess: { (comment) in
+            onSuccess(comment)
+        }) { (error) in
+            onError(error)
+        }
     }
 }
