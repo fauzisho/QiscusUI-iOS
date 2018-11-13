@@ -52,11 +52,8 @@ open class UIChatViewController: UIViewController {
     @IBOutlet weak var viewChatInput: UIView!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputHeight: NSLayoutConstraint!
-    public var titleLabel = UILabel()
-    public var subtitleLabel = UILabel()
     private var subtitleText:String = ""
-    public var roomAvatar = UIImageView()
-    private var titleView = UIView()
+    private var chatTitleView = ChatTitleView()
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
@@ -96,9 +93,9 @@ open class UIChatViewController: UIViewController {
         // title value
         guard let _room = self.room else { return }
         if _room.type == .group {
-            self.subtitleLabel.text = getParticipant()
+            self.chatTitleView.labelSubtitle.text = getParticipant()
         }else {
-            self.subtitleLabel.text = ""
+            self.chatTitleView.labelSubtitle.text = ""
             // MARK : TODO provide last seen
 //            guard let user = QiscusCore.getProfile() else { return }
 //            self.presenter.participants.forEach { (member) in
@@ -176,70 +173,11 @@ open class UIChatViewController: UIViewController {
             totalButton += rightButtons.count
         }
         
-        let containerWidth = QiscusUIHelper.screenWidth() - 49
-//        let titleWidth = QiscusUIHelper.screenWidth() - CGFloat(49 * totalButton) - 40
-        
-        self.titleLabel.textColor = UINavigationBar.appearance().tintColor
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.subtitleLabel.textColor = UIColor.gray
-        self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.roomAvatar.layer.cornerRadius = 16
-        self.roomAvatar.contentMode = .scaleAspectFill
-        self.roomAvatar.backgroundColor = UIColor.white
-        self.roomAvatar.clipsToBounds = true
-        self.roomAvatar.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.titleView.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 44)
-        self.titleView.addSubview(self.titleLabel)
-        self.titleView.addSubview(self.subtitleLabel)
-        self.titleView.addSubview(self.roomAvatar)
-
-        // patch center potition when title/subtitle text is short
-        let border = UILabel()
-        border.textColor = UIColor.clear
-        border.translatesAutoresizingMaskIntoConstraints = false
-        border.text = ".........................................................................."
-        self.titleView.addSubview(border)
-        
-        // MARK: setup title and subtitle constraint
-        NSLayoutConstraint.activate([
-            // MARK: roomAvatar constraint
-            roomAvatar.heightAnchor.constraint(equalToConstant: 32),
-            roomAvatar.widthAnchor.constraint(equalToConstant: 32),
-            roomAvatar.centerYAnchor.constraint(equalTo: titleView.centerYAnchor, constant: 0),
-            roomAvatar.leftAnchor.constraint(equalTo: titleView.leftAnchor, constant: 0),
-
-            // MARK: titleLabel constraint
-            titleLabel.heightAnchor.constraint(equalToConstant: 17),
-            titleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
-            titleLabel.topAnchor.constraint(equalTo: roomAvatar.topAnchor, constant: 0),
-            titleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
-
-            // MARK: subtitleLabel constraint
-            subtitleLabel.heightAnchor.constraint(equalToConstant: 17),
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
-            subtitleLabel.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
-            subtitleLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0),
-            
-            // MARK: border constraint
-            border.heightAnchor.constraint(equalToConstant: 17),
-            border.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 0),
-            border.leftAnchor.constraint(equalTo: roomAvatar.rightAnchor, constant: 5),
-            border.rightAnchor.constraint(equalTo: titleView.rightAnchor, constant: 0)
-            
-            ])
-        
-        
         let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
-        
-//        let customTitle = ChatTitleView()
-//        self.titleView.addSubview(customTitle)
-//        customTitle.frame = CGRect(x: 0, y: 0, width: containerWidth, height: 5)
-        self.navigationItem.titleView = titleView
+        chatTitleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: (self.navigationController?.navigationBar.frame.height)!)
+        self.navigationItem.titleView = chatTitleView
     }
     
     private func backButton(_ target: UIViewController, action: Selector) -> UIBarButtonItem{
@@ -364,26 +302,26 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onUser(name: String, isOnline: Bool, message: String) {
-        self.subtitleLabel.text = message
+        self.chatTitleView.labelSubtitle.text = message
     }
     
     func onUser(name: String, typing: Bool) {
         if typing {
             if let room = self.presenter.room {
                 if room.type == .group {
-                    self.subtitleLabel.text = "\(name) is Typing..."
+                    self.chatTitleView.labelSubtitle.text = "\(name) is Typing..."
                 }else {
-                    self.subtitleLabel.text = "is Typing..."
+                    self.chatTitleView.labelSubtitle.text = "is Typing..."
                 }
             }
         }else {
             if let room = self.presenter.room {
                 if room.type == .group {
-                    self.subtitleLabel.text = getParticipant()
+                    self.chatTitleView.labelSubtitle.text = getParticipant()
                 }else {
                     let user = QiscusCore.getProfile()
                     guard let opponent = self.presenter.participants.filter({ $0.email == user?.email ?? ""}).first else { return }
-                    self.subtitleLabel.text = "last seen at \(opponent.lastCommentReadId)" // or last seen at
+                    self.chatTitleView.labelSubtitle.text = "last seen at \(opponent.lastCommentReadId)" // or last seen at
                 }
             }
         }
@@ -403,9 +341,9 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
-        self.titleLabel.text = roomName
+        self.chatTitleView.labelTitle.text = roomName
         guard let avatar = roomAvatarURL else { return }
-        self.roomAvatar.af_setImage(withURL: avatar)
+        self.chatTitleView.imageViewAvatar.af_setImage(withURL: avatar)
     }
     
     func onLoadMoreMesageFinished() {
