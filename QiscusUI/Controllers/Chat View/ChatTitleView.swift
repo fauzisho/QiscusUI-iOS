@@ -10,9 +10,9 @@ import UIKit
 public class ChatTitleView: UIView {
     var contentsView            : UIView!
     // ui component
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var labelSubtitle: UILabel!
-    @IBOutlet weak var imageViewAvatar: UIImageView!
+    @IBOutlet weak public var labelTitle: UILabel!
+    @IBOutlet weak public var labelSubtitle: UILabel!
+    @IBOutlet weak public var imageViewAvatar: UIImageView!
     
     // If someone is to initialize a UIChatInput in code
     public override init(frame: CGRect) {

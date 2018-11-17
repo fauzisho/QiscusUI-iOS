@@ -53,7 +53,7 @@ open class UIChatViewController: UIViewController {
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputHeight: NSLayoutConstraint!
     private var subtitleText:String = ""
-    private var chatTitleView = ChatTitleView()
+    public var chatTitleView = ChatTitleView()
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
