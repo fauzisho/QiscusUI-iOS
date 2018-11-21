@@ -86,8 +86,8 @@ open class UIChatViewController: UIViewController {
         super.viewWillAppear(animated)
         self.presenter.attachView(view: self)
         let center: NotificationCenter = NotificationCenter.default
-        center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         view.endEditing(true)
         
         // title value
@@ -108,8 +108,8 @@ open class UIChatViewController: UIViewController {
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         view.endEditing(true)
     }
@@ -185,7 +185,7 @@ open class UIChatViewController: UIViewController {
         let backIcon = UIImageView()
         backIcon.contentMode = .scaleAspectFit
         
-        let image = QiscusUI.image(named: "ic_back")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let image = QiscusUI.image(named: "ic_back")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         backIcon.image = image
         backIcon.tintColor = UINavigationBar.appearance().tintColor
         
@@ -197,15 +197,15 @@ open class UIChatViewController: UIViewController {
         
         let backButton = UIButton(frame:CGRect(x: 0,y: 0,width: 23,height: 44))
         backButton.addSubview(backIcon)
-        backButton.addTarget(target, action: action, for: UIControlEvents.touchUpInside)
+        backButton.addTarget(target, action: action, for: UIControl.Event.touchUpInside)
         return UIBarButtonItem(customView: backButton)
     }
     
     private func setupTableView() {
         let rotate = CGAffineTransform(rotationAngle: .pi)
         self.tableViewConversation.transform = rotate
-        self.tableViewConversation.scrollIndicatorInsets = UIEdgeInsetsMake(0,0,0,UIScreen.main.bounds.width - 8)
-        self.tableViewConversation.rowHeight = UITableViewAutomaticDimension
+        self.tableViewConversation.scrollIndicatorInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: UIScreen.main.bounds.width - 8)
+        self.tableViewConversation.rowHeight = UITableView.automaticDimension
         self.tableViewConversation.dataSource = self
         self.tableViewConversation.delegate = self
         self.tableViewConversation.scrollsToTop = false
@@ -224,22 +224,22 @@ open class UIChatViewController: UIViewController {
     @objc func keyboardWillHide(_ notification: Notification){
         let info: NSDictionary = (notification as NSNotification).userInfo! as NSDictionary
         
-        let animateDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! Double
+        let animateDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
         self.constraintViewInputBottom.constant = 0
-        UIView.animate(withDuration: animateDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
+        UIView.animate(withDuration: animateDuration, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
     @objc func keyboardChange(_ notification: Notification){
         let info:NSDictionary = (notification as NSNotification).userInfo! as NSDictionary
-        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardSize = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         let keyboardHeight: CGFloat = keyboardSize.height
-        let animateDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! Double
+        let animateDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
         
         self.constraintViewInputBottom.constant = 0 - keyboardHeight
-        UIView.animate(withDuration: animateDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
+        UIView.animate(withDuration: animateDuration, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
@@ -392,11 +392,11 @@ extension UIChatViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     // MARK: table cell confi

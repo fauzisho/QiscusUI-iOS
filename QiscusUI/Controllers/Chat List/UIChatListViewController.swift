@@ -117,11 +117,11 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     private func getIndexpath(byRoom data: RoomModel) -> IndexPath? {
@@ -140,7 +140,7 @@ extension UIChatListViewController : UIChatListView {
         let indexPath = getIndexpath(byRoom: room)
         let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
         if let v = isVisible, let index = indexPath, v == true {
-            self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
+            self.tableView.reloadRows(at: [index], with: UITableView.RowAnimation.none)
         }
     }
     

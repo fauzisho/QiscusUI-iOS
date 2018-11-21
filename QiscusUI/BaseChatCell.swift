@@ -30,7 +30,7 @@ open class UIBaseChatCell: UITableViewCell, UIMessagePresenting {
     var indexPath: IndexPath!
     var firstInSection: Bool = false
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.configureUI()
     }

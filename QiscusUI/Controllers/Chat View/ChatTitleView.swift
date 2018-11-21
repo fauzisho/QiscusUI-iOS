@@ -44,7 +44,7 @@ public class ChatTitleView: UIView {
         contentsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         contentsView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        self.autoresizingMask  = (UIViewAutoresizing.flexibleWidth)
+        self.autoresizingMask  = (UIView.AutoresizingMask.flexibleWidth)
         self.customUI()
     }
     
