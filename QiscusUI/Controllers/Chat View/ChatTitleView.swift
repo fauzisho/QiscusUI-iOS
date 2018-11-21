@@ -50,12 +50,15 @@ public class ChatTitleView: UIView {
     
     public func customUI() {
         // default ui
-        self.imageViewAvatar.layer.cornerRadius = self.imageViewAvatar.frame.height/2
+        print("height \(self.contentsView.frame)")
+        self.imageViewAvatar.layer.cornerRadius = self.contentsView.frame.height/2
+//        self.imageViewAvatar.cornerRadiusRatio = 0.5
     }
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-        self.imageViewAvatar.layer.cornerRadius = self.imageViewAvatar.frame.height/2
+        print("height \(self.contentsView.frame)")
+        self.imageViewAvatar.layer.cornerRadius = self.contentsView.frame.height/2
     }
     
 }

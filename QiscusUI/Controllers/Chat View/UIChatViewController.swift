@@ -52,8 +52,8 @@ open class UIChatViewController: UIViewController {
     @IBOutlet weak var viewChatInput: UIView!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputHeight: NSLayoutConstraint!
-    private var subtitleText:String = ""
-    public var chatTitleView = ChatTitleView()
+    public var chatTitleView : ChatTitleView = ChatTitleView()
+    
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
     var roomId: String = ""
@@ -176,7 +176,8 @@ open class UIChatViewController: UIViewController {
         let backButton = self.backButton(self, action: #selector(UIChatViewController.goBack))
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
-        chatTitleView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: (self.navigationController?.navigationBar.frame.height)!)
+        
+        self.chatTitleView = ChatTitleView(frame: self.navigationController?.navigationBar.frame ?? CGRect.zero)
         self.navigationItem.titleView = chatTitleView
     }
     
