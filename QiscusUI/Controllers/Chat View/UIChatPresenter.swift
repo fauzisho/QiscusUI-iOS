@@ -7,6 +7,7 @@
 
 import Foundation
 import QiscusCore
+import AlamofireImage
 
 protocol UIChatUserInteraction {
     func sendMessage(withText text: String)
@@ -245,7 +246,7 @@ class UIChatPresenter: UIChatUserInteraction {
         if self.comments.count > 0 {
             if self.comments[0].count > 0 {
                 if let url = self.comments[0][0].userAvatarUrl {
-                    imageView.loadAsync(url: "\(url)")
+                    imageView.af_setImage(withURL: url)
                 }
             }
         }

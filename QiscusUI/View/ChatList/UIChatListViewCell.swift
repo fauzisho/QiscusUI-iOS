@@ -47,10 +47,10 @@ class UIChatListViewCell: BaseChatListCell {
                 timeFormatter.dateFormat = "h:mm a"
                 let timeString = timeFormatter.string(from: date)
                 
-                if date.isToday{
+                if Calendar.current.isDateInToday(date){
                     result = "\(timeString)"
                 }
-                else if date.isYesterday{
+                else if Calendar.current.isDateInYesterday(date) {
                     result = "Yesterday"
                 }else{
                     result = "\(dateString)"
