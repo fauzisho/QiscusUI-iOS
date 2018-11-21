@@ -236,7 +236,7 @@
 				TargetAttributes = {
 					3DA307112117FBCB00E4282E = {
 						CreatedOnToolsVersion = 9.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -317,7 +317,6 @@
 				"${PODS_ROOT}/QiscusRealtime/QiscusRealtime.framework",
 				"${PODS_ROOT}/QiscusRealtime/QiscusRealtime.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/QiscusUI/QiscusUI.framework",
-				"${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -331,7 +330,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusRealtime.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/QiscusRealtime.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QiscusUI.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +504,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e8b32bc4-7302-47b2-90bb-a4a0166a5fe2";
 				PROVISIONING_PROFILE_SPECIFIER = QiscusDev;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -525,7 +523,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e8b32bc4-7302-47b2-90bb-a4a0166a5fe2";
 				PROVISIONING_PROFILE_SPECIFIER = QiscusDev;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

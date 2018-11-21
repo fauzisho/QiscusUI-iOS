@@ -30,7 +30,7 @@ class ChatViewController: UIChatViewController {
         // Set delegate before super
         super.viewDidLoad()
         // right button
-        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addMember))
+        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(self.addMember))
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
         // customize chat list
@@ -302,13 +302,16 @@ extension ChatViewController : CNContactPickerDelegate {
 
 // Image Picker
 extension ChatViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         var chosenImage = UIImage()
-        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage
         dismiss(animated:true, completion: nil)
         
         // send image
-        let data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+        let data = chosenImage.jpegData(compressionQuality: 0.5)!
         let timestamp = "\(NSDate().timeIntervalSince1970 * 1000).jpg"
         
         let uploader = ChatUploaderVC()
@@ -321,4 +324,14 @@ extension ChatViewController : UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }
