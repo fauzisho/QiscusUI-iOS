@@ -89,21 +89,6 @@ open class UIChatViewController: UIViewController {
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         center.addObserver(self, selector: #selector(UIChatViewController.keyboardChange(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         view.endEditing(true)
-        
-        // title value
-        guard let _room = self.room else { return }
-        if _room.type == .group {
-            self.chatTitleView.labelSubtitle.text = getParticipant()
-        }else {
-            self.chatTitleView.labelSubtitle.text = ""
-            // MARK : TODO provide last seen
-//            guard let user = QiscusCore.getProfile() else { return }
-//            self.presenter.participants.forEach { (member) in
-//                if member.email != user.email {
-//                    self.subtitleLabel.text = "last seen at \(member.lastCommentReadId)"
-//                }
-//            }
-        }
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
@@ -179,6 +164,23 @@ open class UIChatViewController: UIViewController {
         
         self.chatTitleView = ChatTitleView(frame: self.navigationController?.navigationBar.frame ?? CGRect.zero)
         self.navigationItem.titleView = chatTitleView
+        // title value
+        guard let _room = self.room else { return }
+        self.chatTitleView.labelTitle.text = _room.name
+        self.chatTitleView.imageViewAvatar.af_setImage(withURL: _room.avatarUrl ?? URL(string: "http://")!)
+        if _room.type == .group {
+            self.chatTitleView.labelSubtitle.text = getParticipant()
+        }else {
+            self.chatTitleView.labelSubtitle.text = ""
+            // MARK : TODO provide last seen
+            //            guard let user = QiscusCore.getProfile() else { return }
+            //            self.presenter.participants.forEach { (member) in
+            //                if member.email != user.email {
+            //                    self.subtitleLabel.text = "last seen at \(member.lastCommentReadId)"
+            //                }
+            //            }
+        }
+        
     }
     
     private func backButton(_ target: UIViewController, action: Selector) -> UIBarButtonItem{
