@@ -48,9 +48,9 @@ class ChatUploaderVC: UIViewController,UIScrollViewDelegate,UITextViewDelegate {
         keyboardToolBar.sizeToFit()
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem:
-            UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+            UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem:
-            UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.doneClicked) )
+            UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked) )
         
         keyboardToolBar.setItems([flexibleSpace, doneButton], animated: true)
         
@@ -141,8 +141,8 @@ class ChatUploaderVC: UIViewController,UIScrollViewDelegate,UITextViewDelegate {
         }
         
         let center: NotificationCenter = NotificationCenter.default
-        center.addObserver(self, selector: #selector(ChatUploaderVC.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        center.addObserver(self, selector: #selector(ChatUploaderVC.keyboardChange(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        center.addObserver(self, selector: #selector(ChatUploaderVC.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        center.addObserver(self, selector: #selector(ChatUploaderVC.keyboardChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         self.navigationController?.isNavigationBarHidden = true
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -150,8 +150,8 @@ class ChatUploaderVC: UIViewController,UIScrollViewDelegate,UITextViewDelegate {
         
     }
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         self.navigationController?.isNavigationBarHidden = false
     }
     
@@ -177,24 +177,24 @@ class ChatUploaderVC: UIViewController,UIScrollViewDelegate,UITextViewDelegate {
     @objc func keyboardWillHide(_ notification: Notification){
         let info: NSDictionary = (notification as NSNotification).userInfo! as NSDictionary
         
-        let animateDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        let animateDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! Double
         self.inputBottom.constant = 0
         self.mediaBottomMargin.constant = 8
-        UIView.animate(withDuration: animateDuration, delay: 0, options: UIView.AnimationOptions(), animations: {
+        UIView.animate(withDuration: animateDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
             
         }, completion: nil)
     }
     @objc func keyboardChange(_ notification: Notification){
         let info:NSDictionary = (notification as NSNotification).userInfo! as NSDictionary
-        let keyboardSize = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         let keyboardHeight: CGFloat = keyboardSize.height
-        let animateDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        let animateDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! Double
         
         self.inputBottom.constant = keyboardHeight
         self.mediaBottomMargin.constant = -(self.mediaCaption.frame.height + 8)
-        UIView.animate(withDuration: animateDuration, delay: 0, options: UIView.AnimationOptions(), animations: {
+        UIView.animate(withDuration: animateDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }

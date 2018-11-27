@@ -59,7 +59,7 @@ open class UIChatNavigation: UIView {
         contentsView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         contentsView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        self.autoresizingMask  = (UIView.AutoresizingMask.flexibleWidth)
+        self.autoresizingMask  = UIViewAutoresizing.flexibleWidth
         self.setupUI()
     }
     

@@ -14,7 +14,7 @@ class QCacheManager {
     }
     
     func cacheImage(image: UIImage, onCommentUniqueId id: String) {
-        let imageData = image.jpegData(compressionQuality: 0.8)
+        let imageData = UIImageJPEGRepresentation(image, 0.8)
         pref.set(imageData, forKey: id)
         
     }
