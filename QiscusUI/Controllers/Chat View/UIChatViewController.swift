@@ -12,13 +12,14 @@ import QiscusCore
 
 // Chat view blue print or open function
 public protocol UIChatView {
-    func uiChat(input inViewController: UIChatViewController) -> UIChatInput?
     func uiChat(viewController : UIChatViewController, didSelectMessage message: CommentModel)
     func uiChat(viewController : UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?)
     func uiChat(viewController : UIChatViewController, canPerformAction action: Selector, forRowAtmessage: CommentModel, withSender sender: Any?) -> Bool
     func uiChat(viewController : UIChatViewController, firstMessage message: CommentModel, viewForHeaderInSection section: Int) -> UIView?
     func uiChat(viewController : UIChatViewController, cellForMessage message: CommentModel) -> UIBaseChatCell?
-//    self.tableViewConversation.dequeueReusableCell(withIdentifier: "TextCell") as! UIBaseChatCell
+
+    func uiChat(navigationView inViewConroller: UIChatViewController) -> UIChatNavigation?
+    func uiChat(input inViewController: UIChatViewController) -> UIChatInput?
 }
 
 class DateHeaderLabel: UILabel {
@@ -52,7 +53,7 @@ open class UIChatViewController: UIViewController {
     @IBOutlet weak var viewChatInput: UIView!
     @IBOutlet weak var constraintViewInputBottom: NSLayoutConstraint!
     @IBOutlet weak var constraintViewInputHeight: NSLayoutConstraint!
-    public var chatTitleView : ChatTitleView = ChatTitleView()
+    public var chatTitleView : UIChatNavigation = UIChatNavigation()
     
     private var presenter: UIChatPresenter = UIChatPresenter()
     var heightAtIndexPath: [String: CGFloat] = [:]
@@ -162,24 +163,16 @@ open class UIChatViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItems = [backButton]
         
-        self.chatTitleView = ChatTitleView(frame: self.navigationController?.navigationBar.frame ?? CGRect.zero)
-        self.navigationItem.titleView = chatTitleView
-        // title value
-        guard let _room = self.room else { return }
-        self.chatTitleView.labelTitle.text = _room.name
-        self.chatTitleView.imageViewAvatar.af_setImage(withURL: _room.avatarUrl ?? URL(string: "http://")!)
-        if _room.type == .group {
-            self.chatTitleView.labelSubtitle.text = getParticipant()
+        if let customNavigation = self.chatDelegate?.uiChat(navigationView: self) {
+            customNavigation.frame = self.navigationController?.navigationBar.frame ?? CGRect.zero
+            self.navigationItem.titleView = customNavigation
+            customNavigation.room = room
         }else {
-            self.chatTitleView.labelSubtitle.text = ""
-            // MARK : TODO provide last seen
-            //            guard let user = QiscusCore.getProfile() else { return }
-            //            self.presenter.participants.forEach { (member) in
-            //                if member.email != user.email {
-            //                    self.subtitleLabel.text = "last seen at \(member.lastCommentReadId)"
-            //                }
-            //            }
+            self.chatTitleView = UIChatNavigation(frame: self.navigationController?.navigationBar.frame ?? CGRect.zero)
+            self.navigationItem.titleView = chatTitleView
+            self.chatTitleView.room = room
         }
+        
         
     }
     
@@ -344,9 +337,9 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onLoadRoomFinished(roomName: String, roomAvatarURL: URL?) {
-        self.chatTitleView.labelTitle.text = roomName
-        guard let avatar = roomAvatarURL else { return }
-        self.chatTitleView.imageViewAvatar.af_setImage(withURL: avatar)
+        if let _room = room {
+            self.chatTitleView.room = _room
+        }
     }
     
     func onLoadMoreMesageFinished() {
