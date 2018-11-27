@@ -15,7 +15,7 @@ s.resource_bundles = {
     'QiscusUI' => ['QiscusUI/**/*.{xib,xcassets,imageset,png}']
 }
 s.platform      = :ios, "10.0"
-s.dependency 'QiscusCore', '~> 0.1.6'
+s.dependency 'QiscusCore', '~> 0.1.7'
 s.dependency 'AlamofireImage'
 s.dependency 'SwiftyJSON'
 
