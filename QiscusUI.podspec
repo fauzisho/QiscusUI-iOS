@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "QiscusUI"
-s.version      = "0.2.1"
+s.version      = "0.2.2"
 s.summary      = "Qiscus SDK UI for iOS"
 s.description  = <<-DESC
 QiscusUI SDK for iOS contains Chat User Interface.
@@ -15,7 +15,7 @@ s.resource_bundles = {
     'QiscusUI' => ['QiscusUI/**/*.{xib,xcassets,imageset,png}']
 }
 s.platform      = :ios, "10.0"
-s.dependency 'QiscusCore', '0.2.0'
+s.dependency 'QiscusCore', '~> 0.2.1'
 s.dependency 'AlamofireImage', '~> 3.4.0'
 s.dependency 'SwiftyJSON', '~> 4.2.0'
 

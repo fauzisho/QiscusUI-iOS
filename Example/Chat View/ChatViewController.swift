@@ -87,6 +87,10 @@ class ChatViewController: UIChatViewController {
 }
 
 extension ChatViewController : UIChatView {
+    func uiChat(navigationView inViewConroller: UIChatViewController) -> UIChatNavigation? {
+        return nil
+    }
+    
     func uiChat(viewController: UIChatViewController, performAction action: Selector, forRowAt message: CommentModel, withSender sender: Any?) {
         if action == #selector(UIResponderStandardEditActions.copy(_:)) {
             print("copy")
