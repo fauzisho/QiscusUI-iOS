@@ -52,11 +52,13 @@ class ImageViewCell: UIBaseChatCell {
                     self.imageViewMessage.image = cache
                 }else {
                     DispatchQueue.global(qos: .background).async {
-                        let data    = NSData(contentsOf: localPath)
-                        let image   = UIImage(data: data! as Data)
-                        DispatchQueue.main.async {
-                            ImageCache.shared.cache.setObject(image!, forKey: NSString(string: url))
-                            self.imageViewMessage.image = image
+                        if let data    = NSData(contentsOf: localPath){
+                            if let image   = UIImage(data: data as Data){
+                                DispatchQueue.main.async {
+                                    ImageCache.shared.cache.setObject(image, forKey: NSString(string: url))
+                                    self.imageViewMessage.image = image
+                                }
+                            }
                         }
                     }
                 }
