@@ -82,6 +82,10 @@ extension UIChatListPresenter : UIChatDelegate {
         //
     }
     
+    func onRoom(_ room: RoomModel, didDeleteComment comment: CommentModel) {
+        //
+    }
+    
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
         // show in app notification
         print("got new comment: \(comment.message)")

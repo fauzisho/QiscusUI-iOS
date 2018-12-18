@@ -93,6 +93,10 @@ extension AppDelegate : UIChatDelegate {
         //
     }
     
+    func onRoom(_ room: RoomModel, didDeleteComment comment: CommentModel) {
+        //
+    }
+    
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
         print("got new comment: \(comment.message)")
     }

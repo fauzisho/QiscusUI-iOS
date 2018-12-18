@@ -49,6 +49,10 @@ extension QiscusUIManager : QiscusCoreDelegate {
         self.delegate?.onChange(user: user, isOnline: online, at: time)
     }
     
+    func onRoom(_ room: RoomModel, didDeleteComment comment: CommentModel) {
+        //
+    }
+    
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {
         self.uidelegate?.onRoom(room, gotNewComment: comment)
         self.delegate?.onRoom(room, gotNewComment: comment)

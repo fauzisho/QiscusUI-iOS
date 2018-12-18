@@ -317,7 +317,8 @@ extension UIChatViewController: UIChatViewDelegate {
                 }else {
                     let user = QiscusCore.getProfile()
                     guard let opponent = self.presenter.participants.filter({ $0.email == user?.email ?? ""}).first else { return }
-                    self.chatTitleView.labelSubtitle.text = "last seen at \(opponent.lastCommentReadId)" // or last seen at
+                    guard let lastSeen = opponent.lastSeen() else { return }
+                    self.chatTitleView.labelSubtitle.text = lastSeen.timeAgoSinceDate(numericDates: false)
                 }
             }
         }
