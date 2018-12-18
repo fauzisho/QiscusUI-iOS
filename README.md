@@ -5,6 +5,11 @@
 [![Languages](https://img.shields.io/badge/language-Objective--C%20%7C%20Swift-orange.svg)](https://github.com/qiscus)
 [![CocoaPods](https://img.shields.io/badge/pod-v3.0.109-green.svg)](https://cocoapods.org/pods/QiscusUI)
 
+## Build
+
+Build with Xcode 10 / Swift 4.2
+Please use branch [swift4.1](https://github.com/qiscus/QiscusUI-iOS/tree/swift4.1) if you'r using Xcode 9.4
+
 
 ## Features
 

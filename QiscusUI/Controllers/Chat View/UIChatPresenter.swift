@@ -188,13 +188,19 @@ class UIChatPresenter: UIChatUserInteraction {
     }
     
     func sendMessage(withComment comment: CommentModel, onSuccess: @escaping (CommentModel) -> Void, onError: @escaping (String) -> Void) {
-        addNewCommentUI(comment, isIncoming: false)
-        QiscusCore.shared.sendMessage(roomID: (self.room?.id)!, comment: comment, onSuccess: { [weak self] (comment) in
-            self?.didComment(comment: comment, changeStatus: comment.status)
-            onSuccess(comment)
-        }) { (error) in
-            onError(error.message)
+        if let room = self.room{
+            addNewCommentUI(comment, isIncoming: false)
+            QiscusCore.shared.sendMessage(roomID: room.id, comment: comment, onSuccess: { [weak self] (comment) in
+                self?.didComment(comment: comment, changeStatus: comment.status)
+                onSuccess(comment)
+            }) { (error) in
+                onError(error.message)
+            }
+        }else{
+            onError("room not found")
         }
+
+       
     }
     
     func sendMessage(withText text: String) {
@@ -236,6 +242,7 @@ class UIChatPresenter: UIChatUserInteraction {
         
         // choose uidelegate
         if isIncoming {
+            QiscusCore.shared.updateCommentRead(roomId: message.roomId, lastCommentReadId: message.id)
             self.viewPresenter?.onGotNewComment(newSection: section)
         }else {
             self.viewPresenter?.onSendingComment(comment: message, newSection: section)
