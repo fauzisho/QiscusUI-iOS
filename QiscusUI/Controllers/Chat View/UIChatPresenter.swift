@@ -27,6 +27,7 @@ protocol UIChatViewDelegate {
     func onSendMessageFinished(comment: CommentModel)
     func onGotNewComment(newSection: Bool)
     func onUpdateComment(comment: CommentModel, indexpath: IndexPath)
+    func onReloadComment()
     func onUser(name: String, typing: Bool)
     func onUser(name: String, isOnline: Bool, message: String)
 }
@@ -288,7 +289,14 @@ class UIChatPresenter: UIChatUserInteraction {
 // MARK: Core Delegate
 extension UIChatPresenter : QiscusCoreRoomDelegate {
     func didDelete(Comment comment: CommentModel) {
-        //
+        // check comment already exist in view
+        for (group,var c) in comments.enumerated() {
+            if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
+                c.remove(at: index)
+                self.comments = groupingComments(c)
+                self.viewPresenter?.onReloadComment()
+            }
+        }
     }
     
     func onRoom(update room: RoomModel) {

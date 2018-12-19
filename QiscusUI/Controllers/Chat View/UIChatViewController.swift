@@ -286,6 +286,9 @@ open class UIChatViewController: UIViewController {
 
 // MARK: UIChatDelegate
 extension UIChatViewController: UIChatViewDelegate {
+    func onReloadComment(){
+        self.tableViewConversation.reloadData()
+    }
     func onUpdateComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
         if self.tableViewConversation.cellForRow(at: indexpath) != nil{
@@ -360,7 +363,9 @@ extension UIChatViewController: UIChatViewDelegate {
             if newSection {
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
-                self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+                if self.tableViewConversation.cellForRow(at: IndexPath(row: 0, section: 0)) != nil{
+                   self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+                }
                 self.tableViewConversation.endUpdates()
             } else {
                 let indexPath = IndexPath(row: 0, section: 0)
