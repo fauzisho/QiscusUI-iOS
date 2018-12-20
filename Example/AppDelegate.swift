@@ -89,6 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate : UIChatDelegate {
+    func onRoom(deleted room: RoomModel) {
+        //
+    }
     func onRoom(update room: RoomModel) {
         //
     }
