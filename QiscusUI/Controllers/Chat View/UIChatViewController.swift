@@ -332,11 +332,13 @@ extension UIChatViewController: UIChatViewDelegate {
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .left)
             self.tableViewConversation.endUpdates()
+            self.scrollToComment(comment: comment)
         } else {
             let indexPath = IndexPath(row: 0, section: 0) // all view rotate because of this
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertRows(at: [indexPath], with: .left)
             self.tableViewConversation.endUpdates()
+            self.scrollToComment(comment: comment)
         }
     }
     
@@ -358,25 +360,27 @@ extension UIChatViewController: UIChatViewDelegate {
         
     }
     
-    func onGotNewComment(newSection: Bool) {
+    func onGotNewComment(comment: CommentModel, newSection: Bool) {
         if Thread.isMainThread {
             if newSection {
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
-                if self.tableViewConversation.cellForRow(at: IndexPath(row: 0, section: 0)) != nil{
-                   self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
-                }
                 self.tableViewConversation.endUpdates()
+                self.scrollToComment(comment: comment)
+                
+                
             } else {
                 let indexPath = IndexPath(row: 0, section: 0)
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertRows(at: [indexPath], with: .right)
-                self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 self.tableViewConversation.endUpdates()
+                self.scrollToComment(comment: comment)
+                
             }
         }
     }
 }
+
 
 extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

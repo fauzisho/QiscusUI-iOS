@@ -25,7 +25,7 @@ protocol UIChatViewDelegate {
     func onLoadMoreMesageFinished()
     func onSendingComment(comment: CommentModel, newSection: Bool)
     func onSendMessageFinished(comment: CommentModel)
-    func onGotNewComment(newSection: Bool)
+    func onGotNewComment(comment: CommentModel,newSection: Bool)
     func onUpdateComment(comment: CommentModel, indexpath: IndexPath)
     func onReloadComment()
     func onUser(name: String, typing: Bool)
@@ -244,7 +244,7 @@ class UIChatPresenter: UIChatUserInteraction {
         // choose uidelegate
         if isIncoming {
             QiscusCore.shared.updateCommentRead(roomId: message.roomId, lastCommentReadId: message.id)
-            self.viewPresenter?.onGotNewComment(newSection: section)
+            self.viewPresenter?.onGotNewComment(comment: message, newSection: section)
         }else {
             self.viewPresenter?.onSendingComment(comment: message, newSection: section)
         }
