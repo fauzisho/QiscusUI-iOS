@@ -21,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(urls[urls.count-1] as URL)
         QiscusCore.enableDebugPrint = true
         self.setupAppID()
-        QiscusCore.setSync(interval: 10)
-//        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
         auth()
         
         return true
@@ -47,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // save app id from login with user or jwt
     func setupAppID() {
+        QiscusCore.setSync(interval: 10)
+//        QiscusCore.set(customServer: URL.init(string: "https://54.254.226.35/api/v2/mobile")!, realtimeServer: "mqtt", realtimePort: 8001)
         let local = UserDefaults.standard
         if let appid = local.string(forKey: "AppID") {
             QiscusCore.setup(WithAppID: appid)
@@ -92,6 +92,7 @@ extension AppDelegate : UIChatDelegate {
     func onRoom(deleted room: RoomModel) {
         //
     }
+    
     func onRoom(update room: RoomModel) {
         //
     }
