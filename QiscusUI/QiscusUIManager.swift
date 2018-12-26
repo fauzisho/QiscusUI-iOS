@@ -40,6 +40,10 @@ class QiscusUIManager {
 }
 
 extension QiscusUIManager : QiscusCoreDelegate {
+    func onRoom(deleted room: RoomModel) {
+        //
+    }
+    
     func onRoom(update room: RoomModel) {
         //
     }

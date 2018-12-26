@@ -74,6 +74,10 @@ class UIChatListPresenter {
 }
 
 extension UIChatListPresenter : UIChatDelegate {
+    func onRoom(deleted room: RoomModel) {
+        //
+    }
+    
     func onRoom(update room: RoomModel) {
         //
     }
