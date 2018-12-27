@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "QiscusUI"
-s.version      = "0.2.3"
+s.version      = "0.2.4"
 s.summary      = "Qiscus SDK UI for iOS"
 s.description  = <<-DESC
 QiscusUI SDK for iOS contains Chat User Interface.
