@@ -282,14 +282,24 @@ open class UIChatViewController: UIViewController {
             self.tableViewConversation.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
+    
+    public func reloadToComment(comment: CommentModel) {
+        if let indexPath = self.presenter.getIndexPath(comment: comment) {
+             self.tableViewConversation.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+
 }
 
 // MARK: UIChatDelegate
 extension UIChatViewController: UIChatViewDelegate {
+    func onReloadComment(){
+        self.tableViewConversation.reloadData()
+    }
     func onUpdateComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
         if self.tableViewConversation.cellForRow(at: indexpath) != nil{
-            self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
+            self.reloadToComment(comment: comment)
         }
     }
     
@@ -317,7 +327,8 @@ extension UIChatViewController: UIChatViewDelegate {
                 }else {
                     let user = QiscusCore.getProfile()
                     guard let opponent = self.presenter.participants.filter({ $0.email == user?.email ?? ""}).first else { return }
-                    self.chatTitleView.labelSubtitle.text = "last seen at \(opponent.lastCommentReadId)" // or last seen at
+                    guard let lastSeen = opponent.lastSeen() else { return }
+                    self.chatTitleView.labelSubtitle.text = lastSeen.timeAgoSinceDate(numericDates: false)
                 }
             }
         }
@@ -328,11 +339,13 @@ extension UIChatViewController: UIChatViewDelegate {
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .left)
             self.tableViewConversation.endUpdates()
+            self.scrollToComment(comment: comment)
         } else {
             let indexPath = IndexPath(row: 0, section: 0) // all view rotate because of this
             self.tableViewConversation.beginUpdates()
             self.tableViewConversation.insertRows(at: [indexPath], with: .left)
             self.tableViewConversation.endUpdates()
+            self.scrollToComment(comment: comment)
         }
     }
     
@@ -354,23 +367,27 @@ extension UIChatViewController: UIChatViewDelegate {
         
     }
     
-    func onGotNewComment(newSection: Bool) {
+    func onGotNewComment(comment: CommentModel, newSection: Bool) {
         if Thread.isMainThread {
             if newSection {
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertSections(IndexSet(integer: 0), with: .right)
-                self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 self.tableViewConversation.endUpdates()
+                self.scrollToComment(comment: comment)
+                
+                
             } else {
                 let indexPath = IndexPath(row: 0, section: 0)
                 self.tableViewConversation.beginUpdates()
                 self.tableViewConversation.insertRows(at: [indexPath], with: .right)
-                self.tableViewConversation.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 self.tableViewConversation.endUpdates()
+                self.scrollToComment(comment: comment)
+                
             }
         }
     }
 }
+
 
 extension UIChatViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

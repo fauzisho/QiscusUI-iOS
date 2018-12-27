@@ -40,6 +40,10 @@ class QiscusUIManager {
 }
 
 extension QiscusUIManager : QiscusCoreDelegate {
+    func onRoom(deleted room: RoomModel) {
+        //
+    }
+    
     func onRoom(update room: RoomModel) {
         //
     }
@@ -47,6 +51,10 @@ extension QiscusUIManager : QiscusCoreDelegate {
     func onChange(user: MemberModel, isOnline online: Bool, at time: Date) {
         self.uidelegate?.onChange(user: user, isOnline: online, at: time)
         self.delegate?.onChange(user: user, isOnline: online, at: time)
+    }
+    
+    func onRoom(_ room: RoomModel, didDeleteComment comment: CommentModel) {
+        //
     }
     
     func onRoom(_ room: RoomModel, gotNewComment comment: CommentModel) {

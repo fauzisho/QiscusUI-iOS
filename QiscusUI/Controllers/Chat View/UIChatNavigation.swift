@@ -77,14 +77,11 @@ open class UIChatNavigation: UIView {
         if room.type == .group {
             self.labelSubtitle.text = getParticipant(room: room)
         }else {
-            self.labelSubtitle.text = ""
-            // MARK : TODO provide last seen
-            //            guard let user = QiscusCore.getProfile() else { return }
-            //            self.presenter.participants.forEach { (member) in
-            //                if member.email != user.email {
-            //                    self.subtitleLabel.text = "last seen at \(member.lastCommentReadId)"
-            //                }
-            //            }
+            let user = QiscusCore.getProfile()
+            guard let participants = room.participants else { return }
+            guard let opponent = participants.filter({ $0.email == user?.email ?? ""}).first else { return }
+            guard let lastSeen = opponent.lastSeen() else { return }
+            self.labelSubtitle.text = lastSeen.timeAgoSinceDate(numericDates: false)
         }
     }
     

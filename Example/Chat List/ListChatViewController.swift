@@ -94,12 +94,19 @@ class ListChatViewController: UIChatListViewController {
             target.inputType = .attachment
             self.navigationController?.pushViewController(target, animated: true)
         })
+        let clear = UIAlertAction(title: "Clear", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            QiscusCore.shared.deleteAllMessage(roomID: [room.id], completion: { (error) in
+                //
+            })
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             self.navigationController?.pushViewController(target, animated: true)
         })
         optionMenu.addAction(buttons)
         optionMenu.addAction(attachment)
+        optionMenu.addAction(clear)
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
