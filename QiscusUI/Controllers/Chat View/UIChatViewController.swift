@@ -282,6 +282,13 @@ open class UIChatViewController: UIViewController {
             self.tableViewConversation.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
+    
+    public func reloadToComment(comment: CommentModel) {
+        if let indexPath = self.presenter.getIndexPath(comment: comment) {
+             self.tableViewConversation.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+
 }
 
 // MARK: UIChatDelegate
@@ -292,7 +299,7 @@ extension UIChatViewController: UIChatViewDelegate {
     func onUpdateComment(comment: CommentModel, indexpath: IndexPath) {
         // reload cell in section and index path
         if self.tableViewConversation.cellForRow(at: indexpath) != nil{
-            self.tableViewConversation.reloadRows(at: [indexpath], with: .none)
+            self.reloadToComment(comment: comment)
         }
     }
     
