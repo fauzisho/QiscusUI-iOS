@@ -308,12 +308,23 @@ extension UIChatViewController: UIChatViewDelegate {
     }
     
     func onUser(name: String, isOnline: Bool, message: String) {
+        if let customNavigation = self.chatDelegate?.uiChat(navigationView: self) {
+             customNavigation.isOnline(name: name, isOnline: isOnline, message: message)
+        }
+        
         self.chatTitleView.labelSubtitle.text = message
     }
     
     func onUser(name: String, typing: Bool) {
+        if let customNavigation = self.chatDelegate?.uiChat(navigationView: self) {
+            if let room = self.presenter.room {
+                customNavigation.isTyping(room: room,name: name, typing: typing)
+            }
+        }
+        
         if typing {
             if let room = self.presenter.room {
+                
                 if room.type == .group {
                     self.chatTitleView.labelSubtitle.text = "\(name) is Typing..."
                 }else {

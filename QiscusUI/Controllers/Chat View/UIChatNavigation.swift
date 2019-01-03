@@ -80,9 +80,17 @@ open class UIChatNavigation: UIView {
             let user = QiscusCore.getProfile()
             guard let participants = room.participants else { return }
             guard let opponent = participants.filter({ $0.email == user?.email ?? ""}).first else { return }
-            guard let lastSeen = opponent.lastSeen() else { return }
-            self.labelSubtitle.text = lastSeen.timeAgoSinceDate(numericDates: false)
+            // guard let lastSeen = opponent.lastSeen() else { return }
+            // self.labelSubtitle.text = lastSeen.timeAgoSinceDate(numericDates: false)
         }
+    }
+    
+    open func isTyping(room: RoomModel, name: String, typing: Bool) {
+        
+    }
+    
+    open func isOnline(name: String, isOnline: Bool, message: String) {
+       
     }
     
     override open func layoutSubviews() {

@@ -294,6 +294,7 @@ extension UIChatPresenter : QiscusCoreRoomDelegate {
             if let index = c.index(where: { $0.uniqId == comment.uniqId }) {
                 c.remove(at: index)
                 self.comments = groupingComments(c)
+                self.lastIdToLoad = ""
                 self.viewPresenter?.onReloadComment()
             }
         }
