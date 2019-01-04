@@ -11,6 +11,7 @@ import QiscusCore
 
 public protocol UIChatListViewDelegate {
     func uiChatList(tableView: UITableView, cellForRoom room: RoomModel, atIndexPath indexpath: IndexPath) -> BaseChatListCell?
+    func uiChatList(filterRooms room: [RoomModel]) -> [RoomModel]
 }
 
 open class UIChatListViewController: UIViewController {
@@ -137,6 +138,9 @@ extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource 
 
 extension UIChatListViewController : UIChatListView {
     func didUpdate(user: MemberModel, isTyping typing: Bool, in room: RoomModel) {
+        if let filterRoom = delegate?.uiChatList(filterRooms: rooms){
+            self.presenter.setRoom(room: filterRoom)
+        }
         let indexPath = getIndexpath(byRoom: room)
         let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
         if let v = isVisible, let index = indexPath, v == true {
@@ -145,6 +149,9 @@ extension UIChatListViewController : UIChatListView {
     }
     
     func updateRooms(data: RoomModel) {
+        if let filterRoom = delegate?.uiChatList(filterRooms: rooms){
+            self.presenter.setRoom(room: filterRoom)
+        }
         self.tableView.reloadData()
         // improve only reload for new cell with room data
 //        let indexPath = getIndexpath(byRoom: data)
@@ -157,6 +164,10 @@ extension UIChatListViewController : UIChatListView {
     }
     
     func didFinishLoadChat(rooms: [RoomModel]) {
+        if let filterRoom = delegate?.uiChatList(filterRooms: rooms){
+            self.presenter.setRoom(room: filterRoom)
+        }
+        
         // 1st time load data
         self.refreshControl.endRefreshing()
         self.tableView.reloadData()

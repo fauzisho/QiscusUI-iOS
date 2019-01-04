@@ -52,6 +52,10 @@ class UIChatListPresenter {
         }
     }
     
+    internal func setRoom(room: [RoomModel]){
+        self.rooms = room
+    }
+    
     private func loadFromServer() {
         // check update from server
         QiscusCore.shared.getAllRoom(limit: 50, page: 1, onSuccess: { (results, meta) in
