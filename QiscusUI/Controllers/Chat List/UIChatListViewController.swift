@@ -83,19 +83,23 @@ open class UIChatListViewController: UIViewController {
     public func reusableCell(withIdentifier identifier: String, for indexpath: IndexPath) -> BaseChatListCell? {
         return self.tableView.dequeueReusableCell(withIdentifier: identifier, for: indexpath) as? BaseChatListCell
     }
+    
+    open func getTableView() -> UITableView{
+        return tableView
+    }
 }
 
 extension UIChatListViewController : UITableViewDelegate, UITableViewDataSource {
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms.count
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = self.rooms[indexPath.row]
         var cell = tableView.dequeueReusableCell(withIdentifier: UIChatListViewCell.identifier, for: indexPath) as! BaseChatListCell
         
