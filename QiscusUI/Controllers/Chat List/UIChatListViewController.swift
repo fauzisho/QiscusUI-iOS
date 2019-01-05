@@ -25,6 +25,9 @@ open class UIChatListViewController: UIViewController {
         get {
             return presenter.rooms
         }
+        set(any){
+            self.reloadData(_ : (Any).self)
+        }
     }
     public init() {
         super.init(nibName: "UIChatListViewController", bundle: QiscusUI.bundle)
@@ -67,7 +70,7 @@ open class UIChatListViewController: UIViewController {
         self.presenter.detachView()
     }
     
-    @objc private func reloadData(_ sender: Any) {
+    @objc open func reloadData(_ sender: Any) {
         self.presenter.reLoadChat()
     }
     
