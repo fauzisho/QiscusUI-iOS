@@ -13,6 +13,7 @@ protocol UIChatListView : BaseView {
     func didFinishLoadChat(rooms : [RoomModel])
     func updateRooms(data: RoomModel)
     func didUpdate(user: MemberModel, isTyping typing: Bool, in room: RoomModel)
+    func reloadRooms()
 }
 
 class UIChatListPresenter {
@@ -79,7 +80,8 @@ class UIChatListPresenter {
 
 extension UIChatListPresenter : UIChatDelegate {
     func onRoom(deleted room: RoomModel) {
-        //
+        self.viewPresenter?.reloadRooms()
+        
     }
     
     func onRoom(update room: RoomModel) {
@@ -117,6 +119,7 @@ extension UIChatListPresenter : UIChatDelegate {
     
     func gotNew(room: RoomModel) {
         // add not if exist
+       self.viewPresenter?.updateRooms(data: room)
     }
 
     func remove(room: RoomModel) {
