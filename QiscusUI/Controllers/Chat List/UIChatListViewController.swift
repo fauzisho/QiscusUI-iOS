@@ -148,11 +148,14 @@ extension UIChatListViewController : UIChatListView {
         if let filterRoom = delegate?.uiChatList(filterRooms: rooms){
             self.presenter.setRoom(room: filterRoom)
         }
-        let indexPath = getIndexpath(byRoom: room)
-        let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
-        if let v = isVisible, let index = indexPath, v == true {
-            self.tableView.reloadRows(at: [index], with: UITableView.RowAnimation.none)
+        if let indexPath = getIndexpath(byRoom: room){
+            let isVisible = self.tableView.indexPathsForVisibleRows?.contains{$0 == indexPath}
+            
+            if self.tableView.cellForRow(at: indexPath) != nil{
+                self.tableView.reloadRows(at: [indexPath], with: .none)
+            }
         }
+
     }
     
     func updateRooms(data: RoomModel) {
@@ -168,6 +171,10 @@ extension UIChatListViewController : UIChatListView {
 //            self.tableView.reloadRows(at: [index], with: UITableViewRowAnimation.none)
 //            self.tableView.moveRow(at: index, to: newIndex)
 //        }
+    }
+    
+    func reloadRooms(){
+         self.presenter.reLoadChat()
     }
     
     func didFinishLoadChat(rooms: [RoomModel]) {

@@ -41,7 +41,8 @@ class QiscusUIManager {
 
 extension QiscusUIManager : QiscusCoreDelegate {
     func onRoom(deleted room: RoomModel) {
-        //
+        self.uidelegate?.onRoom(deleted: room)
+        self.delegate?.onRoom(deleted: room)
     }
     
     func onRoom(update room: RoomModel) {
