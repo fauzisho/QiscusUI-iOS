@@ -31,24 +31,42 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymu-7h-EyA" userLabel="Title">
-                    <rect key="frame" x="93" y="2" width="282" height="43"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymu-7h-EyA" userLabel="Title">
+                    <rect key="frame" x="93" y="2" width="185.5" height="43"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8np-gj-3s0" userLabel="Subtitle">
-                    <rect key="frame" x="93" y="45" width="282" height="43"/>
+                    <rect key="frame" x="93" y="45" width="185.5" height="43"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="................................................." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9A-KJ-Mpw" userLabel="border">
-                    <rect key="frame" x="93" y="88" width="282" height="16"/>
+                    <rect key="frame" x="93" y="88" width="185.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f3-23-yfR">
+                    <rect key="frame" x="330" y="25" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="6Qs-Py-Gac"/>
+                        <constraint firstAttribute="height" constant="40" id="DxL-wm-C0g"/>
+                    </constraints>
+                    <color key="tintColor" red="0.95675891639999999" green="0.95692259069999996" blue="0.95674854519999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="ic_video_call"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbt-zO-OtG">
+                    <rect key="frame" x="286" y="25" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="1qi-SF-azf"/>
+                        <constraint firstAttribute="width" constant="40" id="321-aJ-Y3d"/>
+                    </constraints>
+                    <color key="tintColor" red="0.95675891639999999" green="0.95692259069999996" blue="0.95674854519999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="ic_voice_call"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -58,14 +76,18 @@
                 <constraint firstItem="x4w-M4-Qzq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="L2G-fZ-gTQ"/>
                 <constraint firstItem="8np-gj-3s0" firstAttribute="bottom" secondItem="x4w-M4-Qzq" secondAttribute="bottom" id="MWp-lP-wd8"/>
                 <constraint firstItem="8np-gj-3s0" firstAttribute="leading" secondItem="Ymu-7h-EyA" secondAttribute="leading" id="OOn-bX-h8K"/>
+                <constraint firstItem="gbt-zO-OtG" firstAttribute="leading" secondItem="Ymu-7h-EyA" secondAttribute="trailing" constant="7.5" id="Qpb-AC-4oP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6f3-23-yfR" secondAttribute="trailing" constant="5" id="RIx-Jq-Vdm"/>
                 <constraint firstItem="x4w-M4-Qzq" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-2" id="Sn8-ap-Y7e"/>
-                <constraint firstItem="Ymu-7h-EyA" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Zzx-dG-PML"/>
+                <constraint firstItem="gbt-zO-OtG" firstAttribute="baseline" secondItem="6f3-23-yfR" secondAttribute="baseline" id="Yzc-O9-N7F"/>
                 <constraint firstItem="Ymu-7h-EyA" firstAttribute="top" secondItem="x4w-M4-Qzq" secondAttribute="top" id="beM-OJ-wsk"/>
                 <constraint firstItem="Ymu-7h-EyA" firstAttribute="bottom" secondItem="x4w-M4-Qzq" secondAttribute="centerY" id="eXZ-51-noF"/>
                 <constraint firstItem="X9A-KJ-Mpw" firstAttribute="top" secondItem="8np-gj-3s0" secondAttribute="bottom" id="iaJ-Ot-Zxr"/>
                 <constraint firstItem="x4w-M4-Qzq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="2" id="jTZ-rx-KFF"/>
                 <constraint firstItem="8np-gj-3s0" firstAttribute="top" secondItem="x4w-M4-Qzq" secondAttribute="centerY" id="krW-E6-hjE"/>
+                <constraint firstItem="6f3-23-yfR" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="qhk-M3-Vxo"/>
                 <constraint firstItem="8np-gj-3s0" firstAttribute="trailing" secondItem="Ymu-7h-EyA" secondAttribute="trailing" id="v1o-GB-R3s"/>
+                <constraint firstItem="6f3-23-yfR" firstAttribute="leading" secondItem="gbt-zO-OtG" secondAttribute="trailing" constant="4" id="v2u-X5-2Tc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -74,5 +96,7 @@
     </objects>
     <resources>
         <image name="avatar" width="24.269662857055664" height="24.269662857055664"/>
+        <image name="ic_video_call" width="48" height="48"/>
+        <image name="ic_voice_call" width="48" height="48"/>
     </resources>
 </document>
